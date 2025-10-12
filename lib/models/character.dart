@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import 'echo.dart';
 
 enum Weapon {
@@ -51,35 +49,35 @@ String attributeLabel(Attribute a) {
   }
 }
 
-IconData weaponIcon(Weapon w) {
-  switch (w) {
-    case Weapon.broadblade:
-      return Icons.construction;
-    case Weapon.gauntlets:
-      return Icons.back_hand;
-    case Weapon.pistols:
-      return Icons.sports_handball;
-    case Weapon.rectifier:
-      return Icons.settings;
-    case Weapon.sword:
-      return Icons.gavel;
+String attributeAsset(Attribute a) {
+  switch (a) {
+    case Attribute.aero:
+      return 'assets/attributes/aero.png';
+    case Attribute.electro:
+      return 'assets/attributes/electro.png';
+    case Attribute.fusion:
+      return 'assets/attributes/fusion.png';
+    case Attribute.glacio:
+      return 'assets/attributes/glacio.png';
+    case Attribute.havoc:
+      return 'assets/attributes/havoc.png';
+    case Attribute.spectro:
+      return 'assets/attributes/spectro.png';
   }
 }
 
-IconData attributeIcon(Attribute a) {
-  switch (a) {
-    case Attribute.aero:
-      return Icons.air;
-    case Attribute.electro:
-      return Icons.bolt;
-    case Attribute.fusion:
-      return Icons.local_fire_department;
-    case Attribute.glacio:
-      return Icons.ac_unit;
-    case Attribute.havoc:
-      return Icons.warning_amber_rounded;
-    case Attribute.spectro:
-      return Icons.blur_on;
+String weaponAsset(Weapon w) {
+  switch (w) {
+    case Weapon.broadblade:
+      return 'assets/weapons/broadblade.webp';
+    case Weapon.gauntlets:
+      return 'assets/weapons/gauntlet.webp';
+    case Weapon.pistols:
+      return 'assets/weapons/pistol.webp';
+    case Weapon.rectifier:
+      return 'assets/weapons/rectifier.webp';
+    case Weapon.sword:
+      return 'assets/weapons/sword.webp';
   }
 }
 

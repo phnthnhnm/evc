@@ -365,15 +365,18 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                       children: [
                         CircleAvatar(
                           radius: 28,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                          child: Text(
-                            c.name.isNotEmpty ? c.name[0] : '?',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold),
-                          ),
+                          backgroundColor: Colors.transparent,
+                          backgroundImage: c.portraitUrl.isNotEmpty
+                              ? AssetImage(c.portraitUrl)
+                              : null,
+                          child: c.portraitUrl.isEmpty
+                              ? Text(
+                                  c.name.isNotEmpty ? c.name[0] : '?',
+                                  style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              : null,
                         ),
                         const SizedBox(width: 12),
                         Expanded(
@@ -387,11 +390,12 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                               const SizedBox(height: 6),
                               Row(
                                 children: [
-                                  Icon(attributeIcon(c.attribute), size: 18),
+                                  Image.asset(attributeAsset(c.attribute),
+                                      width: 18),
                                   const SizedBox(width: 6),
                                   Text(attributeLabel(c.attribute)),
                                   const SizedBox(width: 12),
-                                  Icon(weaponIcon(c.weapon), size: 18),
+                                  Image.asset(weaponAsset(c.weapon), width: 18),
                                   const SizedBox(width: 6),
                                   Text(weaponLabel(c.weapon)),
                                 ],

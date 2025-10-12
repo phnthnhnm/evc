@@ -53,7 +53,7 @@ final List<Character> seedCharacters = [
     name: 'Carlotta',
     attribute: Attribute.glacio,
     weapon: Weapon.pistols,
-    portraitUrl: '', // Placeholder; using initials avatar in UI
+    portraitUrl: 'assets/portraits/Carlotta.png',
     usableStats: [
       'Crit Rate(%)',
       'Crit Damage(%)',
@@ -69,7 +69,7 @@ final List<Character> seedCharacters = [
     name: 'Yangyang',
     attribute: Attribute.aero,
     weapon: Weapon.sword,
-    portraitUrl: '',
+    portraitUrl: 'assets/portraits/Yangyang.png',
     usableStats: [
       'Crit Rate(%)',
       'Crit Damage(%)',
@@ -84,7 +84,7 @@ final List<Character> seedCharacters = [
     name: 'Zhezhi',
     attribute: Attribute.glacio,
     weapon: Weapon.rectifier,
-    portraitUrl: '',
+    portraitUrl: 'assets/portraits/Zhezhi.png',
     usableStats: [
       'Crit Rate(%)',
       'Crit Damage(%)',

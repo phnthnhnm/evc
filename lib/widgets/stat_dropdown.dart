@@ -1,0 +1,44 @@
+import 'package:flutter/material.dart';
+
+class StatDropdown extends StatelessWidget {
+  final String label;
+  final List<double> values;
+  final double selected;
+  final ValueChanged<double> onChanged;
+
+  const StatDropdown({
+    super.key,
+    required this.label,
+    required this.values,
+    required this.selected,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+            child: Text(label,
+                style: const TextStyle(fontWeight: FontWeight.w500))),
+        const SizedBox(width: 8),
+        DropdownButton<double>(
+          value: selected,
+          items: [
+            const DropdownMenuItem<double>(
+              value: 0.0,
+              child: Text('0.0'),
+            ),
+            ...values.map(
+              (v) =>
+                  DropdownMenuItem<double>(value: v, child: Text(v.toString())),
+            ),
+          ],
+          onChanged: (v) {
+            if (v != null) onChanged(v);
+          },
+        ),
+      ],
+    );
+  }
+}

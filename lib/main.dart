@@ -107,70 +107,131 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
             runSpacing: 8,
             children: [
               FilterChip(
-                label: const Text('Aero'),
+                label: Image.asset(attributeAsset(Attribute.aero),
+                    width: 24, height: 24),
                 selected: _filterAttribute == Attribute.aero,
-                onSelected: (_) =>
-                    setState(() => _filterAttribute = Attribute.aero),
+                onSelected: (selected) => setState(() {
+                  _filterAttribute =
+                      selected && _filterAttribute != Attribute.aero
+                          ? Attribute.aero
+                          : null;
+                }),
               ),
               FilterChip(
-                label: const Text('Electro'),
+                label: Image.asset(attributeAsset(Attribute.electro),
+                    width: 24, height: 24),
                 selected: _filterAttribute == Attribute.electro,
-                onSelected: (_) =>
-                    setState(() => _filterAttribute = Attribute.electro),
+                onSelected: (selected) => setState(() {
+                  _filterAttribute =
+                      selected && _filterAttribute != Attribute.electro
+                          ? Attribute.electro
+                          : null;
+                }),
               ),
               FilterChip(
-                label: const Text('Fusion'),
+                label: Image.asset(attributeAsset(Attribute.fusion),
+                    width: 24, height: 24),
                 selected: _filterAttribute == Attribute.fusion,
-                onSelected: (_) =>
-                    setState(() => _filterAttribute = Attribute.fusion),
+                onSelected: (selected) => setState(() {
+                  _filterAttribute =
+                      selected && _filterAttribute != Attribute.fusion
+                          ? Attribute.fusion
+                          : null;
+                }),
               ),
               FilterChip(
-                label: const Text('Glacio'),
+                label: Image.asset(attributeAsset(Attribute.glacio),
+                    width: 24, height: 24),
                 selected: _filterAttribute == Attribute.glacio,
-                onSelected: (_) =>
-                    setState(() => _filterAttribute = Attribute.glacio),
+                onSelected: (selected) => setState(() {
+                  _filterAttribute =
+                      selected && _filterAttribute != Attribute.glacio
+                          ? Attribute.glacio
+                          : null;
+                }),
               ),
               FilterChip(
-                label: const Text('Havoc'),
+                label: Image.asset(attributeAsset(Attribute.havoc),
+                    width: 24, height: 24),
                 selected: _filterAttribute == Attribute.havoc,
-                onSelected: (_) =>
-                    setState(() => _filterAttribute = Attribute.havoc),
+                onSelected: (selected) => setState(() {
+                  _filterAttribute =
+                      selected && _filterAttribute != Attribute.havoc
+                          ? Attribute.havoc
+                          : null;
+                }),
               ),
               FilterChip(
-                label: const Text('Spectro'),
+                label: Image.asset(attributeAsset(Attribute.spectro),
+                    width: 24, height: 24),
                 selected: _filterAttribute == Attribute.spectro,
-                onSelected: (_) =>
-                    setState(() => _filterAttribute = Attribute.spectro),
+                onSelected: (selected) => setState(() {
+                  _filterAttribute =
+                      selected && _filterAttribute != Attribute.spectro
+                          ? Attribute.spectro
+                          : null;
+                }),
               ),
               const SizedBox(width: 12),
               ChoiceChip(
-                label: const Text('Broadblade'),
+                label: Image.asset(weaponAsset(Weapon.broadblade),
+                    width: 24,
+                    height: 24,
+                    color: Theme.of(context).colorScheme.primary),
                 selected: _filterWeapon == Weapon.broadblade,
-                onSelected: (_) =>
-                    setState(() => _filterWeapon = Weapon.broadblade),
+                onSelected: (selected) => setState(() {
+                  _filterWeapon = selected && _filterWeapon != Weapon.broadblade
+                      ? Weapon.broadblade
+                      : null;
+                }),
               ),
               ChoiceChip(
-                label: const Text('Gauntlets'),
+                label: Image.asset(weaponAsset(Weapon.gauntlets),
+                    width: 24,
+                    height: 24,
+                    color: Theme.of(context).colorScheme.primary),
                 selected: _filterWeapon == Weapon.gauntlets,
-                onSelected: (_) =>
-                    setState(() => _filterWeapon = Weapon.gauntlets),
+                onSelected: (selected) => setState(() {
+                  _filterWeapon = selected && _filterWeapon != Weapon.gauntlets
+                      ? Weapon.gauntlets
+                      : null;
+                }),
               ),
               ChoiceChip(
-                label: const Text('Pistols'),
+                label: Image.asset(weaponAsset(Weapon.pistols),
+                    width: 24,
+                    height: 24,
+                    color: Theme.of(context).colorScheme.primary),
                 selected: _filterWeapon == Weapon.pistols,
-                onSelected: (_) =>
-                    setState(() => _filterWeapon = Weapon.pistols),
+                onSelected: (selected) => setState(() {
+                  _filterWeapon = selected && _filterWeapon != Weapon.pistols
+                      ? Weapon.pistols
+                      : null;
+                }),
               ),
               ChoiceChip(
-                label: const Text('Rectifer'),
+                label: Image.asset(weaponAsset(Weapon.rectifier),
+                    width: 24,
+                    height: 24,
+                    color: Theme.of(context).colorScheme.primary),
                 selected: _filterWeapon == Weapon.rectifier,
-                onSelected: (_) =>
-                    setState(() => _filterWeapon = Weapon.rectifier),
+                onSelected: (selected) => setState(() {
+                  _filterWeapon = selected && _filterWeapon != Weapon.rectifier
+                      ? Weapon.rectifier
+                      : null;
+                }),
               ),
               ChoiceChip(
-                label: const Text('Sword'),
+                label: Image.asset(weaponAsset(Weapon.sword),
+                    width: 24,
+                    height: 24,
+                    color: Theme.of(context).colorScheme.primary),
                 selected: _filterWeapon == Weapon.sword,
-                onSelected: (_) => setState(() => _filterWeapon = Weapon.sword),
+                onSelected: (selected) => setState(() {
+                  _filterWeapon = selected && _filterWeapon != Weapon.sword
+                      ? Weapon.sword
+                      : null;
+                }),
               ),
             ],
           ),
@@ -391,17 +452,14 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                               Row(
                                 children: [
                                   Image.asset(attributeAsset(c.attribute),
-                                      width: 18),
-                                  const SizedBox(width: 6),
-                                  Text(attributeLabel(c.attribute)),
+                                      width: 24, height: 24),
                                   const SizedBox(width: 12),
                                   Image.asset(weaponAsset(c.weapon),
-                                      width: 18,
+                                      width: 24,
+                                      height: 24,
                                       color: Theme.of(context)
                                           .colorScheme
                                           .primary),
-                                  const SizedBox(width: 6),
-                                  Text(weaponLabel(c.weapon)),
                                 ],
                               ),
                             ],

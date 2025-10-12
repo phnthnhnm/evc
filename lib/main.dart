@@ -150,7 +150,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                     setState(() => _filterWeapon = Weapon.broadblade),
               ),
               ChoiceChip(
-                label: const Text('Guantlets'),
+                label: const Text('Gauntlets'),
                 selected: _filterWeapon == Weapon.gauntlets,
                 onSelected: (_) =>
                     setState(() => _filterWeapon = Weapon.gauntlets),
@@ -395,7 +395,11 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                                   const SizedBox(width: 6),
                                   Text(attributeLabel(c.attribute)),
                                   const SizedBox(width: 12),
-                                  Image.asset(weaponAsset(c.weapon), width: 18),
+                                  Image.asset(weaponAsset(c.weapon),
+                                      width: 18,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
                                   const SizedBox(width: 6),
                                   Text(weaponLabel(c.weapon)),
                                 ],

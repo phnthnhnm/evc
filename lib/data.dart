@@ -63,7 +63,6 @@ final List<Character> seedCharacters = [
       'ER(%)',
     ],
   ),
-  // You can add more characters here with their usable stats
   Character(
     id: 'yangyang',
     name: 'Yangyang',
@@ -76,7 +75,8 @@ final List<Character> seedCharacters = [
       'Atk(%)',
       'Flat Atk',
       'Basic(%)',
-      'ER(%)',
+      'Skill(%)',
+      'Liberation(%)',
     ],
   ),
   Character(
@@ -90,7 +90,9 @@ final List<Character> seedCharacters = [
       'Crit Damage(%)',
       'Atk(%)',
       'Flat Atk',
+      'Basic(%)',
       'Heavy(%)',
+      'Skill(%)',
       'ER(%)',
     ],
   ),

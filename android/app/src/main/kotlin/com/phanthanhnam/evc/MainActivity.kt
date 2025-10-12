@@ -1,4 +1,4 @@
-package com.example.evc
+package com.phanthanhnam.evc
 
 import io.flutter.embedding.android.FlutterActivity
 

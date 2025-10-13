@@ -10,8 +10,6 @@ Full credit goes to [AstyuteChick](https://github.com/AstyuteChick) for making t
 
 ## Screenshots
 
-Here’s what the app looks like:
-
 ![Main Menu](.github/images/main-menu.png)
 ![Build Screen](.github/images/build-screen.png)
 
@@ -28,7 +26,7 @@ Here’s what the app looks like:
 #### Option 1: Run the precompiled Windows binary
 
 1. Go to the [latest releases page](https://github.com/phnthnhnm/evc/releases/latest).
-2. Download the `.zip` file for Windows.
+2. Download the `evc-version-windows-x64.zip` file.
 3. Extract it anywhere and run `evc.exe`.
 
 #### Option 2: Build from source
@@ -69,22 +67,18 @@ For instructions, just check out the [official guide](https://www.echovaluecalc.
 
 ```
 lib/
-	main.dart
-	models/
-	screens/
-		settings/
-			appearance_tab.dart
-			data_tab.dart
-			settings_screen.dart
-			about_tab.dart
-	services/
-	utils/
-	widgets/
+  main.dart
+  models/
+  screens/
+    settings/
+  services/
+  utils/
+  widgets/
 assets/
-	attributes/
-	portraits/
-	stats/
-	weapons/
+  attributes/
+  portraits/
+  stats/
+  weapons/
 ```
 
 ## Contributing

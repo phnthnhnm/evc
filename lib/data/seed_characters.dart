@@ -242,6 +242,21 @@ final List<Character> seedCharacters = [
     ],
   ),
   Character(
+    id: 'galbrena',
+    name: 'Galbrena (Tentative)',
+    attribute: Attribute.fusion,
+    weapon: Weapon.pistols,
+    portraitAsset: 'assets/portraits/Galbrena.png',
+    usableStats: [
+      Stat.critRate,
+      Stat.critDamage,
+      Stat.flatAtk,
+      Stat.atkPercent,
+      Stat.heavyPercent,
+      Stat.erPercent,
+    ],
+  ),
+  Character(
     id: 'iuno-dps',
     name: 'Iuno (Main DPS)',
     attribute: Attribute.aero,

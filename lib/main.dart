@@ -299,35 +299,41 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
             ],
           ),
           const SizedBox(height: 8),
-          Expanded(
-            child: ListView.builder(
+          SizedBox(
+            height: 180,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
               itemCount: filtered.length,
+              separatorBuilder: (context, index) => const SizedBox(width: 16),
               itemBuilder: (context, index) {
                 final character = filtered[index];
-                return CharacterCard(
-                  character: character,
-                  onTap: () async {
-                    final result = await Navigator.push<EchoSet?>(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) =>
-                            CharacterDetailScreen(character: character),
-                      ),
-                    );
-                    if (result != null) {
-                      await StorageService.saveEchoSet(character.id, result);
-                      setState(() {
-                        final idx = _characters.indexWhere(
-                          (c) => c.id == character.id,
-                        );
-                        if (idx >= 0) {
-                          _characters[idx] = _characters[idx].copyWith(
-                            savedEchoSet: result,
+                return SizedBox(
+                  width: 180,
+                  child: CharacterCard(
+                    character: character,
+                    onTap: () async {
+                      final result = await Navigator.push<EchoSet?>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) =>
+                              CharacterDetailScreen(character: character),
+                        ),
+                      );
+                      if (result != null) {
+                        await StorageService.saveEchoSet(character.id, result);
+                        setState(() {
+                          final idx = _characters.indexWhere(
+                            (c) => c.id == character.id,
                           );
-                        }
-                      });
-                    }
-                  },
+                          if (idx >= 0) {
+                            _characters[idx] = _characters[idx].copyWith(
+                              savedEchoSet: result,
+                            );
+                          }
+                        });
+                      }
+                    },
+                  ),
                 );
               },
             ),

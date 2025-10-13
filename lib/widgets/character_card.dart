@@ -23,49 +23,46 @@ class CharacterCard extends StatelessWidget {
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(12),
-          child: Row(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CircleAvatar(
-                radius: 28,
+                radius: 32,
                 backgroundImage: AssetImage(character.portraitAsset),
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      character.name,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Row(
-                      children: [
-                        Tooltip(
-                          message: attributeLabels[character.attribute],
-                          child: Image.asset(
-                            attributeAsset(character.attribute),
-                            width: 24,
-                            height: 24,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Tooltip(
-                          message: weaponLabels[character.weapon],
-                          child: Image.asset(
-                            weaponAsset(character.weapon),
-                            width: 24,
-                            height: 24,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+              const SizedBox(height: 12),
+              Text(
+                character.name,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Tooltip(
+                    message: attributeLabels[character.attribute],
+                    child: Image.asset(
+                      attributeAsset(character.attribute),
+                      width: 24,
+                      height: 24,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Tooltip(
+                    message: weaponLabels[character.weapon],
+                    child: Image.asset(
+                      weaponAsset(character.weapon),
+                      width: 24,
+                      height: 24,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

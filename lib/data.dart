@@ -1,50 +1,73 @@
 import 'models/character.dart';
 
-// Stat names must exactly match request param labels,
-// without the trailing echo index (we will append " 1", " 2", etc.)
-const List<String> allStats = [
-  'Crit Rate(%)',
-  'Crit Damage(%)',
-  'Atk(%)',
-  'Flat Atk',
-  'HP(%)',
-  'Flat HP',
-  'Def(%)',
-  'Flat Def',
-  'Basic(%)',
-  'Heavy(%)',
-  'Skill(%)',
-  'Liberation(%)',
-  'ER(%)',
+// Stat enum and helpers
+enum Stat {
+  critRate,
+  critDamage,
+  atkPercent,
+  flatAtk,
+  hpPercent,
+  flatHp,
+  defPercent,
+  flatDef,
+  basicPercent,
+  heavyPercent,
+  skillPercent,
+  liberationPercent,
+  erPercent,
+}
+
+const List<Stat> allStats = [
+  Stat.critRate,
+  Stat.critDamage,
+  Stat.atkPercent,
+  Stat.flatAtk,
+  Stat.hpPercent,
+  Stat.flatHp,
+  Stat.defPercent,
+  Stat.flatDef,
+  Stat.basicPercent,
+  Stat.heavyPercent,
+  Stat.skillPercent,
+  Stat.liberationPercent,
+  Stat.erPercent,
 ];
 
-// Valid ranges for each stat as per spec
-const Map<String, List<double>> statRanges = {
-  'Crit Rate(%)': [6.3, 6.9, 7.5, 8.1, 8.7, 9.3, 9.9, 10.5],
-  'Crit Damage(%)': [12.6, 13.8, 15.0, 16.2, 17.4, 18.6, 19.8, 21.0],
-  'Atk(%)': [6.4, 7.1, 7.9, 8.6, 9.4, 10.1, 10.9, 11.6],
-  'Flat Atk': [30.0, 40.0, 50.0, 60.0],
-  'HP(%)': [6.4, 7.1, 7.9, 8.6, 9.4, 10.1, 10.9, 11.6],
-  'Flat HP': [320.0, 360.0, 390.0, 430.0, 470.0, 510.0, 540.0, 580.0],
-  'Def(%)': [8.1, 9.0, 10.0, 10.9, 11.8, 12.8, 13.8, 14.7],
-  'Flat Def': [40.0, 50.0, 60.0, 70.0],
-  'Basic(%)': [6.4, 7.1, 7.9, 8.6, 9.4, 10.1, 10.9, 11.6],
-  'Heavy(%)': [6.4, 7.1, 7.9, 8.6, 9.4, 10.1, 10.9, 11.6],
-  'Skill(%)': [6.4, 7.1, 7.9, 8.6, 9.4, 10.1, 10.9, 11.6],
-  'Liberation(%)': [6.4, 7.1, 7.9, 8.6, 9.4, 10.1, 10.9, 11.6],
-  'ER(%)': [6.8, 7.6, 8.4, 9.2, 10.0, 10.8, 11.6, 12.4],
+const Map<Stat, String> statLabels = {
+  Stat.critRate: 'Crit Rate(%)',
+  Stat.critDamage: 'Crit Damage(%)',
+  Stat.atkPercent: 'Atk(%)',
+  Stat.flatAtk: 'Flat Atk',
+  Stat.hpPercent: 'HP(%)',
+  Stat.flatHp: 'Flat HP',
+  Stat.defPercent: 'Def(%)',
+  Stat.flatDef: 'Flat Def',
+  Stat.basicPercent: 'Basic(%)',
+  Stat.heavyPercent: 'Heavy(%)',
+  Stat.skillPercent: 'Skill(%)',
+  Stat.liberationPercent: 'Liberation(%)',
+  Stat.erPercent: 'ER(%)',
 };
 
-// Tiers (for reference in UI only; server returns exact tiers)
-const List<String> tiersOrdered = [
-  'GOD TIER',
-  'EXTREME TIER',
-  'HIGH-INVESTMENT TIER',
-  'WELL-BUILT TIER',
-  'DECENT TIER',
-  'BASE TIER',
-  'UNBUILT TIER',
-];
+// Stat names must exactly match request param labels,
+// without the trailing echo index (we will append " 1", " 2", etc.)
+
+// Valid ranges for each stat as per spec
+const Map<Stat, List<double>> statRanges = {
+  Stat.critRate: [6.3, 6.9, 7.5, 8.1, 8.7, 9.3, 9.9, 10.5],
+  Stat.critDamage: [12.6, 13.8, 15.0, 16.2, 17.4, 18.6, 19.8, 21.0],
+  Stat.atkPercent: [6.4, 7.1, 7.9, 8.6, 9.4, 10.1, 10.9, 11.6],
+  Stat.flatAtk: [30.0, 40.0, 50.0, 60.0],
+  Stat.hpPercent: [6.4, 7.1, 7.9, 8.6, 9.4, 10.1, 10.9, 11.6],
+  Stat.flatHp: [320.0, 360.0, 390.0, 430.0, 470.0, 510.0, 540.0, 580.0],
+  Stat.defPercent: [8.1, 9.0, 10.0, 10.9, 11.8, 12.8, 13.8, 14.7],
+  Stat.flatDef: [40.0, 50.0, 60.0, 70.0],
+  Stat.basicPercent: [6.4, 7.1, 7.9, 8.6, 9.4, 10.1, 10.9, 11.6],
+  Stat.heavyPercent: [6.4, 7.1, 7.9, 8.6, 9.4, 10.1, 10.9, 11.6],
+  Stat.skillPercent: [6.4, 7.1, 7.9, 8.6, 9.4, 10.1, 10.9, 11.6],
+  Stat.liberationPercent: [6.4, 7.1, 7.9, 8.6, 9.4, 10.1, 10.9, 11.6],
+  Stat.erPercent: [6.8, 7.6, 8.4, 9.2, 10.0, 10.8, 11.6, 12.4],
+};
 
 // Characters and the stats they actually use
 final List<Character> seedCharacters = [
@@ -55,12 +78,12 @@ final List<Character> seedCharacters = [
     weapon: Weapon.pistols,
     portraitUrl: 'assets/portraits/Carlotta.png',
     usableStats: [
-      'Crit Rate(%)',
-      'Crit Damage(%)',
-      'Atk(%)',
-      'Flat Atk',
-      'Skill(%)',
-      'ER(%)',
+      Stat.critRate,
+      Stat.critDamage,
+      Stat.atkPercent,
+      Stat.flatAtk,
+      Stat.skillPercent,
+      Stat.erPercent,
     ],
   ),
   Character(
@@ -70,13 +93,13 @@ final List<Character> seedCharacters = [
     weapon: Weapon.sword,
     portraitUrl: 'assets/portraits/Yangyang.png',
     usableStats: [
-      'Crit Rate(%)',
-      'Crit Damage(%)',
-      'Atk(%)',
-      'Flat Atk',
-      'Basic(%)',
-      'Skill(%)',
-      'Liberation(%)',
+      Stat.critRate,
+      Stat.critDamage,
+      Stat.atkPercent,
+      Stat.flatAtk,
+      Stat.basicPercent,
+      Stat.skillPercent,
+      Stat.liberationPercent,
     ],
   ),
   Character(
@@ -86,14 +109,14 @@ final List<Character> seedCharacters = [
     weapon: Weapon.rectifier,
     portraitUrl: 'assets/portraits/Zhezhi.png',
     usableStats: [
-      'Crit Rate(%)',
-      'Crit Damage(%)',
-      'Atk(%)',
-      'Flat Atk',
-      'Basic(%)',
-      'Heavy(%)',
-      'Skill(%)',
-      'ER(%)',
+      Stat.critRate,
+      Stat.critDamage,
+      Stat.atkPercent,
+      Stat.flatAtk,
+      Stat.basicPercent,
+      Stat.heavyPercent,
+      Stat.skillPercent,
+      Stat.erPercent,
     ],
   ),
 ];

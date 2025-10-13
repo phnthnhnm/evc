@@ -346,15 +346,15 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
     }
   }
 
-  void _setStatValue(int echoIndex, String statBaseName, double value) {
-    final key = '$statBaseName ${echoIndex + 1}';
+  void _setStatValue(int echoIndex, Stat stat, double value) {
+    final key = '${statLabels[stat]} ${echoIndex + 1}';
     setState(() {
       echoStats[echoIndex][key] = value;
     });
   }
 
-  double _getSelected(int echoIndex, String statBaseName) {
-    final key = '$statBaseName ${echoIndex + 1}';
+  double _getSelected(int echoIndex, Stat stat) {
+    final key = '${statLabels[stat]} ${echoIndex + 1}';
     return echoStats[echoIndex][key] ?? 0.0;
   }
 
@@ -439,19 +439,19 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
             const SizedBox(height: 8),
             Wrap(
               runSpacing: 12,
-              children: usable.map((statName) {
-                final range = statRanges[statName] ?? const [0.0];
-                final selected = _getSelected(i, statName);
+              children: usable.map((stat) {
+                final range = statRanges[stat] ?? const [0.0];
+                final selected = _getSelected(i, stat);
                 return StatDropdown(
                   label: Text(
-                    statName,
+                    statLabels[stat] ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.left,
                   ),
                   values: range,
                   selected: selected,
-                  onChanged: (v) => _setStatValue(i, statName, v),
+                  onChanged: (v) => _setStatValue(i, stat, v),
                 );
               }).toList(),
             ),

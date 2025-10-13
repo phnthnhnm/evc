@@ -1,21 +1,9 @@
+import '../data.dart';
 import 'echo.dart';
 
-enum Weapon {
-  broadblade,
-  gauntlets,
-  pistols,
-  rectifier,
-  sword,
-}
+enum Weapon { broadblade, gauntlets, pistols, rectifier, sword }
 
-enum Attribute {
-  aero,
-  electro,
-  fusion,
-  glacio,
-  havoc,
-  spectro,
-}
+enum Attribute { aero, electro, fusion, glacio, havoc, spectro }
 
 String weaponLabel(Weapon w) {
   switch (w) {
@@ -87,7 +75,7 @@ class Character {
   final Attribute attribute;
   final Weapon weapon;
   final String portraitUrl; // Optional: not used for rendering if null
-  final List<String> usableStats;
+  final List<Stat> usableStats;
   final EchoSet? savedEchoSet; // for autofill (optional cached)
 
   const Character({
@@ -131,8 +119,16 @@ class Character {
       attribute: Attribute.values[json['attribute'] as int],
       weapon: Weapon.values[json['weapon'] as int],
       portraitUrl: json['portraitUrl'] as String? ?? '',
-      usableStats:
-          (json['usableStats'] as List).map((e) => e.toString()).toList(),
+      usableStats: (json['usableStats'] as List)
+          .map(
+            (e) => statLabels.entries
+                .firstWhere(
+                  (entry) => entry.value == e,
+                  orElse: () => MapEntry(Stat.critRate, 'Crit Rate(%)'),
+                )
+                .key,
+          )
+          .toList(),
       savedEchoSet: json['savedEchoSet'] != null
           ? EchoSet.fromJson(json['savedEchoSet'] as Map<String, dynamic>)
           : null,

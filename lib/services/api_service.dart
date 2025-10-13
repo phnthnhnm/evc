@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:html/parser.dart' as html_parser;
 import 'package:http/http.dart' as http;
 
+import '../data.dart';
 import '../models/echo.dart';
 
 class ApiService {
@@ -23,27 +24,14 @@ class ApiService {
 
     // All possible stat keys must be present, but stats not shown/unused should be 0.0.
     // We'll ensure all keys for indices 1..5 exist, default 0.0 if not provided.
-    final statNames = [
-      'Crit Rate(%)',
-      'Crit Damage(%)',
-      'Atk(%)',
-      'Flat Atk',
-      'HP(%)',
-      'Flat HP',
-      'Def(%)',
-      'Flat Def',
-      'Basic(%)',
-      'Heavy(%)',
-      'Skill(%)',
-      'Liberation(%)',
-      'ER(%)',
-    ];
+    final statNames = allStats;
 
     for (int i = 0; i < 5; i++) {
       for (final stat in statNames) {
-        final key = '$stat ${i + 1}';
-        final value =
-            echoStatsList.length > i ? (echoStatsList[i][key] ?? 0.0) : 0.0;
+        final key = '${statLabels[stat]} ${i + 1}';
+        final value = echoStatsList.length > i
+            ? (echoStatsList[i][key] ?? 0.0)
+            : 0.0;
         map[key] = value.toString();
       }
     }
@@ -104,13 +92,14 @@ class ApiService {
       'Unbuilt',
       'Unbuilt',
       'Unbuilt',
-      'Unbuilt'
+      'Unbuilt',
     ];
 
     try {
       final colonIdx = scoresText.indexOf(':');
-      final overallStr =
-          colonIdx >= 0 ? scoresText.substring(0, colonIdx).trim() : scoresText;
+      final overallStr = colonIdx >= 0
+          ? scoresText.substring(0, colonIdx).trim()
+          : scoresText;
       overallScore = double.tryParse(overallStr) ?? 0.0;
 
       final bracketStart = scoresText.indexOf('[');
@@ -145,7 +134,10 @@ class ApiService {
 
     final echoes = List<Echo>.generate(5, (i) {
       return Echo(
-          stats: echoStatsList[i], score: echoScores[i], tier: echoTiers[i]);
+        stats: echoStatsList[i],
+        score: echoScores[i],
+        tier: echoTiers[i],
+      );
     });
 
     return EchoSet(

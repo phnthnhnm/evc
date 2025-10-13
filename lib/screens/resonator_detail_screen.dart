@@ -21,7 +21,7 @@ class ResonatorDetailScreen extends StatefulWidget {
 
 class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
   String energyBuff = 'None'; // None, Yangyang, Zhezhi
-  int totalER = 100;
+  double totalER = 100.0;
   late List<Map<String, double>> echoStats;
   bool loading = false;
   EchoSet? lastResult;

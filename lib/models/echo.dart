@@ -33,7 +33,7 @@ class EchoSet {
   final double overallScore;
   final String overallTier;
   final String energyBuff; // None, Yangyang, Zhezhi
-  final int totalER;
+  final double totalER;
 
   const EchoSet({
     required this.echoes,
@@ -48,7 +48,7 @@ class EchoSet {
     double? overallScore,
     String? overallTier,
     String? energyBuff,
-    int? totalER,
+    double? totalER,
   }) {
     return EchoSet(
       echoes: echoes ?? this.echoes,
@@ -78,7 +78,7 @@ class EchoSet {
       overallScore: (json['overallScore'] as num?)?.toDouble() ?? 0.0,
       overallTier: json['overallTier'] as String? ?? 'Unbuilt',
       energyBuff: json['energyBuff'] as String? ?? 'None',
-      totalER: json['totalER'] as int? ?? 100,
+      totalER: (json['totalER'] as num?)?.toDouble() ?? 100.0,
     );
   }
 }

@@ -1,10 +1,10 @@
-import 'dart:convert';
+// import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../services/storage_service.dart';
 import '../../utils/toast_utils.dart';
 
 class DataTab extends StatefulWidget {
@@ -16,13 +16,13 @@ class DataTab extends StatefulWidget {
 
 class _DataTabState extends State<DataTab> {
   Future<void> _backupData() async {
-    final prefs = await SharedPreferences.getInstance();
-    final keys = prefs.getKeys();
-    final Map<String, dynamic> data = {};
-    for (var key in keys) {
-      data[key] = prefs.get(key);
+    final file = await StorageService.getJsonFile();
+    if (!await file.exists()) {
+      if (!mounted) return;
+      showTopRightToast(context, 'No echo_sets.json found');
+      return;
     }
-    final jsonString = jsonEncode(data);
+    final jsonString = await file.readAsString();
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath(
       dialogTitle: 'Select folder to save backup',
     );
@@ -36,16 +36,14 @@ class _DataTabState extends State<DataTab> {
           '${now.minute.toString().padLeft(2, '0')}'
           '${now.second.toString().padLeft(2, '0')}';
       final filename = 'evc_backup_$formatted.json';
-      final file = File('$selectedDirectory/$filename');
-      await file.writeAsString(jsonString);
-      if (mounted) {
-        showTopRightToast(context, 'Backup saved as $filename');
-      }
+      final backupFile = File('$selectedDirectory/$filename');
+      await backupFile.writeAsString(jsonString);
+      if (!mounted) return;
+      showTopRightToast(context, 'Backup saved as $filename');
     }
   }
 
   Future<void> _restoreData() async {
-    final prefs = await SharedPreferences.getInstance();
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       dialogTitle: 'Select backup JSON file',
       type: FileType.custom,
@@ -55,29 +53,13 @@ class _DataTabState extends State<DataTab> {
       final file = File(result.files.single.path!);
       final inputJson = await file.readAsString();
       try {
-        final Map<String, dynamic> data = jsonDecode(inputJson);
-        for (var entry in data.entries) {
-          final key = entry.key;
-          final value = entry.value;
-          if (value is bool) {
-            await prefs.setBool(key, value);
-          } else if (value is int) {
-            await prefs.setInt(key, value);
-          } else if (value is double) {
-            await prefs.setDouble(key, value);
-          } else if (value is String) {
-            await prefs.setString(key, value);
-          } else if (value is List) {
-            await prefs.setStringList(key, List<String>.from(value));
-          }
-        }
-        if (mounted) {
-          showTopRightToast(context, 'Data restored!');
-        }
+        final echoFile = await StorageService.getJsonFile();
+        await echoFile.writeAsString(inputJson);
+        if (!mounted) return;
+        showTopRightToast(context, 'Data restored!');
       } catch (e) {
-        if (mounted) {
-          showTopRightToast(context, 'Invalid backup data');
-        }
+        if (!mounted) return;
+        showTopRightToast(context, 'Invalid backup data');
       }
     }
   }
@@ -103,11 +85,10 @@ class _DataTabState extends State<DataTab> {
       ),
     );
     if (confirmed == true) {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.clear();
-      if (mounted) {
-        showTopRightToast(context, 'All data has been reset');
-      }
+      final echoFile = await StorageService.getJsonFile();
+      await echoFile.writeAsString('{}');
+      if (!mounted) return;
+      showTopRightToast(context, 'All data has been reset');
     }
   }
 

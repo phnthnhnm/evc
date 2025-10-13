@@ -14,7 +14,7 @@ class ApiService {
   static Map<String, String> buildPayload({
     required String energyBuff, // None, Yangyang, Zhezhi
     required String resonatorName,
-    required int totalER,
+    required double totalER,
     required List<Map<String, double>> echoStatsList, // length 5
   }) {
     final map = <String, String>{};
@@ -41,7 +41,7 @@ class ApiService {
   static Future<EchoSet> submit({
     required String energyBuff,
     required String resonatorName,
-    required int totalER,
+    required double totalER,
     required List<Map<String, double>> echoStatsList,
   }) async {
     final payload = buildPayload(

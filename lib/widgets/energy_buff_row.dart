@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class EnergyBuffRow extends StatefulWidget {
   final String energyBuff;
   final ValueChanged<String?> onBuffChanged;
-  final int totalER;
-  final ValueChanged<int> onERChanged;
+  final double totalER;
+  final ValueChanged<double> onERChanged;
   const EnergyBuffRow({
     super.key,
     required this.energyBuff,
@@ -29,7 +29,8 @@ class _EnergyBuffRowState extends State<EnergyBuffRow> {
   @override
   void didUpdateWidget(EnergyBuffRow oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.totalER != widget.totalER) {
+    if (oldWidget.totalER != widget.totalER &&
+        _controller.text != widget.totalER.toString()) {
       _controller.text = widget.totalER.toString();
     }
   }
@@ -68,7 +69,7 @@ class _EnergyBuffRowState extends State<EnergyBuffRow> {
               isDense: true,
             ),
             onChanged: (v) {
-              final parsed = int.tryParse(v);
+              final parsed = double.tryParse(v);
               if (parsed != null) {
                 widget.onERChanged(parsed);
               }

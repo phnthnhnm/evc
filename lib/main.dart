@@ -51,8 +51,9 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
 
   Future<void> _loadSaved() async {
     // Preload saved echo sets to reflect autofill icon or status
-    final futures =
-        _characters.map((c) => StorageService.loadEchoSet(c.id)).toList();
+    final futures = _characters
+        .map((c) => StorageService.loadEchoSet(c.id))
+        .toList();
     final loaded = await Future.wait(futures);
     setState(() {
       _characters = List.generate(_characters.length, (i) {
@@ -65,8 +66,9 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
   @override
   Widget build(BuildContext context) {
     final filtered = _characters.where((c) {
-      final matchesSearch =
-          c.name.toLowerCase().contains(_search.toLowerCase().trim());
+      final matchesSearch = c.name.toLowerCase().contains(
+        _search.toLowerCase().trim(),
+      );
       final matchesAttr =
           _filterAttribute == null || c.attribute == _filterAttribute;
       final matchesWeapon = _filterWeapon == null || c.weapon == _filterWeapon;
@@ -107,77 +109,97 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
             runSpacing: 8,
             children: [
               FilterChip(
-                label: Image.asset(attributeAsset(Attribute.aero),
-                    width: 24, height: 24),
+                label: Image.asset(
+                  attributeAsset(Attribute.aero),
+                  width: 24,
+                  height: 24,
+                ),
                 selected: _filterAttribute == Attribute.aero,
                 onSelected: (selected) => setState(() {
                   _filterAttribute =
                       selected && _filterAttribute != Attribute.aero
-                          ? Attribute.aero
-                          : null;
+                      ? Attribute.aero
+                      : null;
                 }),
               ),
               FilterChip(
-                label: Image.asset(attributeAsset(Attribute.electro),
-                    width: 24, height: 24),
+                label: Image.asset(
+                  attributeAsset(Attribute.electro),
+                  width: 24,
+                  height: 24,
+                ),
                 selected: _filterAttribute == Attribute.electro,
                 onSelected: (selected) => setState(() {
                   _filterAttribute =
                       selected && _filterAttribute != Attribute.electro
-                          ? Attribute.electro
-                          : null;
+                      ? Attribute.electro
+                      : null;
                 }),
               ),
               FilterChip(
-                label: Image.asset(attributeAsset(Attribute.fusion),
-                    width: 24, height: 24),
+                label: Image.asset(
+                  attributeAsset(Attribute.fusion),
+                  width: 24,
+                  height: 24,
+                ),
                 selected: _filterAttribute == Attribute.fusion,
                 onSelected: (selected) => setState(() {
                   _filterAttribute =
                       selected && _filterAttribute != Attribute.fusion
-                          ? Attribute.fusion
-                          : null;
+                      ? Attribute.fusion
+                      : null;
                 }),
               ),
               FilterChip(
-                label: Image.asset(attributeAsset(Attribute.glacio),
-                    width: 24, height: 24),
+                label: Image.asset(
+                  attributeAsset(Attribute.glacio),
+                  width: 24,
+                  height: 24,
+                ),
                 selected: _filterAttribute == Attribute.glacio,
                 onSelected: (selected) => setState(() {
                   _filterAttribute =
                       selected && _filterAttribute != Attribute.glacio
-                          ? Attribute.glacio
-                          : null;
+                      ? Attribute.glacio
+                      : null;
                 }),
               ),
               FilterChip(
-                label: Image.asset(attributeAsset(Attribute.havoc),
-                    width: 24, height: 24),
+                label: Image.asset(
+                  attributeAsset(Attribute.havoc),
+                  width: 24,
+                  height: 24,
+                ),
                 selected: _filterAttribute == Attribute.havoc,
                 onSelected: (selected) => setState(() {
                   _filterAttribute =
                       selected && _filterAttribute != Attribute.havoc
-                          ? Attribute.havoc
-                          : null;
+                      ? Attribute.havoc
+                      : null;
                 }),
               ),
               FilterChip(
-                label: Image.asset(attributeAsset(Attribute.spectro),
-                    width: 24, height: 24),
+                label: Image.asset(
+                  attributeAsset(Attribute.spectro),
+                  width: 24,
+                  height: 24,
+                ),
                 selected: _filterAttribute == Attribute.spectro,
                 onSelected: (selected) => setState(() {
                   _filterAttribute =
                       selected && _filterAttribute != Attribute.spectro
-                          ? Attribute.spectro
-                          : null;
+                      ? Attribute.spectro
+                      : null;
                 }),
               ),
               const SizedBox(width: 12),
               ChoiceChip(
-                label: Image.asset(weaponAsset(Weapon.broadblade),
-                    width: 24,
-                    height: 24,
-                    color: Theme.of(context).colorScheme.primary),
+                label: Image.asset(
+                  weaponAsset(Weapon.broadblade),
+                  width: 24,
+                  height: 24,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 selected: _filterWeapon == Weapon.broadblade,
                 onSelected: (selected) => setState(() {
                   _filterWeapon = selected && _filterWeapon != Weapon.broadblade
@@ -186,10 +208,12 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 }),
               ),
               ChoiceChip(
-                label: Image.asset(weaponAsset(Weapon.gauntlets),
-                    width: 24,
-                    height: 24,
-                    color: Theme.of(context).colorScheme.primary),
+                label: Image.asset(
+                  weaponAsset(Weapon.gauntlets),
+                  width: 24,
+                  height: 24,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 selected: _filterWeapon == Weapon.gauntlets,
                 onSelected: (selected) => setState(() {
                   _filterWeapon = selected && _filterWeapon != Weapon.gauntlets
@@ -198,10 +222,12 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 }),
               ),
               ChoiceChip(
-                label: Image.asset(weaponAsset(Weapon.pistols),
-                    width: 24,
-                    height: 24,
-                    color: Theme.of(context).colorScheme.primary),
+                label: Image.asset(
+                  weaponAsset(Weapon.pistols),
+                  width: 24,
+                  height: 24,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 selected: _filterWeapon == Weapon.pistols,
                 onSelected: (selected) => setState(() {
                   _filterWeapon = selected && _filterWeapon != Weapon.pistols
@@ -210,10 +236,12 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 }),
               ),
               ChoiceChip(
-                label: Image.asset(weaponAsset(Weapon.rectifier),
-                    width: 24,
-                    height: 24,
-                    color: Theme.of(context).colorScheme.primary),
+                label: Image.asset(
+                  weaponAsset(Weapon.rectifier),
+                  width: 24,
+                  height: 24,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 selected: _filterWeapon == Weapon.rectifier,
                 onSelected: (selected) => setState(() {
                   _filterWeapon = selected && _filterWeapon != Weapon.rectifier
@@ -222,10 +250,12 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 }),
               ),
               ChoiceChip(
-                label: Image.asset(weaponAsset(Weapon.sword),
-                    width: 24,
-                    height: 24,
-                    color: Theme.of(context).colorScheme.primary),
+                label: Image.asset(
+                  weaponAsset(Weapon.sword),
+                  width: 24,
+                  height: 24,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 selected: _filterWeapon == Weapon.sword,
                 onSelected: (selected) => setState(() {
                   _filterWeapon = selected && _filterWeapon != Weapon.sword
@@ -254,11 +284,13 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                     if (result != null) {
                       await StorageService.saveEchoSet(character.id, result);
                       setState(() {
-                        final idx =
-                            _characters.indexWhere((c) => c.id == character.id);
+                        final idx = _characters.indexWhere(
+                          (c) => c.id == character.id,
+                        );
                         if (idx >= 0) {
-                          _characters[idx] =
-                              _characters[idx].copyWith(savedEchoSet: result);
+                          _characters[idx] = _characters[idx].copyWith(
+                            savedEchoSet: result,
+                          );
                         }
                       });
                     }
@@ -343,9 +375,9 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
         lastResult = result;
       });
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Submitted and saved')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Submitted and saved')));
       }
     } catch (e) {
       setState(() {
@@ -367,9 +399,10 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Echo ${i + 1}',
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Text(
+              'Echo ${i + 1}',
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8),
             Wrap(
               runSpacing: 12,
@@ -386,14 +419,15 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
             ),
             const SizedBox(height: 8),
             if (lastResult != null)
-              Row(
+              Wrap(
+                spacing: 8,
                 children: [
                   Chip(
                     label: Text(
-                        'Score: ${lastResult!.echoes[i].score.toStringAsFixed(1)}'),
+                      'Score: ${lastResult!.echoes[i].score.toStringAsFixed(1)}',
+                    ),
                     avatar: const Icon(Icons.star),
                   ),
-                  const SizedBox(width: 8),
                   Chip(
                     label: Text('Tier: ${lastResult!.echoes[i].tier}'),
                     avatar: const Icon(Icons.military_tech),
@@ -410,9 +444,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
   Widget build(BuildContext context) {
     final c = widget.character;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${c.name} • ${attributeLabel(c.attribute)}'),
-      ),
+      appBar: AppBar(title: Text('${c.name} • ${attributeLabel(c.attribute)}')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -434,8 +466,9 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                               ? Text(
                                   c.name.isNotEmpty ? c.name[0] : '?',
                                   style: const TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold),
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 )
                               : null,
                         ),
@@ -444,22 +477,30 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(c.name,
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600)),
+                              Text(
+                                c.name,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                               const SizedBox(height: 6),
                               Row(
                                 children: [
-                                  Image.asset(attributeAsset(c.attribute),
-                                      width: 24, height: 24),
+                                  Image.asset(
+                                    attributeAsset(c.attribute),
+                                    width: 24,
+                                    height: 24,
+                                  ),
                                   const SizedBox(width: 12),
-                                  Image.asset(weaponAsset(c.weapon),
-                                      width: 24,
-                                      height: 24,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary),
+                                  Image.asset(
+                                    weaponAsset(c.weapon),
+                                    width: 24,
+                                    height: 24,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                  ),
                                 ],
                               ),
                             ],
@@ -476,11 +517,17 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                           value: energyBuff,
                           items: const [
                             DropdownMenuItem(
-                                value: 'None', child: Text('None')),
+                              value: 'None',
+                              child: Text('None'),
+                            ),
                             DropdownMenuItem(
-                                value: 'Yangyang', child: Text('Yangyang')),
+                              value: 'Yangyang',
+                              child: Text('Yangyang'),
+                            ),
                             DropdownMenuItem(
-                                value: 'Zhezhi', child: Text('Zhezhi')),
+                              value: 'Zhezhi',
+                              child: Text('Zhezhi'),
+                            ),
                           ],
                           onChanged: (v) =>
                               setState(() => energyBuff = v ?? 'None'),
@@ -512,39 +559,52 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
               ),
             ),
             const SizedBox(height: 12),
-            for (int i = 0; i < 5; i++) _buildEchoCard(i),
-            const SizedBox(height: 12),
             Row(
-              children: [
-                ElevatedButton.icon(
-                  onPressed: loading ? null : _submit,
-                  icon: const Icon(Icons.send),
-                  label: const Text('Submit'),
-                ),
-                const SizedBox(width: 12),
-                if (loading) const CircularProgressIndicator(),
-                const Spacer(),
-                if (lastResult != null)
-                  Wrap(
-                    spacing: 8,
-                    children: [
-                      Chip(
-                        label: Text(
-                            'Overall Score: ${lastResult!.overallScore.toStringAsFixed(1)}'),
-                        avatar: const Icon(Icons.workspace_premium),
-                      ),
-                      Chip(
-                        label: Text('Overall Tier: ${lastResult!.overallTier}'),
-                        avatar: const Icon(Icons.emoji_events),
-                      ),
-                    ],
+              children: List.generate(
+                5,
+                (i) => Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    child: _buildEchoCard(i),
                   ),
-              ],
+                ),
+              ),
             ),
             if (error != null) ...[
               const SizedBox(height: 8),
               Text(error!, style: const TextStyle(color: Colors.red)),
             ],
+          ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Row(
+          children: [
+            ElevatedButton.icon(
+              onPressed: loading ? null : _submit,
+              icon: const Icon(Icons.send),
+              label: const Text('Submit'),
+            ),
+            const SizedBox(width: 12),
+            if (loading) const CircularProgressIndicator(),
+            const Spacer(),
+            if (lastResult != null)
+              Wrap(
+                spacing: 8,
+                children: [
+                  Chip(
+                    label: Text(
+                      'Overall Score: ${lastResult!.overallScore.toStringAsFixed(1)}',
+                    ),
+                    avatar: const Icon(Icons.workspace_premium),
+                  ),
+                  Chip(
+                    label: Text('Overall Tier: ${lastResult!.overallTier}'),
+                    avatar: const Icon(Icons.emoji_events),
+                  ),
+                ],
+              ),
           ],
         ),
       ),

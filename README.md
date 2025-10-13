@@ -8,10 +8,6 @@ This was also my excuse to learn Flutter, so the code might be a bit messy. If y
 
 Full credit goes to [AstyuteChick](https://github.com/AstyuteChick) for making the original calculator. This app just wraps their awesome backend with a friendlier UI, as well as echo saving functionality.
 
-## How to Use
-
-For instructions, just check out the [official guide](https://www.echovaluecalc.com/instruct) from the Echo Value Calculator website.
-
 ## Screenshots
 
 Here’s what the app looks like:
@@ -29,6 +25,14 @@ Here’s what the app looks like:
 
 ### Installation
 
+#### Option 1: Run the precompiled Windows binary
+
+1. Go to the [latest releases page](https://github.com/phnthnhnm/evc/releases/latest).
+2. Download the `.zip` file for Windows.
+3. Extract it anywhere and run `evc.exe`.
+
+#### Option 2: Build from source
+
 1. **Clone the repository:**
    ```sh
    git clone https://github.com/phnthnhnm/evc.git
@@ -38,21 +42,28 @@ Here’s what the app looks like:
    ```sh
    flutter pub get
    ```
+> [!WARNING]
+> **Disclaimer:** Only the Windows version has been tested so far. Android version coming soon™!
 3. **Run the app:**
-   - For mobile:
-     ```sh
-     flutter run
-     ```
-   - For desktop (Windows/macOS/Linux):
-     ```sh
-     flutter run -d windows
-     flutter run -d macos
-     flutter run -d linux
-     ```
-   - For web:
-     ```sh
-     flutter run -d chrome
-     ```
+
+- For mobile:
+  ```sh
+  flutter run
+  ```
+- For desktop (Windows/macOS/Linux):
+  ```sh
+  flutter run -d windows
+  flutter run -d macos
+  flutter run -d linux
+  ```
+- For web:
+  ```sh
+  flutter run -d chrome
+  ```
+
+## How to Use
+
+For instructions, just check out the [official guide](https://www.echovaluecalc.com/instruct) from the Echo Value Calculator website.
 
 ## File Structure
 

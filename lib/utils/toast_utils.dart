@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 void showTopRightToast(BuildContext context, String message) {
   final overlay = Overlay.of(context);
-  final entry = OverlayEntry(
+  late OverlayEntry entry;
+  entry = OverlayEntry(
     builder: (ctx) => Positioned(
       top: 40,
       right: 24,
@@ -21,16 +22,29 @@ void showTopRightToast(BuildContext context, String message) {
               ),
             ],
           ),
-          child: Text(
-            message,
-            style: const TextStyle(color: Colors.white, fontSize: 16),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                message,
+                style: const TextStyle(color: Colors.white, fontSize: 16),
+              ),
+              SizedBox(width: 8),
+              IconButton(
+                icon: const Icon(Icons.close, color: Colors.white),
+                tooltip: 'Close',
+                onPressed: () {
+                  entry.remove();
+                },
+              ),
+            ],
           ),
         ),
       ),
     ),
   );
   overlay.insert(entry);
-  Future.delayed(const Duration(seconds: 2), () {
-    entry.remove();
+  Future.delayed(const Duration(seconds: 5), () {
+    if (entry.mounted) entry.remove();
   });
 }

@@ -17,30 +17,31 @@ class CharacterListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 180,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: characters.length,
-        separatorBuilder: (context, index) => const SizedBox(width: 16),
-        itemBuilder: (context, index) {
-          final character = characters[index];
-          return SizedBox(
-            width: 180,
-            child: CharacterCard(
-              character: character,
-              onTap: () async {
-                final result = await Navigator.push<EchoSet?>(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => CharacterDetailScreen(character: character),
-                  ),
-                );
-                await onEchoSetSaved(character, result);
-              },
-            ),
-          );
-        },
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: SingleChildScrollView(
+        child: Wrap(
+          spacing: 16,
+          runSpacing: 16,
+          children: characters.map((character) {
+            return SizedBox(
+              width: 180,
+              child: CharacterCard(
+                character: character,
+                onTap: () async {
+                  final result = await Navigator.push<EchoSet?>(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          CharacterDetailScreen(character: character),
+                    ),
+                  );
+                  await onEchoSetSaved(character, result);
+                },
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }

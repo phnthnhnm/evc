@@ -69,46 +69,48 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          search_bar.SearchBar(
-            value: _search,
-            onChanged: (v) => setState(() => _search = v),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AttributeFilterChips(
-                selected: _filterAttribute,
-                onChanged: (attr) => setState(() => _filterAttribute = attr),
-              ),
-              const SizedBox(width: 24),
-              WeaponChoiceChips(
-                selected: _filterWeapon,
-                onChanged: (weapon) => setState(() => _filterWeapon = weapon),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          CharacterListView(
-            characters: filtered,
-            onEchoSetSaved: (character, result) async {
-              if (result != null) {
-                await StorageService.saveEchoSet(character.id, result);
-                setState(() {
-                  final idx = _characters.indexWhere(
-                    (c) => c.id == character.id,
-                  );
-                  if (idx >= 0) {
-                    _characters[idx] = _characters[idx].copyWith(
-                      savedEchoSet: result,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            search_bar.SearchBar(
+              value: _search,
+              onChanged: (v) => setState(() => _search = v),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AttributeFilterChips(
+                  selected: _filterAttribute,
+                  onChanged: (attr) => setState(() => _filterAttribute = attr),
+                ),
+                const SizedBox(width: 24),
+                WeaponChoiceChips(
+                  selected: _filterWeapon,
+                  onChanged: (weapon) => setState(() => _filterWeapon = weapon),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            CharacterListView(
+              characters: filtered,
+              onEchoSetSaved: (character, result) async {
+                if (result != null) {
+                  await StorageService.saveEchoSet(character.id, result);
+                  setState(() {
+                    final idx = _characters.indexWhere(
+                      (c) => c.id == character.id,
                     );
-                  }
-                });
-              }
-            },
-          ),
-        ],
+                    if (idx >= 0) {
+                      _characters[idx] = _characters[idx].copyWith(
+                        savedEchoSet: result,
+                      );
+                    }
+                  });
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

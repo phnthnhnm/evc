@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class EnergyBuffRow extends StatelessWidget {
+class EnergyBuffRow extends StatefulWidget {
   final String energyBuff;
   final ValueChanged<String?> onBuffChanged;
   final int totalER;
@@ -14,19 +14,46 @@ class EnergyBuffRow extends StatelessWidget {
   });
 
   @override
+  State<EnergyBuffRow> createState() => _EnergyBuffRowState();
+}
+
+class _EnergyBuffRowState extends State<EnergyBuffRow> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.totalER.toString());
+  }
+
+  @override
+  void didUpdateWidget(EnergyBuffRow oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.totalER != widget.totalER) {
+      _controller.text = widget.totalER.toString();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         const Text('Energy buffs from outros:'),
         const SizedBox(width: 12),
         DropdownButton<String>(
-          value: energyBuff,
+          value: widget.energyBuff,
           items: const [
             DropdownMenuItem(value: 'None', child: Text('None')),
             DropdownMenuItem(value: 'Yangyang', child: Text('Yangyang')),
             DropdownMenuItem(value: 'Zhezhi', child: Text('Zhezhi')),
           ],
-          onChanged: onBuffChanged,
+          onChanged: widget.onBuffChanged,
         ),
         const Spacer(),
         const Text('Total ER of the build:'),
@@ -34,7 +61,7 @@ class EnergyBuffRow extends StatelessWidget {
         SizedBox(
           width: 90,
           child: TextFormField(
-            initialValue: totalER.toString(),
+            controller: _controller,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
@@ -43,7 +70,7 @@ class EnergyBuffRow extends StatelessWidget {
             onChanged: (v) {
               final parsed = int.tryParse(v);
               if (parsed != null) {
-                onERChanged(parsed);
+                widget.onERChanged(parsed);
               }
             },
           ),

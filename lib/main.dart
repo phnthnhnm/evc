@@ -8,19 +8,29 @@ import 'utils/theme_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
-
-  WindowOptions windowOptions = const WindowOptions(center: true);
-  windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.maximize();
-    await windowManager.show();
-    await windowManager.focus();
-  });
-
   runApp(const EchoValueCalcApp());
 }
 
-class EchoValueCalcApp extends StatelessWidget {
+class EchoValueCalcApp extends StatefulWidget {
   const EchoValueCalcApp({super.key});
+
+  @override
+  State<EchoValueCalcApp> createState() => _EchoValueCalcAppState();
+}
+
+class _EchoValueCalcAppState extends State<EchoValueCalcApp> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      WindowOptions windowOptions = const WindowOptions(center: true);
+      await windowManager.waitUntilReadyToShow(windowOptions, () async {
+        await windowManager.maximize();
+        await windowManager.show();
+        await windowManager.focus();
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

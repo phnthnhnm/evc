@@ -347,14 +347,14 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
   }
 
   void _setStatValue(int echoIndex, Stat stat, double value) {
-    final key = '${statLabels[stat]} ${echoIndex + 1}';
+    final key = '${statApiNames[stat]} ${echoIndex + 1}';
     setState(() {
       echoStats[echoIndex][key] = value;
     });
   }
 
   double _getSelected(int echoIndex, Stat stat) {
-    final key = '${statLabels[stat]} ${echoIndex + 1}';
+    final key = '${statApiNames[stat]} ${echoIndex + 1}';
     return echoStats[echoIndex][key] ?? 0.0;
   }
 
@@ -442,29 +442,35 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
               children: usable.map((stat) {
                 final range = statRanges[stat] ?? const [0.0];
                 final selected = _getSelected(i, stat);
-                return StatDropdown(
-                  label: Row(
-                    children: [
-                      Image.asset(
-                        statAsset(stat),
-                        width: 24,
-                        height: 24,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          statLabels[stat] ?? '',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
+                return SizedBox(
+                  width: double.infinity,
+                  child: StatDropdown(
+                    label: Row(
+                      children: [
+                        Image.asset(
+                          statAsset(stat),
+                          width: 24,
+                          height: 24,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              statLabels[stat] ?? '',
+                              textAlign: TextAlign.left,
+                              maxLines: 1,
+                              softWrap: false,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    values: range,
+                    selected: selected,
+                    onChanged: (v) => _setStatValue(i, stat, v),
                   ),
-                  values: range,
-                  selected: selected,
-                  onChanged: (v) => _setStatValue(i, stat, v),
                 );
               }).toList(),
             ),

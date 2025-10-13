@@ -28,11 +28,11 @@ class ApiService {
 
     for (int i = 0; i < 5; i++) {
       for (final stat in statNames) {
-        final key = '${statLabels[stat]} ${i + 1}';
+        final apiKey = '${statApiNames[stat]} ${i + 1}';
         final value = echoStatsList.length > i
-            ? (echoStatsList[i][key] ?? 0.0)
+            ? (echoStatsList[i][apiKey] ?? 0.0)
             : 0.0;
-        map[key] = value.toString();
+        map[apiKey] = value.toString();
       }
     }
     return map;

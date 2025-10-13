@@ -152,10 +152,10 @@ class Character {
       portraitAsset: json['portraitAsset'] as String? ?? '',
       usableStats: (json['usableStats'] as List)
           .map(
-            (e) => statLabels.entries
+            (e) => statApiNames.entries
                 .firstWhere(
                   (entry) => entry.value == e,
-                  orElse: () => MapEntry(Stat.critRate, 'Crit Rate(%)'),
+                  orElse: () => MapEntry(Stat.critRate, 'Crit. Rate'),
                 )
                 .key,
           )

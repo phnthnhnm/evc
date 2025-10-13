@@ -33,6 +33,22 @@ const List<Stat> allStats = [
   Stat.erPercent,
 ];
 
+const Map<Stat, String> statApiNames = {
+  Stat.critRate: 'Crit Rate(%)',
+  Stat.critDamage: 'Crit Damage(%)',
+  Stat.atkPercent: 'Atk(%)',
+  Stat.flatAtk: 'Flat Atk',
+  Stat.hpPercent: 'HP(%)',
+  Stat.flatHp: 'Flat HP',
+  Stat.defPercent: 'Def(%)',
+  Stat.flatDef: 'Flat Def',
+  Stat.basicPercent: 'Basic(%)',
+  Stat.heavyPercent: 'Heavy(%)',
+  Stat.skillPercent: 'Skill(%)',
+  Stat.liberationPercent: 'Liberation(%)',
+  Stat.erPercent: 'ER(%)',
+};
+
 const Map<Stat, String> statLabels = {
   Stat.critRate: 'Crit. Rate',
   Stat.critDamage: 'Crit. Damage',
@@ -48,9 +64,6 @@ const Map<Stat, String> statLabels = {
   Stat.liberationPercent: 'Liberation%',
   Stat.erPercent: 'ER',
 };
-
-// Stat names must exactly match request param labels,
-// without the trailing echo index (we will append " 1", " 2", etc.)
 
 // Valid ranges for each stat as per spec
 const Map<Stat, List<double>> statRanges = {

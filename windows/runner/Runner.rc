@@ -90,7 +90,7 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.phanthanhnam" "\0"
-            VALUE "FileDescription", "Echo Value Calculator" "\0"
+            VALUE "FileDescription", "EVC GUI" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "evc" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.phanthanhnam. All rights reserved." "\0"

@@ -16,7 +16,7 @@ class EchoValueCalcApp extends StatelessWidget {
       useMaterial3: true,
     );
     return MaterialApp(
-      title: 'Echo Value Calculator',
+      title: 'EVC GUI',
       theme: theme,
       home: const CharacterListScreen(),
     );

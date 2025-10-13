@@ -7,6 +7,7 @@ import '../widgets/attribute_filter_chips.dart';
 import '../widgets/character_list_view.dart';
 import '../widgets/search_bar.dart' as search_bar;
 import '../widgets/weapon_choice_chips.dart';
+import 'settings/settings_screen.dart';
 
 class CharacterListScreen extends StatefulWidget {
   const CharacterListScreen({super.key});
@@ -58,13 +59,12 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
         title: const Text('Characters'),
         actions: [
           IconButton(
-            tooltip: 'Clear filters',
-            icon: const Icon(Icons.filter_alt_off),
+            icon: const Icon(Icons.settings),
+            tooltip: 'Settings',
             onPressed: () {
-              setState(() {
-                _filterAttribute = null;
-                _filterWeapon = null;
-              });
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
+              );
             },
           ),
         ],

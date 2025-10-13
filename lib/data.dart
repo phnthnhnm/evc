@@ -34,19 +34,19 @@ const List<Stat> allStats = [
 ];
 
 const Map<Stat, String> statLabels = {
-  Stat.critRate: 'Crit Rate(%)',
-  Stat.critDamage: 'Crit Damage(%)',
-  Stat.atkPercent: 'Atk(%)',
-  Stat.flatAtk: 'Flat Atk',
-  Stat.hpPercent: 'HP(%)',
-  Stat.flatHp: 'Flat HP',
-  Stat.defPercent: 'Def(%)',
-  Stat.flatDef: 'Flat Def',
-  Stat.basicPercent: 'Basic(%)',
-  Stat.heavyPercent: 'Heavy(%)',
-  Stat.skillPercent: 'Skill(%)',
-  Stat.liberationPercent: 'Liberation(%)',
-  Stat.erPercent: 'ER(%)',
+  Stat.critRate: 'Crit. Rate',
+  Stat.critDamage: 'Crit. Damage',
+  Stat.atkPercent: 'ATK%',
+  Stat.flatAtk: 'ATK',
+  Stat.hpPercent: 'HP%',
+  Stat.flatHp: 'HP',
+  Stat.defPercent: 'DEF%',
+  Stat.flatDef: 'DEF',
+  Stat.basicPercent: 'Basic%',
+  Stat.heavyPercent: 'Heavy%',
+  Stat.skillPercent: 'Skill%',
+  Stat.liberationPercent: 'Liberation%',
+  Stat.erPercent: 'ER',
 };
 
 // Stat names must exactly match request param labels,

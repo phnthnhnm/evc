@@ -443,11 +443,24 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                 final range = statRanges[stat] ?? const [0.0];
                 final selected = _getSelected(i, stat);
                 return StatDropdown(
-                  label: Text(
-                    statLabels[stat] ?? '',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.left,
+                  label: Row(
+                    children: [
+                      Image.asset(
+                        statAsset(stat),
+                        width: 24,
+                        height: 24,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          statLabels[stat] ?? '',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                    ],
                   ),
                   values: range,
                   selected: selected,

@@ -209,15 +209,15 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
               ),
               ChoiceChip(
                 label: Image.asset(
-                  weaponAsset(Weapon.gauntlets),
+                  weaponAsset(Weapon.sword),
                   width: 24,
                   height: 24,
                   color: Theme.of(context).colorScheme.primary,
                 ),
-                selected: _filterWeapon == Weapon.gauntlets,
+                selected: _filterWeapon == Weapon.sword,
                 onSelected: (selected) => setState(() {
-                  _filterWeapon = selected && _filterWeapon != Weapon.gauntlets
-                      ? Weapon.gauntlets
+                  _filterWeapon = selected && _filterWeapon != Weapon.sword
+                      ? Weapon.sword
                       : null;
                 }),
               ),
@@ -237,6 +237,20 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
               ),
               ChoiceChip(
                 label: Image.asset(
+                  weaponAsset(Weapon.gauntlets),
+                  width: 24,
+                  height: 24,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                selected: _filterWeapon == Weapon.gauntlets,
+                onSelected: (selected) => setState(() {
+                  _filterWeapon = selected && _filterWeapon != Weapon.gauntlets
+                      ? Weapon.gauntlets
+                      : null;
+                }),
+              ),
+              ChoiceChip(
+                label: Image.asset(
                   weaponAsset(Weapon.rectifier),
                   width: 24,
                   height: 24,
@@ -246,20 +260,6 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 onSelected: (selected) => setState(() {
                   _filterWeapon = selected && _filterWeapon != Weapon.rectifier
                       ? Weapon.rectifier
-                      : null;
-                }),
-              ),
-              ChoiceChip(
-                label: Image.asset(
-                  weaponAsset(Weapon.sword),
-                  width: 24,
-                  height: 24,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                selected: _filterWeapon == Weapon.sword,
-                onSelected: (selected) => setState(() {
-                  _filterWeapon = selected && _filterWeapon != Weapon.sword
-                      ? Weapon.sword
                       : null;
                 }),
               ),
@@ -497,10 +497,10 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                         CircleAvatar(
                           radius: 28,
                           backgroundColor: Colors.transparent,
-                          backgroundImage: c.portraitUrl.isNotEmpty
-                              ? AssetImage(c.portraitUrl)
+                          backgroundImage: c.portraitAsset.isNotEmpty
+                              ? AssetImage(c.portraitAsset)
                               : null,
-                          child: c.portraitUrl.isEmpty
+                          child: c.portraitAsset.isEmpty
                               ? Text(
                                   c.name.isNotEmpty ? c.name[0] : '?',
                                   style: const TextStyle(

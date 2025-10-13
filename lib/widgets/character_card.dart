@@ -26,7 +26,7 @@ class CharacterCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 28,
-                backgroundImage: AssetImage(character.portraitUrl),
+                backgroundImage: AssetImage(character.portraitAsset),
               ),
               const SizedBox(width: 12),
               Expanded(

@@ -1,7 +1,7 @@
 import '../data.dart';
 import 'echo.dart';
 
-enum Weapon { broadblade, gauntlets, pistols, rectifier, sword }
+enum Weapon { broadblade, sword, pistols, gauntlets, rectifier }
 
 enum Attribute { aero, electro, fusion, glacio, havoc, spectro }
 
@@ -9,14 +9,14 @@ String weaponLabel(Weapon w) {
   switch (w) {
     case Weapon.broadblade:
       return 'Broadblade';
-    case Weapon.gauntlets:
-      return 'Gauntlets';
-    case Weapon.pistols:
-      return 'Pistols';
-    case Weapon.rectifier:
-      return 'Rectifier';
     case Weapon.sword:
       return 'Sword';
+    case Weapon.pistols:
+      return 'Pistols';
+    case Weapon.gauntlets:
+      return 'Gauntlets';
+    case Weapon.rectifier:
+      return 'Rectifier';
   }
 }
 
@@ -57,15 +57,15 @@ String attributeAsset(Attribute a) {
 String weaponAsset(Weapon w) {
   switch (w) {
     case Weapon.broadblade:
-      return 'assets/weapons/broadblade.webp';
-    case Weapon.gauntlets:
-      return 'assets/weapons/gauntlet.webp';
-    case Weapon.pistols:
-      return 'assets/weapons/pistol.webp';
-    case Weapon.rectifier:
-      return 'assets/weapons/rectifier.webp';
+      return 'assets/weapons/broadblade.png';
     case Weapon.sword:
-      return 'assets/weapons/sword.webp';
+      return 'assets/weapons/sword.png';
+    case Weapon.pistols:
+      return 'assets/weapons/pistols.png';
+    case Weapon.gauntlets:
+      return 'assets/weapons/gauntlets.png';
+    case Weapon.rectifier:
+      return 'assets/weapons/rectifier.png';
   }
 }
 
@@ -74,7 +74,7 @@ class Character {
   final String name;
   final Attribute attribute;
   final Weapon weapon;
-  final String portraitUrl; // Optional: not used for rendering if null
+  final String portraitAsset; // Optional: not used for rendering if null
   final List<Stat> usableStats;
   final EchoSet? savedEchoSet; // for autofill (optional cached)
 
@@ -83,7 +83,7 @@ class Character {
     required this.name,
     required this.attribute,
     required this.weapon,
-    required this.portraitUrl,
+    required this.portraitAsset,
     required this.usableStats,
     this.savedEchoSet,
   });
@@ -94,7 +94,7 @@ class Character {
       name: name,
       attribute: attribute,
       weapon: weapon,
-      portraitUrl: portraitUrl,
+      portraitAsset: portraitAsset,
       usableStats: usableStats,
       savedEchoSet: savedEchoSet ?? this.savedEchoSet,
     );
@@ -106,7 +106,7 @@ class Character {
       'name': name,
       'attribute': attribute.index,
       'weapon': weapon.index,
-      'portraitUrl': portraitUrl,
+      'portraitAsset': portraitAsset,
       'usableStats': usableStats,
       'savedEchoSet': savedEchoSet?.toJson(),
     };
@@ -118,7 +118,7 @@ class Character {
       name: json['name'] as String,
       attribute: Attribute.values[json['attribute'] as int],
       weapon: Weapon.values[json['weapon'] as int],
-      portraitUrl: json['portraitUrl'] as String? ?? '',
+      portraitAsset: json['portraitAsset'] as String? ?? '',
       usableStats: (json['usableStats'] as List)
           .map(
             (e) => statLabels.entries

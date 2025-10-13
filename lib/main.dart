@@ -480,9 +480,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                 spacing: 8,
                 children: [
                   Chip(
-                    label: Text(
-                      'Score: ${lastResult!.echoes[i].score.toStringAsFixed(1)}',
-                    ),
+                    label: Text('Score: ${lastResult!.echoes[i].score}'),
                     avatar: const Icon(Icons.star),
                   ),
                   Chip(
@@ -651,9 +649,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                 spacing: 8,
                 children: [
                   Chip(
-                    label: Text(
-                      'Overall Score: ${lastResult!.overallScore.toStringAsFixed(1)}',
-                    ),
+                    label: Text('Overall Score: ${lastResult!.overallScore}'),
                     avatar: const Icon(Icons.workspace_premium),
                   ),
                   Chip(

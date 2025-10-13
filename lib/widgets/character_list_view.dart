@@ -1,0 +1,47 @@
+import 'package:flutter/material.dart';
+
+import '../models/character.dart';
+import '../models/echo.dart';
+import '../screens/character_detail_screen.dart';
+import '../widgets/character_card.dart';
+// ...existing code...
+
+class CharacterListView extends StatelessWidget {
+  final List<Character> characters;
+  final Future<void> Function(Character, EchoSet?) onEchoSetSaved;
+  const CharacterListView({
+    super.key,
+    required this.characters,
+    required this.onEchoSetSaved,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 180,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: characters.length,
+        separatorBuilder: (context, index) => const SizedBox(width: 16),
+        itemBuilder: (context, index) {
+          final character = characters[index];
+          return SizedBox(
+            width: 180,
+            child: CharacterCard(
+              character: character,
+              onTap: () async {
+                final result = await Navigator.push<EchoSet?>(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => CharacterDetailScreen(character: character),
+                  ),
+                );
+                await onEchoSetSaved(character, result);
+              },
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

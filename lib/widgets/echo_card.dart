@@ -80,13 +80,14 @@ class EchoCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             if (lastResult != null)
-              Wrap(
-                spacing: 8,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Chip(
                     label: Text('Score: ${lastResult!.echoes[index].score}'),
                     avatar: const Icon(Icons.star),
                   ),
+                  SizedBox(height: 8),
                   Chip(
                     label: Text('Tier: ${lastResult!.echoes[index].tier}'),
                     avatar: const Icon(Icons.military_tech),

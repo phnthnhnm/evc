@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'screens/character_list_screen.dart';
+import 'screens/resonator_list_screen.dart';
 import 'utils/theme_provider.dart';
 
 void main() async {

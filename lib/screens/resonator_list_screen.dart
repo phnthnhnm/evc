@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../data/seed_resonators.dart';
 import '../models/resonator.dart';
@@ -58,6 +59,28 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
       appBar: AppBar(
         title: const Text('Resonators'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.bug_report),
+            tooltip: 'Report a Bug',
+            onPressed: () async {
+              final url = Uri.parse(
+                'https://github.com/phnthnhnm/evc/issues/new',
+              );
+              if (await canLaunchUrl(url)) {
+                await launchUrl(url, mode: LaunchMode.externalApplication);
+              }
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.help_outline),
+            tooltip: 'How to Use',
+            onPressed: () async {
+              final url = Uri.parse('https://www.echovaluecalc.com/instruct');
+              if (await canLaunchUrl(url)) {
+                await launchUrl(url, mode: LaunchMode.externalApplication);
+              }
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.settings),
             tooltip: 'Settings',

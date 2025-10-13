@@ -62,7 +62,7 @@ const Map<Stat, String> statLabels = {
   Stat.erPercent: 'ER',
 };
 
-// Valid ranges for each stat as per spec
+// Valid ranges for each stat
 const Map<Stat, List<double>> statRanges = {
   Stat.critRate: [6.3, 6.9, 7.5, 8.1, 8.7, 9.3, 9.9, 10.5],
   Stat.critDamage: [12.6, 13.8, 15.0, 16.2, 17.4, 18.6, 19.8, 21.0],

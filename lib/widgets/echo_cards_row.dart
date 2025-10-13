@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../models/character.dart';
+import '../models/resonator.dart';
 import '../widgets/echo_card.dart';
 
 class EchoCardsRow extends StatelessWidget {
-  final Character character;
+  final Resonator resonator;
   final List<Map<String, double>> echoStats;
   final dynamic lastResult;
   final void Function(int, dynamic, double) onStatChanged;
   const EchoCardsRow({
     super.key,
-    required this.character,
+    required this.resonator,
     required this.echoStats,
     required this.lastResult,
     required this.onStatChanged,
@@ -26,7 +26,7 @@ class EchoCardsRow extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 6),
             child: EchoCard(
               index: i,
-              character: character,
+              resonator: resonator,
               lastResult: lastResult,
               echoStats: echoStats[i],
               onStatChanged: (stat, value) => onStatChanged(i, stat, value),

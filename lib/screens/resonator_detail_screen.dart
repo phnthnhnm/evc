@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 
 import '../data/stat.dart';
-import '../models/character.dart';
 import '../models/echo.dart';
+import '../models/resonator.dart';
 import '../services/api_service.dart';
 import '../services/storage_service.dart';
 import '../utils/toast_utils.dart';
-import '../widgets/character_header.dart';
 import '../widgets/echo_cards_row.dart';
 import '../widgets/energy_buff_row.dart';
+import '../widgets/resonator_header.dart';
 import '../widgets/result_chips.dart';
 
-class CharacterDetailScreen extends StatefulWidget {
-  final Character character;
-  const CharacterDetailScreen({super.key, required this.character});
+class ResonatorDetailScreen extends StatefulWidget {
+  final Resonator resonator;
+  const ResonatorDetailScreen({super.key, required this.resonator});
 
   @override
-  State<CharacterDetailScreen> createState() => _CharacterDetailScreenState();
+  State<ResonatorDetailScreen> createState() => _ResonatorDetailScreenState();
 }
 
-class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
+class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
   String energyBuff = 'None'; // None, Yangyang, Zhezhi
   int totalER = 100;
   late List<Map<String, double>> echoStats;
@@ -35,7 +35,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
   }
 
   Future<void> _loadSaved() async {
-    final saved = await StorageService.loadEchoSet(widget.character.id);
+    final saved = await StorageService.loadEchoSet(widget.resonator.id);
     if (saved != null) {
       setState(() {
         lastResult = saved;
@@ -63,11 +63,11 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
     try {
       final result = await ApiService.submit(
         energyBuff: energyBuff,
-        characterName: widget.character.name,
+        resonatorName: widget.resonator.name,
         totalER: totalER,
         echoStatsList: echoStats,
       );
-      await StorageService.saveEchoSet(widget.character.id, result);
+      await StorageService.saveEchoSet(widget.resonator.id, result);
       setState(() {
         lastResult = result;
       });
@@ -98,7 +98,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                 padding: const EdgeInsets.all(12),
                 child: Column(
                   children: [
-                    CharacterHeader(character: widget.character),
+                    ResonatorHeader(resonator: widget.resonator),
                     const SizedBox(height: 12),
                     EnergyBuffRow(
                       energyBuff: energyBuff,
@@ -113,7 +113,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
             ),
             const SizedBox(height: 12),
             EchoCardsRow(
-              character: widget.character,
+              resonator: widget.resonator,
               echoStats: echoStats,
               lastResult: lastResult,
               onStatChanged: (i, stat, value) => _setStatValue(i, stat, value),

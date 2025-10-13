@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../data/stat.dart';
-import '../models/character.dart';
 import '../models/echo.dart';
+import '../models/resonator.dart';
 import '../utils/tier_color_utils.dart';
 import '../widgets/stat_dropdown.dart';
 
 class EchoCard extends StatelessWidget {
   final int index;
-  final Character character;
+  final Resonator resonator;
   final EchoSet? lastResult;
   final Map<String, double> echoStats;
   final void Function(Stat stat, double value) onStatChanged;
@@ -16,7 +16,7 @@ class EchoCard extends StatelessWidget {
   const EchoCard({
     super.key,
     required this.index,
-    required this.character,
+    required this.resonator,
     required this.lastResult,
     required this.echoStats,
     required this.onStatChanged,
@@ -29,7 +29,7 @@ class EchoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final usable = character.usableStats;
+    final usable = resonator.usableStats;
     return Card(
       elevation: 1,
       child: Padding(

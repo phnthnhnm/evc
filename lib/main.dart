@@ -47,7 +47,7 @@ class EchoValueCalcApp extends StatelessWidget {
               brightness: Brightness.dark,
             ),
             themeMode: themeProvider.themeMode,
-            home: const CharacterListScreen(),
+            home: const ResonatorListScreen(),
           );
         },
       ),

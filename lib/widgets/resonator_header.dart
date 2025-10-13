@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 
-import '../models/character.dart';
+import '../models/resonator.dart';
 
-class CharacterHeader extends StatelessWidget {
-  final Character character;
-  const CharacterHeader({super.key, required this.character});
+class ResonatorHeader extends StatelessWidget {
+  final Resonator resonator;
+  const ResonatorHeader({super.key, required this.resonator});
 
   @override
   Widget build(BuildContext context) {
-    final c = character;
     return Row(
       children: [
         CircleAvatar(
           radius: 28,
           backgroundColor: Colors.transparent,
-          backgroundImage: c.portraitAsset.isNotEmpty
-              ? AssetImage(c.portraitAsset)
+          backgroundImage: resonator.portraitAsset.isNotEmpty
+              ? AssetImage(resonator.portraitAsset)
               : null,
-          child: c.portraitAsset.isEmpty
+          child: resonator.portraitAsset.isEmpty
               ? Text(
-                  c.name.isNotEmpty ? c.name[0] : '?',
+                  resonator.name.isNotEmpty ? resonator.name[0] : '?',
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -33,7 +32,7 @@ class CharacterHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                c.name,
+                resonator.name,
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -43,18 +42,18 @@ class CharacterHeader extends StatelessWidget {
               Row(
                 children: [
                   Tooltip(
-                    message: attributeLabel(c.attribute),
+                    message: attributeLabel(resonator.attribute),
                     child: Image.asset(
-                      attributeAsset(c.attribute),
+                      attributeAsset(resonator.attribute),
                       width: 24,
                       height: 24,
                     ),
                   ),
                   const SizedBox(width: 12),
                   Tooltip(
-                    message: weaponLabel(c.weapon),
+                    message: weaponLabel(resonator.weapon),
                     child: Image.asset(
-                      weaponAsset(c.weapon),
+                      weaponAsset(resonator.weapon),
                       width: 24,
                       height: 24,
                       color: Theme.of(context).colorScheme.primary,

@@ -100,7 +100,7 @@ String statAsset(Stat s) {
   }
 }
 
-class Character {
+class Resonator {
   final String id;
   final String name;
   final Attribute attribute;
@@ -109,7 +109,7 @@ class Character {
   final List<Stat> usableStats;
   final EchoSet? savedEchoSet; // for autofill (optional cached)
 
-  const Character({
+  const Resonator({
     required this.id,
     required this.name,
     required this.attribute,
@@ -119,8 +119,8 @@ class Character {
     this.savedEchoSet,
   });
 
-  Character copyWith({EchoSet? savedEchoSet}) {
-    return Character(
+  Resonator copyWith({EchoSet? savedEchoSet}) {
+    return Resonator(
       id: id,
       name: name,
       attribute: attribute,
@@ -143,8 +143,8 @@ class Character {
     };
   }
 
-  static Character fromJson(Map<String, dynamic> json) {
-    return Character(
+  static Resonator fromJson(Map<String, dynamic> json) {
+    return Resonator(
       id: json['id'] as String,
       name: json['name'] as String,
       attribute: Attribute.values[json['attribute'] as int],

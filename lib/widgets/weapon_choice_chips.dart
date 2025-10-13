@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/character.dart';
+import '../models/resonator.dart';
 
 class WeaponChoiceChips extends StatelessWidget {
   final Weapon? selected;

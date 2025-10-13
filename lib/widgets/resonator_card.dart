@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../models/character.dart';
+import '../models/resonator.dart';
 
-class CharacterCard extends StatelessWidget {
-  final Character character;
+class ResonatorCard extends StatelessWidget {
+  final Resonator resonator;
   final VoidCallback onTap;
 
-  const CharacterCard({
+  const ResonatorCard({
     super.key,
-    required this.character,
+    required this.resonator,
     required this.onTap,
   });
 
@@ -28,11 +28,11 @@ class CharacterCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 32,
-                backgroundImage: AssetImage(character.portraitAsset),
+                backgroundImage: AssetImage(resonator.portraitAsset),
               ),
               const SizedBox(height: 12),
               Text(
-                character.name,
+                resonator.name,
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -46,18 +46,18 @@ class CharacterCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Tooltip(
-                    message: attributeLabel(character.attribute),
+                    message: attributeLabel(resonator.attribute),
                     child: Image.asset(
-                      attributeAsset(character.attribute),
+                      attributeAsset(resonator.attribute),
                       width: 24,
                       height: 24,
                     ),
                   ),
                   const SizedBox(width: 12),
                   Tooltip(
-                    message: weaponLabel(character.weapon),
+                    message: weaponLabel(resonator.weapon),
                     child: Image.asset(
-                      weaponAsset(character.weapon),
+                      weaponAsset(resonator.weapon),
                       width: 24,
                       height: 24,
                       color: Theme.of(context).colorScheme.primary,

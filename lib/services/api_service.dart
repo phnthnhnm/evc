@@ -13,17 +13,17 @@ class ApiService {
   // buff_full, char_full, er_tot_full, and for each stat and echo index 1..5 => value
   static Map<String, String> buildPayload({
     required String energyBuff, // None, Yangyang, Zhezhi
-    required String characterName, // e.g., Carlotta
+    required String resonatorName,
     required int totalER,
     required List<Map<String, double>> echoStatsList, // length 5
   }) {
     final map = <String, String>{};
     map['buff_full'] = energyBuff == 'None' ? 'None' : energyBuff;
-    map['char_full'] = characterName;
+    map['char_full'] = resonatorName;
     map['er_tot_full'] = totalER.toString();
 
     // All possible stat keys must be present, but stats not shown/unused should be 0.0.
-    // We'll ensure all keys for indices 1..5 exist, default 0.0 if not provided.
+    // Ensure all keys for indices 1..5 exist, default 0.0 if not provided.
     final statNames = allStats;
 
     for (int i = 0; i < 5; i++) {
@@ -40,13 +40,13 @@ class ApiService {
 
   static Future<EchoSet> submit({
     required String energyBuff,
-    required String characterName,
+    required String resonatorName,
     required int totalER,
     required List<Map<String, double>> echoStatsList,
   }) async {
     final payload = buildPayload(
       energyBuff: energyBuff,
-      characterName: characterName,
+      resonatorName: resonatorName,
       totalER: totalER,
       echoStatsList: echoStatsList,
     );
@@ -77,9 +77,7 @@ class ApiService {
       throw Exception('Incomplete result format.');
     }
 
-    // Extract scores line
     final scoresText = h2s[0].text.trim();
-    // Extract tiers line
     final tiersText = h2s[1].text.trim();
 
     // Example scoresText: "0.0: [0.0, 0.0, 0.0, 0.0, 0.0]"

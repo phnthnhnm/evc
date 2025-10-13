@@ -1,14 +1,9 @@
 class Echo {
-  // Selected stats and their numeric values
-  final Map<String, double> stats; // e.g., { "Crit Rate(%) 1": 8.1 }
+  final Map<String, double> stats;
   final double score;
   final String tier;
 
-  const Echo({
-    required this.stats,
-    required this.score,
-    required this.tier,
-  });
+  const Echo({required this.stats, required this.score, required this.tier});
 
   Echo copyWith({Map<String, double>? stats, double? score, String? tier}) {
     return Echo(
@@ -19,11 +14,7 @@ class Echo {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'stats': stats,
-      'score': score,
-      'tier': tier,
-    };
+    return {'stats': stats, 'score': score, 'tier': tier};
   }
 
   static Echo fromJson(Map<String, dynamic> json) {
@@ -38,11 +29,11 @@ class Echo {
 }
 
 class EchoSet {
-  final List<Echo> echoes; // 0..4 indexes represent Echo 1..5
+  final List<Echo> echoes;
   final double overallScore;
   final String overallTier;
   final String energyBuff; // None, Yangyang, Zhezhi
-  final int totalER; // e.g., 100
+  final int totalER;
 
   const EchoSet({
     required this.echoes,

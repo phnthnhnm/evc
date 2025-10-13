@@ -1,50 +1,50 @@
 import 'package:flutter/material.dart';
 
-import '../data/seed_characters.dart';
-import '../models/character.dart';
+import '../data/seed_resonators.dart';
+import '../models/resonator.dart';
 import '../services/storage_service.dart';
 import '../widgets/attribute_filter_chips.dart';
-import '../widgets/character_list_view.dart';
+import '../widgets/resonator_list_view.dart';
 import '../widgets/search_bar.dart' as search_bar;
 import '../widgets/weapon_choice_chips.dart';
 import 'settings/settings_screen.dart';
 
-class CharacterListScreen extends StatefulWidget {
-  const CharacterListScreen({super.key});
+class ResonatorListScreen extends StatefulWidget {
+  const ResonatorListScreen({super.key});
 
   @override
-  State<CharacterListScreen> createState() => _CharacterListScreenState();
+  State<ResonatorListScreen> createState() => _ResonatorListScreenState();
 }
 
-class _CharacterListScreenState extends State<CharacterListScreen> {
+class _ResonatorListScreenState extends State<ResonatorListScreen> {
   String _search = '';
   Attribute? _filterAttribute;
   Weapon? _filterWeapon;
-  late List<Character> _characters;
+  late List<Resonator> _resonators;
 
   @override
   void initState() {
     super.initState();
-    _characters = seedCharacters;
+    _resonators = seedResonators;
     _loadSaved();
   }
 
   Future<void> _loadSaved() async {
-    final futures = _characters
+    final futures = _resonators
         .map((c) => StorageService.loadEchoSet(c.id))
         .toList();
     final loaded = await Future.wait(futures);
     setState(() {
-      _characters = List.generate(_characters.length, (i) {
+      _resonators = List.generate(_resonators.length, (i) {
         final saved = loaded[i];
-        return _characters[i].copyWith(savedEchoSet: saved);
+        return _resonators[i].copyWith(savedEchoSet: saved);
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final filtered = _characters.where((c) {
+    final filtered = _resonators.where((c) {
       final matchesSearch = c.name.toLowerCase().contains(
         _search.toLowerCase().trim(),
       );
@@ -56,7 +56,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Characters'),
+        title: const Text('Resonators'),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -91,17 +91,17 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
               ],
             ),
             const SizedBox(height: 8),
-            CharacterListView(
-              characters: filtered,
-              onEchoSetSaved: (character, result) async {
+            ResonatorListView(
+              resonators: filtered,
+              onEchoSetSaved: (resonator, result) async {
                 if (result != null) {
-                  await StorageService.saveEchoSet(character.id, result);
+                  await StorageService.saveEchoSet(resonator.id, result);
                   setState(() {
-                    final idx = _characters.indexWhere(
-                      (c) => c.id == character.id,
+                    final idx = _resonators.indexWhere(
+                      (c) => c.id == resonator.id,
                     );
                     if (idx >= 0) {
-                      _characters[idx] = _characters[idx].copyWith(
+                      _resonators[idx] = _resonators[idx].copyWith(
                         savedEchoSet: result,
                       );
                     }

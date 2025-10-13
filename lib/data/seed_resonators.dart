@@ -1,8 +1,8 @@
-import '../models/character.dart';
+import '../models/resonator.dart';
 import 'stat.dart';
 
-final List<Character> seedCharacters = [
-  Character(
+final List<Resonator> seedResonators = [
+  Resonator(
     id: 'aalto-sub',
     name: 'Aalto (Sub-DPS)',
     attribute: Attribute.aero,
@@ -19,7 +19,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'aalto-dps',
     name: 'Aalto (DPS)',
     attribute: Attribute.aero,
@@ -36,7 +36,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'augusta',
     name: 'Augusta',
     attribute: Attribute.electro,
@@ -52,7 +52,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'baizhi',
     name: 'Baizhi',
     attribute: Attribute.glacio,
@@ -60,7 +60,7 @@ final List<Character> seedCharacters = [
     portraitAsset: 'assets/portraits/Baizhi.png',
     usableStats: [Stat.flatHp, Stat.hpPercent, Stat.erPercent],
   ),
-  Character(
+  Resonator(
     id: 'brant',
     name: 'Brant (sub DPS, ER/ER 3 cost setup)',
     attribute: Attribute.fusion,
@@ -76,7 +76,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'calcharo',
     name: 'Calcharo',
     attribute: Attribute.electro,
@@ -92,7 +92,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'camellya',
     name: 'Camellya',
     attribute: Attribute.havoc,
@@ -108,7 +108,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'cantarella',
     name: 'Cantarella',
     attribute: Attribute.havoc,
@@ -124,7 +124,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'carlotta',
     name: 'Carlotta',
     attribute: Attribute.glacio,
@@ -139,7 +139,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'cartethyia',
     name: 'Cartethyia',
     attribute: Attribute.aero,
@@ -156,7 +156,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'changli',
     name: 'Changli',
     attribute: Attribute.fusion,
@@ -173,7 +173,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'chixia',
     name: 'Chixia',
     attribute: Attribute.fusion,
@@ -189,7 +189,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'ciaccona',
     name: 'Ciaccona',
     attribute: Attribute.aero,
@@ -207,7 +207,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'danjin',
     name: 'Danjin',
     attribute: Attribute.havoc,
@@ -224,7 +224,7 @@ final List<Character> seedCharacters = [
       Stat.liberationPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'encore',
     name: 'Encore (Hypercarry)',
     attribute: Attribute.fusion,
@@ -241,7 +241,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'galbrena',
     name: 'Galbrena (Tentative)',
     attribute: Attribute.fusion,
@@ -256,7 +256,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'iuno-dps',
     name: 'Iuno (Main DPS)',
     attribute: Attribute.aero,
@@ -272,7 +272,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'iuno-sub',
     name: 'Iuno (Sub DPS)',
     attribute: Attribute.aero,
@@ -288,7 +288,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'jianxin',
     name: 'Jianxin (DPS/sub DPS)',
     attribute: Attribute.aero,
@@ -305,7 +305,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'jinhsi',
     name: 'Jinhsi',
     attribute: Attribute.spectro,
@@ -321,7 +321,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'jiyan',
     name: 'Jiyan',
     attribute: Attribute.aero,
@@ -337,7 +337,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'lingyang',
     name: 'Lingyang',
     attribute: Attribute.glacio,
@@ -354,7 +354,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'lumi',
     name: 'Lumi',
     attribute: Attribute.electro,
@@ -371,7 +371,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'lupa',
     name: 'Lupa',
     attribute: Attribute.fusion,
@@ -389,7 +389,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'mortefi',
     name: 'Mortefi',
     attribute: Attribute.fusion,
@@ -406,7 +406,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'phoebe-dps',
     name: 'Phoebe (Main DPS)',
     attribute: Attribute.spectro,
@@ -422,7 +422,7 @@ final List<Character> seedCharacters = [
       Stat.liberationPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'phoebe-sub',
     name: 'Phoebe (Sub DPS)',
     attribute: Attribute.spectro,
@@ -439,7 +439,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'phrolova',
     name: 'Phrolova',
     attribute: Attribute.havoc,
@@ -454,7 +454,7 @@ final List<Character> seedCharacters = [
       Stat.skillPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'roccia',
     name: 'Roccia',
     attribute: Attribute.havoc,
@@ -471,7 +471,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'rover-aero',
     name: 'Aero Rover',
     attribute: Attribute.aero,
@@ -488,7 +488,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'rover-havoc',
     name: 'Havoc Rover',
     attribute: Attribute.havoc,
@@ -505,7 +505,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'rover-spectro',
     name: 'Spectro Rover',
     attribute: Attribute.spectro,
@@ -522,7 +522,7 @@ final List<Character> seedCharacters = [
       Stat.liberationPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'sanhua',
     name: 'Sanhua',
     attribute: Attribute.glacio,
@@ -538,7 +538,7 @@ final List<Character> seedCharacters = [
       Stat.liberationPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'taoqi-sub',
     name: 'Taoqi (sub DPS)',
     attribute: Attribute.havoc,
@@ -554,7 +554,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'taoqi-sup',
     name: 'Taoqi (sup)',
     attribute: Attribute.havoc,
@@ -562,7 +562,7 @@ final List<Character> seedCharacters = [
     portraitAsset: 'assets/portraits/Taoqi.png',
     usableStats: [Stat.flatDef, Stat.defPercent, Stat.erPercent],
   ),
-  Character(
+  Resonator(
     id: 'shorekeeper',
     name: 'The Shorekeeper (No Fallacy)',
     attribute: Attribute.spectro,
@@ -577,7 +577,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'shorekeeper-fallacy',
     name: 'The Shorekeeper (With Fallacy)',
     attribute: Attribute.spectro,
@@ -592,7 +592,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'verina',
     name: 'Verina',
     attribute: Attribute.spectro,
@@ -600,7 +600,7 @@ final List<Character> seedCharacters = [
     portraitAsset: 'assets/portraits/Verina.png',
     usableStats: [Stat.flatAtk, Stat.atkPercent, Stat.erPercent],
   ),
-  Character(
+  Resonator(
     id: 'xiangli-yao',
     name: 'Xiangli Yao',
     attribute: Attribute.electro,
@@ -617,7 +617,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'yangyang',
     name: 'Yangyang',
     attribute: Attribute.aero,
@@ -633,7 +633,7 @@ final List<Character> seedCharacters = [
       Stat.liberationPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'yinlin',
     name: 'Yinlin',
     attribute: Attribute.electro,
@@ -651,7 +651,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'youhu',
     name: 'Youhu',
     attribute: Attribute.glacio,
@@ -659,7 +659,7 @@ final List<Character> seedCharacters = [
     portraitAsset: 'assets/portraits/Youhu.png',
     usableStats: [Stat.flatAtk, Stat.atkPercent, Stat.erPercent],
   ),
-  Character(
+  Resonator(
     id: 'yuanwu',
     name: 'Yuanwu',
     attribute: Attribute.electro,
@@ -675,7 +675,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'zani',
     name: 'Zani',
     attribute: Attribute.spectro,
@@ -692,7 +692,7 @@ final List<Character> seedCharacters = [
       Stat.erPercent,
     ],
   ),
-  Character(
+  Resonator(
     id: 'zhezhi',
     name: 'Zhezhi',
     attribute: Attribute.glacio,

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../models/character.dart';
 import '../models/echo.dart';
-import '../screens/character_detail_screen.dart';
-import '../widgets/character_card.dart';
-// ...existing code...
+import '../models/resonator.dart';
+import '../screens/resonator_detail_screen.dart';
+import 'resonator_card.dart';
 
-class CharacterListView extends StatelessWidget {
-  final List<Character> characters;
-  final Future<void> Function(Character, EchoSet?) onEchoSetSaved;
-  const CharacterListView({
+class ResonatorListView extends StatelessWidget {
+  final List<Resonator> resonators;
+  final Future<void> Function(Resonator, EchoSet?) onEchoSetSaved;
+  const ResonatorListView({
     super.key,
-    required this.characters,
+    required this.resonators,
     required this.onEchoSetSaved,
   });
 
@@ -23,20 +22,20 @@ class CharacterListView extends StatelessWidget {
         child: Wrap(
           spacing: 16,
           runSpacing: 16,
-          children: characters.map((character) {
+          children: resonators.map((resonator) {
             return SizedBox(
               width: 180,
-              child: CharacterCard(
-                character: character,
+              child: ResonatorCard(
+                resonator: resonator,
                 onTap: () async {
                   final result = await Navigator.push<EchoSet?>(
                     context,
                     MaterialPageRoute(
                       builder: (_) =>
-                          CharacterDetailScreen(character: character),
+                          ResonatorDetailScreen(resonator: resonator),
                     ),
                   );
-                  await onEchoSetSaved(character, result);
+                  await onEchoSetSaved(resonator, result);
                 },
               ),
             );

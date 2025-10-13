@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:html/parser.dart' as html_parser;
 import 'package:http/http.dart' as http;
 
-import '../data/data.dart';
+import '../data/stat.dart';
 import '../models/echo.dart';
 
 class ApiService {

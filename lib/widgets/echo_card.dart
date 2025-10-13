@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/data.dart';
+import '../data/stat.dart';
 import '../models/character.dart';
 import '../models/echo.dart';
 import '../widgets/stat_dropdown.dart';

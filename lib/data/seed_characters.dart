@@ -1,5 +1,5 @@
 import '../models/character.dart';
-import 'data.dart';
+import 'stat.dart';
 
 final List<Character> seedCharacters = [
   Character(

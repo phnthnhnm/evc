@@ -1,4 +1,3 @@
-// Stat enum and helpers
 enum Stat {
   critRate,
   critDamage,

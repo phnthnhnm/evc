@@ -1,4 +1,4 @@
-import '../data/data.dart';
+import '../data/stat.dart';
 import 'echo.dart';
 
 enum Weapon { broadblade, sword, pistols, gauntlets, rectifier }

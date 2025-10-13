@@ -5,6 +5,7 @@ import 'screens/character_list_screen.dart';
 import 'utils/theme_provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const EchoValueCalcApp());
 }
 

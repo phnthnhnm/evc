@@ -38,6 +38,8 @@ class CharacterCard extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
                 textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 10),
               Row(

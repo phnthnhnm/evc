@@ -3,6 +3,23 @@ import 'stat.dart';
 
 final List<Character> seedCharacters = [
   Character(
+    id: 'aalto-sub',
+    name: 'Aalto (Sub-DPS)',
+    attribute: Attribute.aero,
+    weapon: Weapon.pistols,
+    portraitAsset: 'assets/portraits/Aalto.png',
+    usableStats: [
+      Stat.critRate,
+      Stat.critDamage,
+      Stat.flatAtk,
+      Stat.atkPercent,
+      Stat.basicPercent,
+      Stat.skillPercent,
+      Stat.liberationPercent,
+      Stat.erPercent,
+    ],
+  ),
+  Character(
     id: 'carlotta',
     name: 'Carlotta',
     attribute: Attribute.glacio,

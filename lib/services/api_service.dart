@@ -54,7 +54,7 @@ class ApiService {
     final response = await http.post(
       Uri.parse(endpoint),
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: payload.map((k, v) => MapEntry(k, Uri.encodeQueryComponent(v))),
+      body: payload,
       encoding: Encoding.getByName('utf-8'),
     );
 

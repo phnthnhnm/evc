@@ -1,4 +1,4 @@
-import 'models/character.dart';
+import '../models/character.dart';
 
 const Map<Attribute, String> attributeLabels = {
   Attribute.aero: 'Aero',
@@ -98,55 +98,3 @@ const Map<Stat, List<double>> statRanges = {
   Stat.liberationPercent: [6.4, 7.1, 7.9, 8.6, 9.4, 10.1, 10.9, 11.6],
   Stat.erPercent: [6.8, 7.6, 8.4, 9.2, 10.0, 10.8, 11.6, 12.4],
 };
-
-// Characters and the stats they actually use
-final List<Character> seedCharacters = [
-  Character(
-    id: 'carlotta',
-    name: 'Carlotta',
-    attribute: Attribute.glacio,
-    weapon: Weapon.pistols,
-    portraitAsset: 'assets/portraits/Carlotta.png',
-    usableStats: [
-      Stat.critRate,
-      Stat.critDamage,
-      Stat.flatAtk,
-      Stat.atkPercent,
-      Stat.skillPercent,
-      Stat.erPercent,
-    ],
-  ),
-  Character(
-    id: 'yangyang',
-    name: 'Yangyang',
-    attribute: Attribute.aero,
-    weapon: Weapon.sword,
-    portraitAsset: 'assets/portraits/Yangyang.png',
-    usableStats: [
-      Stat.critRate,
-      Stat.critDamage,
-      Stat.flatAtk,
-      Stat.atkPercent,
-      Stat.basicPercent,
-      Stat.skillPercent,
-      Stat.liberationPercent,
-    ],
-  ),
-  Character(
-    id: 'zhezhi',
-    name: 'Zhezhi',
-    attribute: Attribute.glacio,
-    weapon: Weapon.rectifier,
-    portraitAsset: 'assets/portraits/Zhezhi.png',
-    usableStats: [
-      Stat.critRate,
-      Stat.critDamage,
-      Stat.flatAtk,
-      Stat.atkPercent,
-      Stat.basicPercent,
-      Stat.heavyPercent,
-      Stat.skillPercent,
-      Stat.erPercent,
-    ],
-  ),
-];

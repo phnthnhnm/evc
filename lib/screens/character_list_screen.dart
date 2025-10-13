@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data.dart';
+import '../data/seed_characters.dart';
 import '../models/character.dart';
 import '../services/storage_service.dart';
 import '../widgets/attribute_filter_chips.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // ...existing code...
-import '../data.dart';
+import '../data/data.dart';
 import '../models/character.dart';
 
 class CharacterHeader extends StatelessWidget {

@@ -75,17 +75,17 @@ String statAsset(Stat s) {
       return 'assets/stats/cr.png';
     case Stat.critDamage:
       return 'assets/stats/cd.png';
-    case Stat.atkPercent:
-      return 'assets/stats/atk.png';
     case Stat.flatAtk:
       return 'assets/stats/atk.png';
-    case Stat.hpPercent:
-      return 'assets/stats/hp.png';
+    case Stat.atkPercent:
+      return 'assets/stats/atk.png';
     case Stat.flatHp:
       return 'assets/stats/hp.png';
-    case Stat.defPercent:
-      return 'assets/stats/def.png';
+    case Stat.hpPercent:
+      return 'assets/stats/hp.png';
     case Stat.flatDef:
+      return 'assets/stats/def.png';
+    case Stat.defPercent:
       return 'assets/stats/def.png';
     case Stat.basicPercent:
       return 'assets/stats/basic.png';

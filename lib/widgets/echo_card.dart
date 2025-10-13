@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/stat.dart';
 import '../models/character.dart';
 import '../models/echo.dart';
+import '../utils/tier_color_utils.dart';
 import '../widgets/stat_dropdown.dart';
 
 class EchoCard extends StatelessWidget {
@@ -84,12 +85,62 @@ class EchoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Chip(
-                    label: Text('Score: ${lastResult!.echoes[index].score}'),
+                    label: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Score: ',
+                            style: Theme.of(context).chipTheme.labelStyle,
+                          ),
+                          TextSpan(
+                            text: '${lastResult!.echoes[index].score}',
+                            style:
+                                (Theme.of(
+                                  context,
+                                ).chipTheme.labelStyle?.copyWith(
+                                  color: getTierColor(
+                                    lastResult!.echoes[index].tier,
+                                  ),
+                                )) ??
+                                TextStyle(
+                                  color: getTierColor(
+                                    lastResult!.echoes[index].tier,
+                                  ),
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
                     avatar: const Icon(Icons.star),
                   ),
                   SizedBox(height: 8),
                   Chip(
-                    label: Text('Tier: ${lastResult!.echoes[index].tier}'),
+                    label: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Tier: ',
+                            style: Theme.of(context).chipTheme.labelStyle,
+                          ),
+                          TextSpan(
+                            text: lastResult!.echoes[index].tier,
+                            style:
+                                (Theme.of(
+                                  context,
+                                ).chipTheme.labelStyle?.copyWith(
+                                  color: getTierColor(
+                                    lastResult!.echoes[index].tier,
+                                  ),
+                                )) ??
+                                TextStyle(
+                                  color: getTierColor(
+                                    lastResult!.echoes[index].tier,
+                                  ),
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
                     avatar: const Icon(Icons.military_tech),
                   ),
                 ],

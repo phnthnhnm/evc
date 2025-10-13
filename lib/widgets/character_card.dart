@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../data.dart';
 import '../models/character.dart';
 
 class CharacterCard extends StatelessWidget {
@@ -43,17 +44,23 @@ class CharacterCard extends StatelessWidget {
                     const SizedBox(height: 6),
                     Row(
                       children: [
-                        Image.asset(
-                          attributeAsset(character.attribute),
-                          width: 24,
-                          height: 24,
+                        Tooltip(
+                          message: attributeLabels[character.attribute],
+                          child: Image.asset(
+                            attributeAsset(character.attribute),
+                            width: 24,
+                            height: 24,
+                          ),
                         ),
                         const SizedBox(width: 12),
-                        Image.asset(
-                          weaponAsset(character.weapon),
-                          width: 24,
-                          height: 24,
-                          color: Theme.of(context).colorScheme.primary,
+                        Tooltip(
+                          message: weaponLabels[character.weapon],
+                          child: Image.asset(
+                            weaponAsset(character.weapon),
+                            width: 24,
+                            height: 24,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
                       ],
                     ),

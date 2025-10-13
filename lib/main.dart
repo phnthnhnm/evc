@@ -109,10 +109,13 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
             runSpacing: 8,
             children: [
               FilterChip(
-                label: Image.asset(
-                  attributeAsset(Attribute.aero),
-                  width: 24,
-                  height: 24,
+                label: Tooltip(
+                  message: attributeLabels[Attribute.aero],
+                  child: Image.asset(
+                    attributeAsset(Attribute.aero),
+                    width: 24,
+                    height: 24,
+                  ),
                 ),
                 selected: _filterAttribute == Attribute.aero,
                 onSelected: (selected) => setState(() {
@@ -123,10 +126,13 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 }),
               ),
               FilterChip(
-                label: Image.asset(
-                  attributeAsset(Attribute.electro),
-                  width: 24,
-                  height: 24,
+                label: Tooltip(
+                  message: attributeLabels[Attribute.electro],
+                  child: Image.asset(
+                    attributeAsset(Attribute.electro),
+                    width: 24,
+                    height: 24,
+                  ),
                 ),
                 selected: _filterAttribute == Attribute.electro,
                 onSelected: (selected) => setState(() {
@@ -137,10 +143,13 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 }),
               ),
               FilterChip(
-                label: Image.asset(
-                  attributeAsset(Attribute.fusion),
-                  width: 24,
-                  height: 24,
+                label: Tooltip(
+                  message: attributeLabels[Attribute.fusion],
+                  child: Image.asset(
+                    attributeAsset(Attribute.fusion),
+                    width: 24,
+                    height: 24,
+                  ),
                 ),
                 selected: _filterAttribute == Attribute.fusion,
                 onSelected: (selected) => setState(() {
@@ -151,10 +160,13 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 }),
               ),
               FilterChip(
-                label: Image.asset(
-                  attributeAsset(Attribute.glacio),
-                  width: 24,
-                  height: 24,
+                label: Tooltip(
+                  message: attributeLabels[Attribute.glacio],
+                  child: Image.asset(
+                    attributeAsset(Attribute.glacio),
+                    width: 24,
+                    height: 24,
+                  ),
                 ),
                 selected: _filterAttribute == Attribute.glacio,
                 onSelected: (selected) => setState(() {
@@ -165,10 +177,13 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 }),
               ),
               FilterChip(
-                label: Image.asset(
-                  attributeAsset(Attribute.havoc),
-                  width: 24,
-                  height: 24,
+                label: Tooltip(
+                  message: attributeLabels[Attribute.havoc],
+                  child: Image.asset(
+                    attributeAsset(Attribute.havoc),
+                    width: 24,
+                    height: 24,
+                  ),
                 ),
                 selected: _filterAttribute == Attribute.havoc,
                 onSelected: (selected) => setState(() {
@@ -179,10 +194,13 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 }),
               ),
               FilterChip(
-                label: Image.asset(
-                  attributeAsset(Attribute.spectro),
-                  width: 24,
-                  height: 24,
+                label: Tooltip(
+                  message: attributeLabels[Attribute.spectro],
+                  child: Image.asset(
+                    attributeAsset(Attribute.spectro),
+                    width: 24,
+                    height: 24,
+                  ),
                 ),
                 selected: _filterAttribute == Attribute.spectro,
                 onSelected: (selected) => setState(() {
@@ -194,11 +212,14 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
               ),
               const SizedBox(width: 12),
               ChoiceChip(
-                label: Image.asset(
-                  weaponAsset(Weapon.broadblade),
-                  width: 24,
-                  height: 24,
-                  color: Theme.of(context).colorScheme.primary,
+                label: Tooltip(
+                  message: weaponLabels[Weapon.broadblade],
+                  child: Image.asset(
+                    weaponAsset(Weapon.broadblade),
+                    width: 24,
+                    height: 24,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
                 selected: _filterWeapon == Weapon.broadblade,
                 onSelected: (selected) => setState(() {
@@ -208,11 +229,14 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 }),
               ),
               ChoiceChip(
-                label: Image.asset(
-                  weaponAsset(Weapon.sword),
-                  width: 24,
-                  height: 24,
-                  color: Theme.of(context).colorScheme.primary,
+                label: Tooltip(
+                  message: weaponLabels[Weapon.sword],
+                  child: Image.asset(
+                    weaponAsset(Weapon.sword),
+                    width: 24,
+                    height: 24,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
                 selected: _filterWeapon == Weapon.sword,
                 onSelected: (selected) => setState(() {
@@ -222,11 +246,14 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 }),
               ),
               ChoiceChip(
-                label: Image.asset(
-                  weaponAsset(Weapon.pistols),
-                  width: 24,
-                  height: 24,
-                  color: Theme.of(context).colorScheme.primary,
+                label: Tooltip(
+                  message: weaponLabels[Weapon.pistols],
+                  child: Image.asset(
+                    weaponAsset(Weapon.pistols),
+                    width: 24,
+                    height: 24,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
                 selected: _filterWeapon == Weapon.pistols,
                 onSelected: (selected) => setState(() {
@@ -236,11 +263,14 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 }),
               ),
               ChoiceChip(
-                label: Image.asset(
-                  weaponAsset(Weapon.gauntlets),
-                  width: 24,
-                  height: 24,
-                  color: Theme.of(context).colorScheme.primary,
+                label: Tooltip(
+                  message: weaponLabels[Weapon.gauntlets],
+                  child: Image.asset(
+                    weaponAsset(Weapon.gauntlets),
+                    width: 24,
+                    height: 24,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
                 selected: _filterWeapon == Weapon.gauntlets,
                 onSelected: (selected) => setState(() {
@@ -250,11 +280,14 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                 }),
               ),
               ChoiceChip(
-                label: Image.asset(
-                  weaponAsset(Weapon.rectifier),
-                  width: 24,
-                  height: 24,
-                  color: Theme.of(context).colorScheme.primary,
+                label: Tooltip(
+                  message: weaponLabels[Weapon.rectifier],
+                  child: Image.asset(
+                    weaponAsset(Weapon.rectifier),
+                    width: 24,
+                    height: 24,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
                 selected: _filterWeapon == Weapon.rectifier,
                 onSelected: (selected) => setState(() {
@@ -499,7 +532,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
   Widget build(BuildContext context) {
     final c = widget.character;
     return Scaffold(
-      appBar: AppBar(title: Text('${c.name} • ${attributeLabel(c.attribute)}')),
+      appBar: AppBar(title: Text('Echo Builds')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -542,19 +575,25 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                               const SizedBox(height: 6),
                               Row(
                                 children: [
-                                  Image.asset(
-                                    attributeAsset(c.attribute),
-                                    width: 24,
-                                    height: 24,
+                                  Tooltip(
+                                    message: attributeLabels[c.attribute],
+                                    child: Image.asset(
+                                      attributeAsset(c.attribute),
+                                      width: 24,
+                                      height: 24,
+                                    ),
                                   ),
                                   const SizedBox(width: 12),
-                                  Image.asset(
-                                    weaponAsset(c.weapon),
-                                    width: 24,
-                                    height: 24,
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.primary,
+                                  Tooltip(
+                                    message: weaponLabels[c.weapon],
+                                    child: Image.asset(
+                                      weaponAsset(c.weapon),
+                                      width: 24,
+                                      height: 24,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
                                   ),
                                 ],
                               ),

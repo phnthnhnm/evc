@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-// ...existing code...
-import '../data/data.dart';
 import '../models/character.dart';
 
 class CharacterHeader extends StatelessWidget {
@@ -45,7 +43,7 @@ class CharacterHeader extends StatelessWidget {
               Row(
                 children: [
                   Tooltip(
-                    message: attributeLabels[c.attribute],
+                    message: attributeLabel(c.attribute),
                     child: Image.asset(
                       attributeAsset(c.attribute),
                       width: 24,
@@ -54,7 +52,7 @@ class CharacterHeader extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Tooltip(
-                    message: weaponLabels[c.weapon],
+                    message: weaponLabel(c.weapon),
                     child: Image.asset(
                       weaponAsset(c.weapon),
                       width: 24,

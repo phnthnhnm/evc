@@ -1,22 +1,3 @@
-import '../models/character.dart';
-
-const Map<Attribute, String> attributeLabels = {
-  Attribute.aero: 'Aero',
-  Attribute.electro: 'Electro',
-  Attribute.fusion: 'Fusion',
-  Attribute.glacio: 'Glacio',
-  Attribute.havoc: 'Havoc',
-  Attribute.spectro: 'Spectro',
-};
-
-const Map<Weapon, String> weaponLabels = {
-  Weapon.broadblade: 'Broadblade',
-  Weapon.sword: 'Sword',
-  Weapon.pistols: 'Pistols',
-  Weapon.gauntlets: 'Gauntlets',
-  Weapon.rectifier: 'Rectifier',
-};
-
 // Stat enum and helpers
 enum Stat {
   critRate,

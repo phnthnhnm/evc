@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../data/data.dart';
 import '../models/character.dart';
 
 class WeaponChoiceChips extends StatelessWidget {
@@ -21,7 +20,7 @@ class WeaponChoiceChips extends StatelessWidget {
         for (final weapon in weapons)
           ChoiceChip(
             label: Tooltip(
-              message: weaponLabels[weapon],
+              message: weaponLabel(weapon),
               child: Image.asset(
                 weaponAsset(weapon),
                 width: 24,

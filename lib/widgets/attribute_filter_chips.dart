@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../data/data.dart';
 import '../models/character.dart';
 
 class AttributeFilterChips extends StatelessWidget {
@@ -22,7 +21,7 @@ class AttributeFilterChips extends StatelessWidget {
         for (final attr in attributes)
           FilterChip(
             label: Tooltip(
-              message: attributeLabels[attr],
+              message: attributeLabel(attr),
               child: Image.asset(attributeAsset(attr), width: 24, height: 24),
             ),
             selected: selected == attr,

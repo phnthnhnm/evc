@@ -6,7 +6,10 @@ import '../models/echo.dart';
 import '../services/api_service.dart';
 import '../services/storage_service.dart';
 import '../utils/toast_utils.dart';
-import '../widgets/echo_card.dart';
+import '../widgets/character_header.dart';
+import '../widgets/echo_cards_row.dart';
+import '../widgets/energy_buff_row.dart';
+import '../widgets/result_chips.dart';
 
 class CharacterDetailScreen extends StatefulWidget {
   final Character character;
@@ -84,9 +87,8 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final c = widget.character;
     return Scaffold(
-      appBar: AppBar(title: Text('Echo Builds')),
+      appBar: AppBar(title: const Text('Echo Builds')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -96,134 +98,25 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                 padding: const EdgeInsets.all(12),
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 28,
-                          backgroundColor: Colors.transparent,
-                          backgroundImage: c.portraitAsset.isNotEmpty
-                              ? AssetImage(c.portraitAsset)
-                              : null,
-                          child: c.portraitAsset.isEmpty
-                              ? Text(
-                                  c.name.isNotEmpty ? c.name[0] : '?',
-                                  style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                              : null,
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                c.name,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const SizedBox(height: 6),
-                              Row(
-                                children: [
-                                  Tooltip(
-                                    message: attributeLabels[c.attribute],
-                                    child: Image.asset(
-                                      attributeAsset(c.attribute),
-                                      width: 24,
-                                      height: 24,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Tooltip(
-                                    message: weaponLabels[c.weapon],
-                                    child: Image.asset(
-                                      weaponAsset(c.weapon),
-                                      width: 24,
-                                      height: 24,
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.primary,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    CharacterHeader(character: widget.character),
                     const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        const Text('Energy buffs from outros:'),
-                        const SizedBox(width: 12),
-                        DropdownButton<String>(
-                          value: energyBuff,
-                          items: const [
-                            DropdownMenuItem(
-                              value: 'None',
-                              child: Text('None'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'Yangyang',
-                              child: Text('Yangyang'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'Zhezhi',
-                              child: Text('Zhezhi'),
-                            ),
-                          ],
-                          onChanged: (v) =>
-                              setState(() => energyBuff = v ?? 'None'),
-                        ),
-                        const Spacer(),
-                        const Text('Total ER of the build:'),
-                        const SizedBox(width: 12),
-                        SizedBox(
-                          width: 90,
-                          child: TextFormField(
-                            initialValue: totalER.toString(),
-                            keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              isDense: true,
-                            ),
-                            onChanged: (v) {
-                              final parsed = int.tryParse(v);
-                              if (parsed != null) {
-                                setState(() => totalER = parsed);
-                              }
-                            },
-                          ),
-                        ),
-                      ],
+                    EnergyBuffRow(
+                      energyBuff: energyBuff,
+                      onBuffChanged: (v) =>
+                          setState(() => energyBuff = v ?? 'None'),
+                      totalER: totalER,
+                      onERChanged: (v) => setState(() => totalER = v),
                     ),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 12),
-            Row(
-              children: List.generate(
-                5,
-                (i) => Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6),
-                    child: EchoCard(
-                      index: i,
-                      character: widget.character,
-                      lastResult: lastResult,
-                      echoStats: echoStats[i],
-                      onStatChanged: (stat, value) =>
-                          _setStatValue(i, stat, value),
-                    ),
-                  ),
-                ),
-              ),
+            EchoCardsRow(
+              character: widget.character,
+              echoStats: echoStats,
+              lastResult: lastResult,
+              onStatChanged: (i, stat, value) => _setStatValue(i, stat, value),
             ),
             if (error != null) ...[
               const SizedBox(height: 8),
@@ -245,18 +138,9 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
             if (loading) const CircularProgressIndicator(),
             const Spacer(),
             if (lastResult != null)
-              Wrap(
-                spacing: 8,
-                children: [
-                  Chip(
-                    label: Text('Overall Score: ${lastResult!.overallScore}'),
-                    avatar: const Icon(Icons.workspace_premium),
-                  ),
-                  Chip(
-                    label: Text('Overall Tier: ${lastResult!.overallTier}'),
-                    avatar: const Icon(Icons.emoji_events),
-                  ),
-                ],
+              ResultChips(
+                overallScore: lastResult!.overallScore,
+                overallTier: lastResult!.overallTier,
               ),
           ],
         ),

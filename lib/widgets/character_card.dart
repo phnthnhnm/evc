@@ -21,40 +21,48 @@ class CharacterCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 28,
-                  backgroundImage: AssetImage(character.portraitUrl),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(character.name,
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w600)),
-                      const SizedBox(height: 6),
-                      Row(
-                        children: [
-                          Image.asset(attributeAsset(character.attribute),
-                              width: 20, height: 20),
-                          const SizedBox(width: 6),
-                          const SizedBox(width: 16),
-                          Image.asset(weaponAsset(character.weapon),
-                              width: 20,
-                              height: 20,
-                              color: Theme.of(context).colorScheme.primary),
-                          const SizedBox(width: 6),
-                        ],
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 28,
+                backgroundImage: AssetImage(character.portraitUrl),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      character.name,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 6),
+                    Row(
+                      children: [
+                        Image.asset(
+                          attributeAsset(character.attribute),
+                          width: 24,
+                          height: 24,
+                        ),
+                        const SizedBox(width: 12),
+                        Image.asset(
+                          weaponAsset(character.weapon),
+                          width: 24,
+                          height: 24,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ],
-            )),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -62,7 +62,7 @@ Full credit goes to [AstyuteChick](https://github.com/AstyuteChick) for making t
 
 ## How to Use
 
-For instructions, just check out the [official guide](https://www.echovaluecalc.com/instruct) from the Echo Value Calculator website.
+For instructions, check out the [official guide](https://www.echovaluecalc.com/instruct) from the Echo Value Calculator website, specifically the "Full Score" section.
 
 ## File Structure
 

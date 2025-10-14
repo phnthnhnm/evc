@@ -41,8 +41,10 @@ Full credit goes to [AstyuteChick](https://github.com/AstyuteChick) for making t
    ```sh
    flutter pub get
    ```
+   
 > [!WARNING]
-> **Disclaimer:** Only the Windows version has been tested so far. Android version coming soon™!
+> **Disclaimer:** Only the Windows version has been tested so far. Other desktop versions (MacOS and Linux) should still work as I don't use any Windows-specific APIs. No guarantees for mobile (too different layout) and web (CORS issue).  
+
 3. **Run the app:**
 
 - For mobile:

@@ -11,7 +11,8 @@ Full credit goes to [AstyuteChick](https://github.com/AstyuteChick) for making t
 ## Screenshots
 
 ![Main Menu](.github/images/main-menu.png)
-![Build Screen](.github/images/build-screen.png)
+![Echo Build Screen](.github/images/build-screen.png)
+![Compare Echoes Screen](.github/images/compare-screen.png)
 
 ## Getting Started
 

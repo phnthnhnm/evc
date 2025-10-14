@@ -52,8 +52,8 @@ class ApiService {
       echoStatsList: echoStatsList,
     );
     if (kDebugMode) {
-      print('[ApiService] Request payload:');
-      payload.forEach((k, v) => print('  $k: $v'));
+      debugPrint('[ApiService] Request payload:');
+      payload.forEach((k, v) => debugPrint('  $k: $v'));
     }
 
     final response = await http.post(

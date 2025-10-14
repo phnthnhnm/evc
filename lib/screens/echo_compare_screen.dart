@@ -6,6 +6,7 @@ import '../models/resonator.dart';
 import '../services/api_service.dart';
 import '../widgets/comparison_sign.dart';
 import '../widgets/echo_card.dart';
+import '../widgets/loading_action_button.dart';
 import '../widgets/total_er_input_field.dart';
 
 class EchoCompareScreen extends StatefulWidget {
@@ -29,6 +30,7 @@ class EchoCompareScreen extends StatefulWidget {
 class _EchoCompareScreenState extends State<EchoCompareScreen> {
   Map<String, double> newEchoStats = {};
   bool submitted = false;
+  bool loading = false;
   Echo? newEchoResult;
   late TextEditingController _erController;
   double _enteredTotalER = 0.0;
@@ -56,6 +58,7 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
   Future<void> handleSubmit() async {
     setState(() {
       submitted = true;
+      loading = true;
     });
     // Prepare 5-echo payload, replacing the selected echo's stats
     List<Map<String, double>> echoStatsList = List.generate(5, (i) {
@@ -86,6 +89,10 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
     } catch (e) {
       setState(() {
         newEchoResult = Echo(stats: remappedStats, score: 0.0, tier: 'Error');
+      });
+    } finally {
+      setState(() {
+        loading = false;
       });
     }
   }
@@ -188,9 +195,11 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 32.0),
               child: Center(
-                child: ElevatedButton(
+                child: LoadingActionButton(
+                  loading: loading,
                   onPressed: handleSubmit,
-                  child: Text(submitted ? 'Compare Again' : 'Compare'),
+                  icon: const Icon(Icons.compare_arrows),
+                  text: submitted ? 'Compare Again' : 'Compare',
                 ),
               ),
             ),

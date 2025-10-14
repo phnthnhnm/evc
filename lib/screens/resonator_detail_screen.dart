@@ -8,6 +8,7 @@ import '../services/storage_service.dart';
 import '../utils/toast_utils.dart';
 import '../widgets/echo_cards_row.dart';
 import '../widgets/energy_buff_row.dart';
+import '../widgets/loading_action_button.dart';
 import '../widgets/resonator_header.dart';
 import '../widgets/result_chips.dart';
 import 'echo_compare_screen.dart';
@@ -73,7 +74,7 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
         lastResult = result;
       });
       if (mounted) {
-        showTopRightToast(context, 'Submitted and saved');
+        showTopRightToast(context, 'Submitted and saved!');
       }
     } catch (e) {
       setState(() {
@@ -89,7 +90,7 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Echo Builds')),
+      appBar: AppBar(title: const Text('Echo Build')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -144,13 +145,13 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Row(
           children: [
-            ElevatedButton.icon(
-              onPressed: loading ? null : _submit,
+            LoadingActionButton(
+              loading: loading,
+              onPressed: _submit,
               icon: const Icon(Icons.send),
-              label: const Text('Submit'),
+              text: 'Submit',
             ),
             const SizedBox(width: 12),
-            if (loading) const CircularProgressIndicator(),
             const Spacer(),
             if (lastResult != null)
               ResultChips(

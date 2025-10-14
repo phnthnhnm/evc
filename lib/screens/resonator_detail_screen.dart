@@ -10,6 +10,7 @@ import '../widgets/echo_cards_row.dart';
 import '../widgets/energy_buff_row.dart';
 import '../widgets/resonator_header.dart';
 import '../widgets/result_chips.dart';
+import 'echo_compare_screen.dart';
 
 class ResonatorDetailScreen extends StatefulWidget {
   final Resonator resonator;
@@ -117,6 +118,20 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
               echoStats: echoStats,
               lastResult: lastResult,
               onStatChanged: (i, stat, value) => _setStatValue(i, stat, value),
+              onCompare: (i) {
+                if (lastResult == null) return;
+                final echo = lastResult!.echoes[i];
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => EchoCompareScreen(
+                      resonator: widget.resonator,
+                      currentEcho: echo,
+                      echoIndex: i,
+                      lastResult: lastResult!,
+                    ),
+                  ),
+                );
+              },
             ),
             if (error != null) ...[
               const SizedBox(height: 8),

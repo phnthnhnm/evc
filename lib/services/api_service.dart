@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:html/parser.dart' as html_parser;
 import 'package:http/http.dart' as http;
 
@@ -50,6 +51,10 @@ class ApiService {
       totalER: totalER,
       echoStatsList: echoStatsList,
     );
+    if (kDebugMode) {
+      print('[ApiService] Request payload:');
+      payload.forEach((k, v) => print('  $k: $v'));
+    }
 
     final response = await http.post(
       Uri.parse(endpoint),

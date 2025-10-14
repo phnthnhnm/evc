@@ -8,12 +8,15 @@ class EchoCardsRow extends StatelessWidget {
   final List<Map<String, double>> echoStats;
   final dynamic lastResult;
   final void Function(int, dynamic, double) onStatChanged;
+  final void Function(int)? onCompare;
+
   const EchoCardsRow({
     super.key,
     required this.resonator,
     required this.echoStats,
     required this.lastResult,
     required this.onStatChanged,
+    this.onCompare,
   });
 
   @override
@@ -30,6 +33,7 @@ class EchoCardsRow extends StatelessWidget {
               lastResult: lastResult,
               echoStats: echoStats[i],
               onStatChanged: (stat, value) => onStatChanged(i, stat, value),
+              onCompare: onCompare != null ? () => onCompare!(i) : null,
             ),
           ),
         ),

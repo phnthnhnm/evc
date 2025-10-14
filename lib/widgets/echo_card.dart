@@ -12,6 +12,8 @@ class EchoCard extends StatelessWidget {
   final EchoSet? lastResult;
   final Map<String, double> echoStats;
   final void Function(Stat stat, double value) onStatChanged;
+  final VoidCallback? onCompare;
+  final String? customTitle;
 
   const EchoCard({
     super.key,
@@ -20,6 +22,8 @@ class EchoCard extends StatelessWidget {
     required this.lastResult,
     required this.echoStats,
     required this.onStatChanged,
+    this.onCompare,
+    this.customTitle,
   });
 
   double _getSelected(Stat stat) {
@@ -37,9 +41,26 @@ class EchoCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Echo ${index + 1}',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    customTitle ?? 'Echo ${index + 1}',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                if (onCompare != null)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: onCompare,
+                      child: const Text('Compare'),
+                    ),
+                  ),
+              ],
             ),
             const SizedBox(height: 8),
             Wrap(

@@ -4,7 +4,9 @@ import '../data/stat.dart';
 import '../models/echo.dart';
 import '../models/resonator.dart';
 import '../services/api_service.dart';
+import '../widgets/comparison_sign.dart';
 import '../widgets/echo_card.dart';
+import '../widgets/total_er_input_field.dart';
 
 class EchoCompareScreen extends StatefulWidget {
   final Resonator resonator;
@@ -28,11 +30,21 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
   Map<String, double> newEchoStats = {};
   bool submitted = false;
   Echo? newEchoResult;
+  late TextEditingController _erController;
+  double _enteredTotalER = 0.0;
 
   @override
   void initState() {
     super.initState();
     newEchoResult = Echo(stats: {}, score: 0.0, tier: 'Unbuilt');
+    _enteredTotalER = widget.lastResult.totalER;
+    _erController = TextEditingController(text: _enteredTotalER.toString());
+  }
+
+  @override
+  void dispose() {
+    _erController.dispose();
+    super.dispose();
   }
 
   void _onStatChanged(String statKey, double value) {
@@ -64,7 +76,7 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
       final result = await ApiService.submit(
         energyBuff: widget.lastResult.energyBuff,
         resonatorName: widget.resonator.name,
-        totalER: widget.lastResult.totalER,
+        totalER: _enteredTotalER,
         echoStatsList: echoStatsList,
       );
       final echo = result.echoes[widget.echoIndex];
@@ -99,6 +111,20 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Row(
+              children: [
+                const Spacer(),
+                TotalERInputField(
+                  controller: _erController,
+                  onChanged: (v) {
+                    setState(() {
+                      _enteredTotalER = v;
+                    });
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
             IntrinsicHeight(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -129,18 +155,7 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: 96,
-                    child: Center(
-                      child: Text(
-                        compareSign,
-                        style: const TextStyle(
-                          fontSize: 64,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+                  SizedBox(width: 96, child: ComparisonSign(sign: compareSign)),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

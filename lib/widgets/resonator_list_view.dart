@@ -26,6 +26,7 @@ class ResonatorListView extends StatelessWidget {
             return SizedBox(
               width: 180,
               child: ResonatorCard(
+                key: ValueKey(resonator.id),
                 resonator: resonator,
                 onTap: () async {
                   final result = await Navigator.push<EchoSet?>(

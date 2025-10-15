@@ -101,71 +101,78 @@ class EchoCard extends StatelessWidget {
               }).toList(),
             ),
             const SizedBox(height: 8),
-            if (lastResult != null)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Chip(
-                    label: Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Score: ',
-                            style: Theme.of(context).chipTheme.labelStyle,
-                          ),
-                          TextSpan(
-                            text: '${lastResult!.echoes[index].score}',
-                            style:
-                                (Theme.of(
-                                  context,
-                                ).chipTheme.labelStyle?.copyWith(
-                                  color: getTierColor(
-                                    lastResult!.echoes[index].tier,
-                                  ),
-                                )) ??
-                                TextStyle(
-                                  color: getTierColor(
-                                    lastResult!.echoes[index].tier,
-                                  ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Chip(
+                  label: Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Score: ',
+                          style: Theme.of(context).chipTheme.labelStyle,
+                        ),
+                        TextSpan(
+                          text: lastResult != null
+                              ? '${lastResult!.echoes[index].score}'
+                              : '0.0',
+                          style:
+                              (Theme.of(context).chipTheme.labelStyle?.copyWith(
+                                color: getTierColor(
+                                  lastResult != null
+                                      ? lastResult!.echoes[index].tier
+                                      : 'Unbuilt',
                                 ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    avatar: const Icon(Icons.star),
-                  ),
-                  SizedBox(height: 8),
-                  Chip(
-                    label: Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Tier: ',
-                            style: Theme.of(context).chipTheme.labelStyle,
-                          ),
-                          TextSpan(
-                            text: lastResult!.echoes[index].tier,
-                            style:
-                                (Theme.of(
-                                  context,
-                                ).chipTheme.labelStyle?.copyWith(
-                                  color: getTierColor(
-                                    lastResult!.echoes[index].tier,
-                                  ),
-                                )) ??
-                                TextStyle(
-                                  color: getTierColor(
-                                    lastResult!.echoes[index].tier,
-                                  ),
+                              )) ??
+                              TextStyle(
+                                color: getTierColor(
+                                  lastResult != null
+                                      ? lastResult!.echoes[index].tier
+                                      : 'Unbuilt',
                                 ),
-                          ),
-                        ],
-                      ),
+                              ),
+                        ),
+                      ],
                     ),
-                    avatar: const Icon(Icons.military_tech),
                   ),
-                ],
-              ),
+                  avatar: const Icon(Icons.star),
+                ),
+                SizedBox(height: 8),
+                Chip(
+                  label: Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Tier: ',
+                          style: Theme.of(context).chipTheme.labelStyle,
+                        ),
+                        TextSpan(
+                          text: lastResult != null
+                              ? lastResult!.echoes[index].tier
+                              : 'Unbuilt',
+                          style:
+                              (Theme.of(context).chipTheme.labelStyle?.copyWith(
+                                color: getTierColor(
+                                  lastResult != null
+                                      ? lastResult!.echoes[index].tier
+                                      : 'Unbuilt',
+                                ),
+                              )) ??
+                              TextStyle(
+                                color: getTierColor(
+                                  lastResult != null
+                                      ? lastResult!.echoes[index].tier
+                                      : 'Unbuilt',
+                                ),
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  avatar: const Icon(Icons.military_tech),
+                ),
+              ],
+            ),
           ],
         ),
       ),

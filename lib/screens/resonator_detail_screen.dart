@@ -173,11 +173,10 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
             ),
             const SizedBox(width: 12),
             const Spacer(),
-            if (lastResult != null)
-              ResultChips(
-                overallScore: lastResult!.overallScore,
-                overallTier: lastResult!.overallTier,
-              ),
+            ResultChips(
+              overallScore: lastResult?.overallScore ?? 0.0,
+              overallTier: lastResult?.overallTier ?? 'Unbuilt',
+            ),
           ],
         ),
       ),

@@ -22,6 +22,7 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
   String _search = '';
   Attribute? _filterAttribute;
   Weapon? _filterWeapon;
+  String? _filterEchoTier;
 
   @override
   void initState() {
@@ -44,7 +45,14 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
               _filterAttribute == null || c.attribute == _filterAttribute;
           final matchesWeapon =
               _filterWeapon == null || c.weapon == _filterWeapon;
-          return matchesSearch && matchesAttr && matchesWeapon;
+          final echoSet = echoSets[c.id];
+          final matchesEchoTier =
+              _filterEchoTier == null ||
+              (echoSet?.echoes.any((e) => e.tier == _filterEchoTier) ?? false);
+          return matchesSearch &&
+              matchesAttr &&
+              matchesWeapon &&
+              matchesEchoTier;
         })
         .map((resonator) {
           return resonator.copyWith(savedEchoSet: echoSets[resonator.id]);
@@ -153,6 +161,32 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
                     ),
                   ],
                   onChanged: (weapon) => setState(() => _filterWeapon = weapon),
+                ),
+                const SizedBox(width: 24),
+                DropdownButton<String>(
+                  value: _filterEchoTier,
+                  hint: const Text('Echo Tier'),
+                  items: [
+                    const DropdownMenuItem<String>(
+                      value: null,
+                      child: Text('All Tiers'),
+                    ),
+                    ...[
+                      'Godly',
+                      'Extreme',
+                      'High Investment',
+                      'Well Built',
+                      'Decent',
+                      'Base Level',
+                      'Unbuilt',
+                    ].map(
+                      (tier) => DropdownMenuItem<String>(
+                        value: tier,
+                        child: Text(tier),
+                      ),
+                    ),
+                  ],
+                  onChanged: (tier) => setState(() => _filterEchoTier = tier),
                 ),
               ],
             ),

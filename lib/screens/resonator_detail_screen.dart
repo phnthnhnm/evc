@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../data/stat.dart';
 import '../models/echo.dart';
 import '../models/resonator.dart';
 import '../services/api_service.dart';
-import '../services/storage_service.dart';
+import '../utils/echo_set_provider.dart';
 import '../utils/toast_utils.dart';
 import '../widgets/echo_cards_row.dart';
 import '../widgets/energy_buff_row.dart';
@@ -49,7 +50,13 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
   }
 
   Future<void> _loadSaved() async {
-    final saved = await StorageService.loadEchoSet(widget.resonator.id);
+    final echoSetProvider = Provider.of<EchoSetProvider>(
+      context,
+      listen: false,
+    );
+    await echoSetProvider.loadEchoSet(widget.resonator.id);
+    if (!mounted) return;
+    final saved = echoSetProvider.getEchoSet(widget.resonator.id);
     if (saved != null) {
       setState(() {
         lastResult = saved;
@@ -75,6 +82,10 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
       loading = true;
       error = null;
     });
+    final echoSetProvider = Provider.of<EchoSetProvider>(
+      context,
+      listen: false,
+    );
     try {
       final result = await ApiService.submit(
         energyBuff: energyBuff,
@@ -82,18 +93,19 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
         totalER: totalER,
         echoStatsList: echoStats,
       );
-      await StorageService.saveEchoSet(widget.resonator.id, result);
+      await echoSetProvider.saveEchoSet(widget.resonator.id, result);
+      if (!mounted) return;
       setState(() {
         lastResult = result;
       });
-      if (mounted) {
-        showTopRightToast(context, 'Submitted and saved!');
-      }
+      showTopRightToast(context, 'Submitted and saved!');
     } catch (e) {
+      if (!mounted) return;
       setState(() {
         error = e.toString();
       });
     } finally {
+      if (!mounted) return;
       setState(() {
         loading = false;
       });

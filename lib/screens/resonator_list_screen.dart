@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../data/seed_resonators.dart';
 import '../models/echo.dart';
 import '../models/resonator.dart';
-import '../services/storage_service.dart';
+import '../utils/echo_set_provider.dart';
 import '../widgets/attribute_filter_chips.dart';
 import '../widgets/resonator_list_view.dart';
 import '../widgets/search_bar.dart' as search_bar;
@@ -23,39 +24,34 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
   String _search = '';
   Attribute? _filterAttribute;
   Weapon? _filterWeapon;
-  late List<Resonator> _resonators;
 
   @override
   void initState() {
     super.initState();
-    _resonators = seedResonators;
-    _loadSaved();
-  }
-
-  Future<void> _loadSaved() async {
-    final futures = _resonators
-        .map((c) => StorageService.loadEchoSet(c.id))
-        .toList();
-    final loaded = await Future.wait(futures);
-    setState(() {
-      _resonators = List.generate(_resonators.length, (i) {
-        final saved = loaded[i];
-        return _resonators[i].copyWith(savedEchoSet: saved);
-      });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<EchoSetProvider>(context, listen: false).loadAll();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final filtered = _resonators.where((c) {
-      final matchesSearch = c.name.toLowerCase().contains(
-        _search.toLowerCase().trim(),
-      );
-      final matchesAttr =
-          _filterAttribute == null || c.attribute == _filterAttribute;
-      final matchesWeapon = _filterWeapon == null || c.weapon == _filterWeapon;
-      return matchesSearch && matchesAttr && matchesWeapon;
-    }).toList();
+    final echoSetProvider = Provider.of<EchoSetProvider>(context);
+    final echoSets = echoSetProvider.echoSets;
+    final filtered = seedResonators
+        .where((c) {
+          final matchesSearch = c.name.toLowerCase().contains(
+            _search.toLowerCase().trim(),
+          );
+          final matchesAttr =
+              _filterAttribute == null || c.attribute == _filterAttribute;
+          final matchesWeapon =
+              _filterWeapon == null || c.weapon == _filterWeapon;
+          return matchesSearch && matchesAttr && matchesWeapon;
+        })
+        .map((resonator) {
+          return resonator.copyWith(savedEchoSet: echoSets[resonator.id]);
+        })
+        .toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -120,17 +116,7 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
               resonators: filtered,
               onEchoSetSaved: (resonator, result) async {
                 if (result != null) {
-                  await StorageService.saveEchoSet(resonator.id, result);
-                  setState(() {
-                    final idx = _resonators.indexWhere(
-                      (c) => c.id == resonator.id,
-                    );
-                    if (idx >= 0) {
-                      _resonators[idx] = _resonators[idx].copyWith(
-                        savedEchoSet: result,
-                      );
-                    }
-                  });
+                  await echoSetProvider.saveEchoSet(resonator.id, result);
                 }
               },
               onResonatorTap: (resonator) async {
@@ -141,17 +127,7 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
                   ),
                 );
                 if (result != null) {
-                  await StorageService.saveEchoSet(resonator.id, result);
-                  setState(() {
-                    final idx = _resonators.indexWhere(
-                      (c) => c.id == resonator.id,
-                    );
-                    if (idx >= 0) {
-                      _resonators[idx] = _resonators[idx].copyWith(
-                        savedEchoSet: result,
-                      );
-                    }
-                  });
+                  await echoSetProvider.saveEchoSet(resonator.id, result);
                 }
               },
             ),

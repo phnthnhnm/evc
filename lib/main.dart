@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'screens/resonator_list_screen.dart';
+import 'utils/echo_set_provider.dart';
 import 'utils/theme_provider.dart';
 
 void main() async {
@@ -32,8 +33,11 @@ class _EchoValueCalcAppState extends State<EchoValueCalcApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ThemeProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => EchoSetProvider()),
+      ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, _) {
           return MaterialApp(

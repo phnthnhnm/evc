@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class EnergyBuffRow extends StatelessWidget {
   final String energyBuff;
@@ -40,6 +41,10 @@ class EnergyBuffRow extends StatelessWidget {
               border: OutlineInputBorder(),
               isDense: true,
             ),
+            inputFormatters: [
+              // Only allow numbers and '.'
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+            ],
             onChanged: (v) {
               final parsed = double.tryParse(v);
               if (parsed != null) {

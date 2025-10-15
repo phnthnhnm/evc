@@ -100,5 +100,5 @@ This project is licensed under the GPL 3.0 License. See the [LICENSE](LICENSE) f
 
 ## Acknowledgements
 
-- [Echo Value Calculator by AstyuteChick](https://www.echovaluecalc.com)
+- [Echo Value Calculator](https://www.echovaluecalc.com) by [AstyuteChick](https://github.com/AstyuteChick)
 - This app uses assets from the game Wuthering Waves by Kuro Games. EVC GUI is not affiliated with or endorsed by Kuro Games. All trademarks and copyrights belong to their respective owners.

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../data/seed_resonators.dart';
+import '../models/echo.dart';
 import '../models/resonator.dart';
 import '../services/storage_service.dart';
 import '../widgets/attribute_filter_chips.dart';
 import '../widgets/resonator_list_view.dart';
 import '../widgets/search_bar.dart' as search_bar;
 import '../widgets/weapon_choice_chips.dart';
+import 'resonator_detail_screen.dart';
 import 'settings/settings_screen.dart';
 
 class ResonatorListScreen extends StatefulWidget {
@@ -117,6 +119,27 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
             ResonatorListView(
               resonators: filtered,
               onEchoSetSaved: (resonator, result) async {
+                if (result != null) {
+                  await StorageService.saveEchoSet(resonator.id, result);
+                  setState(() {
+                    final idx = _resonators.indexWhere(
+                      (c) => c.id == resonator.id,
+                    );
+                    if (idx >= 0) {
+                      _resonators[idx] = _resonators[idx].copyWith(
+                        savedEchoSet: result,
+                      );
+                    }
+                  });
+                }
+              },
+              onResonatorTap: (resonator) async {
+                final result = await Navigator.push<EchoSet?>(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ResonatorDetailScreen(resonator: resonator),
+                  ),
+                );
                 if (result != null) {
                   await StorageService.saveEchoSet(resonator.id, result);
                   setState(() {

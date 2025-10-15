@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../models/echo.dart';
 import '../models/resonator.dart';
-import '../screens/resonator_detail_screen.dart';
 import 'resonator_card.dart';
 
 class ResonatorListView extends StatelessWidget {
   final List<Resonator> resonators;
   final Future<void> Function(Resonator, EchoSet?) onEchoSetSaved;
+  final void Function(Resonator) onResonatorTap;
+
   const ResonatorListView({
     super.key,
     required this.resonators,
     required this.onEchoSetSaved,
+    required this.onResonatorTap,
   });
 
   @override
@@ -28,16 +30,7 @@ class ResonatorListView extends StatelessWidget {
               child: ResonatorCard(
                 key: ValueKey(resonator.id),
                 resonator: resonator,
-                onTap: () async {
-                  final result = await Navigator.push<EchoSet?>(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          ResonatorDetailScreen(resonator: resonator),
-                    ),
-                  );
-                  await onEchoSetSaved(resonator, result);
-                },
+                onTap: () => onResonatorTap(resonator),
               ),
             );
           }).toList(),

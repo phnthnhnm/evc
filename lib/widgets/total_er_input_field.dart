@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TotalERInputField extends StatelessWidget {
   final TextEditingController controller;
@@ -33,6 +34,9 @@ class TotalERInputField extends StatelessWidget {
                 border: OutlineInputBorder(),
                 isDense: true,
               ),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
+              ],
               onChanged: (v) {
                 final parsed = double.tryParse(v);
                 if (parsed != null) {

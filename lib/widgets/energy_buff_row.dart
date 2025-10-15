@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
+import 'total_er_input_field.dart';
 
 class EnergyBuffRow extends StatelessWidget {
   final String energyBuff;
@@ -30,29 +31,7 @@ class EnergyBuffRow extends StatelessWidget {
           onChanged: onBuffChanged,
         ),
         const Spacer(),
-        const Text('Total ER of the build:'),
-        const SizedBox(width: 12),
-        SizedBox(
-          width: 90,
-          child: TextFormField(
-            controller: erController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              isDense: true,
-            ),
-            inputFormatters: [
-              // Only allow numbers and '.'
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
-            ],
-            onChanged: (v) {
-              final parsed = double.tryParse(v);
-              if (parsed != null) {
-                onERChanged(parsed);
-              }
-            },
-          ),
-        ),
+        TotalERInputField(controller: erController, onChanged: onERChanged),
       ],
     );
   }

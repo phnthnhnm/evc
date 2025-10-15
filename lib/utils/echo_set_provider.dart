@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../data/seed_resonators.dart';
 import '../models/echo.dart';
 import '../services/storage_service.dart';
 
@@ -11,6 +12,15 @@ class EchoSetProvider extends ChangeNotifier {
   bool get initialized => _initialized;
 
   Future<void> loadAll() async {
+    final List<String> allResonatorIds = seedResonators
+        .map((r) => r.id)
+        .toList();
+    for (final id in allResonatorIds) {
+      final set = await StorageService.loadEchoSet(id);
+      if (set != null) {
+        _echoSets[id] = set;
+      }
+    }
     _initialized = true;
     notifyListeners();
   }

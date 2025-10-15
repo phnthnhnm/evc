@@ -6,10 +6,8 @@ import '../data/seed_resonators.dart';
 import '../models/echo.dart';
 import '../models/resonator.dart';
 import '../utils/echo_set_provider.dart';
-import '../widgets/attribute_filter_chips.dart';
 import '../widgets/resonator_list_view.dart';
 import '../widgets/search_bar.dart' as search_bar;
-import '../widgets/weapon_choice_chips.dart';
 import 'resonator_detail_screen.dart';
 import 'settings/settings_screen.dart';
 
@@ -100,13 +98,60 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                AttributeFilterChips(
-                  selected: _filterAttribute,
+                DropdownButton<Attribute>(
+                  value: _filterAttribute,
+                  hint: const Text('Attribute'),
+                  items: [
+                    const DropdownMenuItem<Attribute>(
+                      value: null,
+                      child: Text('All Attributes'),
+                    ),
+                    ...Attribute.values.map(
+                      (attr) => DropdownMenuItem<Attribute>(
+                        value: attr,
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              attributeAsset(attr),
+                              width: 24,
+                              height: 24,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(attributeLabel(attr)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                   onChanged: (attr) => setState(() => _filterAttribute = attr),
                 ),
                 const SizedBox(width: 24),
-                WeaponChoiceChips(
-                  selected: _filterWeapon,
+                DropdownButton<Weapon>(
+                  value: _filterWeapon,
+                  hint: const Text('Weapons'),
+                  items: [
+                    const DropdownMenuItem<Weapon>(
+                      value: null,
+                      child: Text('All Weapons'),
+                    ),
+                    ...Weapon.values.map(
+                      (weapon) => DropdownMenuItem<Weapon>(
+                        value: weapon,
+                        child: Row(
+                          children: [
+                            Image.asset(
+                              weaponAsset(weapon),
+                              width: 24,
+                              height: 24,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(weaponLabel(weapon)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                   onChanged: (weapon) => setState(() => _filterWeapon = weapon),
                 ),
               ],

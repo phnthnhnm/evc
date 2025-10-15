@@ -1,45 +1,17 @@
 import 'package:flutter/material.dart';
 
-class EnergyBuffRow extends StatefulWidget {
+class EnergyBuffRow extends StatelessWidget {
   final String energyBuff;
   final ValueChanged<String?> onBuffChanged;
-  final double totalER;
+  final TextEditingController erController;
   final ValueChanged<double> onERChanged;
   const EnergyBuffRow({
     super.key,
     required this.energyBuff,
     required this.onBuffChanged,
-    required this.totalER,
+    required this.erController,
     required this.onERChanged,
   });
-
-  @override
-  State<EnergyBuffRow> createState() => _EnergyBuffRowState();
-}
-
-class _EnergyBuffRowState extends State<EnergyBuffRow> {
-  late TextEditingController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController(text: widget.totalER.toString());
-  }
-
-  @override
-  void didUpdateWidget(EnergyBuffRow oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.totalER != widget.totalER &&
-        _controller.text != widget.totalER.toString()) {
-      _controller.text = widget.totalER.toString();
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +20,13 @@ class _EnergyBuffRowState extends State<EnergyBuffRow> {
         const Text('Energy buffs from outros:'),
         const SizedBox(width: 12),
         DropdownButton<String>(
-          value: widget.energyBuff,
+          value: energyBuff,
           items: const [
             DropdownMenuItem(value: 'None', child: Text('None')),
             DropdownMenuItem(value: 'Yangyang', child: Text('Yangyang')),
             DropdownMenuItem(value: 'Zhezhi', child: Text('Zhezhi')),
           ],
-          onChanged: widget.onBuffChanged,
+          onChanged: onBuffChanged,
         ),
         const Spacer(),
         const Text('Total ER of the build:'),
@@ -62,7 +34,7 @@ class _EnergyBuffRowState extends State<EnergyBuffRow> {
         SizedBox(
           width: 90,
           child: TextFormField(
-            controller: _controller,
+            controller: erController,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
@@ -71,7 +43,7 @@ class _EnergyBuffRowState extends State<EnergyBuffRow> {
             onChanged: (v) {
               final parsed = double.tryParse(v);
               if (parsed != null) {
-                widget.onERChanged(parsed);
+                onERChanged(parsed);
               }
             },
           ),

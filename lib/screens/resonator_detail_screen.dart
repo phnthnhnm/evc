@@ -24,6 +24,7 @@ class ResonatorDetailScreen extends StatefulWidget {
 class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
   String energyBuff = 'None'; // None, Yangyang, Zhezhi
   double totalER = 100.0;
+  late TextEditingController erController;
   late List<Map<String, double>> echoStats;
   bool loading = false;
   EchoSet? lastResult;
@@ -32,8 +33,19 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
   @override
   void initState() {
     super.initState();
+    erController = TextEditingController(text: totalER.toString());
     echoStats = List.generate(5, (_) => <String, double>{});
+    erController.addListener(_onERTextChanged);
     _loadSaved();
+  }
+
+  void _onERTextChanged() {
+    final parsed = double.tryParse(erController.text);
+    if (parsed != null && parsed != totalER) {
+      setState(() {
+        totalER = parsed;
+      });
+    }
   }
 
   Future<void> _loadSaved() async {
@@ -43,6 +55,7 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
         lastResult = saved;
         energyBuff = saved.energyBuff;
         totalER = saved.totalER;
+        erController.text = saved.totalER.toString();
         for (int i = 0; i < 5; i++) {
           echoStats[i] = Map<String, double>.from(saved.echoes[i].stats);
         }
@@ -88,6 +101,13 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
   }
 
   @override
+  void dispose() {
+    erController.removeListener(_onERTextChanged);
+    erController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Echo Build')),
@@ -106,7 +126,7 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
                       energyBuff: energyBuff,
                       onBuffChanged: (v) =>
                           setState(() => energyBuff = v ?? 'None'),
-                      totalER: totalER,
+                      erController: erController,
                       onERChanged: (v) => setState(() => totalER = v),
                     ),
                   ],

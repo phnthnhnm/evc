@@ -6,6 +6,7 @@ import '../data/seed_resonators.dart';
 import '../models/echo.dart';
 import '../models/resonator.dart';
 import '../utils/echo_set_provider.dart';
+import '../utils/tier_color_utils.dart';
 import '../widgets/resonator_list_view.dart';
 import '../widgets/search_bar.dart' as search_bar;
 import 'resonator_detail_screen.dart';
@@ -182,7 +183,10 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
                     ].map(
                       (tier) => DropdownMenuItem<String>(
                         value: tier,
-                        child: Text(tier),
+                        child: Text(
+                          tier,
+                          style: TextStyle(color: getTierColor(tier)),
+                        ),
                       ),
                     ),
                   ],

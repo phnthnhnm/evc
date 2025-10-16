@@ -206,7 +206,10 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
                 final result = await Navigator.push<EchoSet?>(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => ResonatorDetailScreen(resonator: resonator),
+                    builder: (_) => ResonatorDetailScreen(
+                      resonator: resonator,
+                      savedEchoSet: echoSets[resonator.id],
+                    ),
                   ),
                 );
                 if (result != null) {

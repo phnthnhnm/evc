@@ -17,7 +17,12 @@ import 'echo_compare_screen.dart';
 
 class ResonatorDetailScreen extends StatefulWidget {
   final Resonator resonator;
-  const ResonatorDetailScreen({super.key, required this.resonator});
+  final EchoSet? savedEchoSet;
+  const ResonatorDetailScreen({
+    super.key,
+    required this.resonator,
+    this.savedEchoSet,
+  });
 
   @override
   State<ResonatorDetailScreen> createState() => _ResonatorDetailScreenState();
@@ -56,7 +61,19 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
     erController = TextEditingController(text: totalER.toString());
     echoStats = List.generate(5, (_) => <String, double>{});
     erController.addListener(_onERTextChanged);
-    _loadSaved();
+    if (widget.savedEchoSet != null) {
+      lastResult = widget.savedEchoSet;
+      energyBuff = widget.savedEchoSet!.energyBuff;
+      totalER = widget.savedEchoSet!.totalER;
+      erController.text = widget.savedEchoSet!.totalER.toString();
+      for (int i = 0; i < 5; i++) {
+        echoStats[i] = Map<String, double>.from(
+          widget.savedEchoSet!.echoes[i].stats,
+        );
+      }
+    } else {
+      _loadSaved();
+    }
   }
 
   void _onERTextChanged() {

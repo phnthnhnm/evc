@@ -1,11 +1,13 @@
-// import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../services/storage_service.dart';
 import '../../utils/confirm_dialog.dart';
+import '../../utils/echo_set_provider.dart';
+import '../../utils/theme_provider.dart';
 import '../../utils/toast_utils.dart';
 
 class DataTab extends StatefulWidget {
@@ -16,14 +18,12 @@ class DataTab extends StatefulWidget {
 }
 
 class _DataTabState extends State<DataTab> {
+  EchoSetProvider _getEchoSetProvider() =>
+      Provider.of<EchoSetProvider>(context, listen: false);
+  ThemeProvider _getThemeProvider() =>
+      Provider.of<ThemeProvider>(context, listen: false);
   Future<void> _backupData() async {
-    final file = await StorageService.getJsonFile();
-    if (!await file.exists()) {
-      if (!mounted) return;
-      showTopRightToast(context, 'No echo_sets.json found');
-      return;
-    }
-    final jsonString = await file.readAsString();
+    final backupJson = await StorageService.backupAllData();
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath(
       dialogTitle: 'Select folder to save backup',
     );
@@ -38,13 +38,16 @@ class _DataTabState extends State<DataTab> {
           '${now.second.toString().padLeft(2, '0')}';
       final filename = 'evc_backup_$formatted.json';
       final backupFile = File('$selectedDirectory/$filename');
-      await backupFile.writeAsString(jsonString);
+      await backupFile.writeAsString(backupJson);
       if (!mounted) return;
       showTopRightToast(context, 'Backup saved as $filename');
     }
   }
 
   Future<void> _restoreData() async {
+    final echoSetProvider = _getEchoSetProvider();
+    final themeProvider = _getThemeProvider();
+
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       dialogTitle: 'Select backup JSON file',
       type: FileType.custom,
@@ -54,8 +57,10 @@ class _DataTabState extends State<DataTab> {
       final file = File(result.files.single.path!);
       final inputJson = await file.readAsString();
       try {
-        final echoFile = await StorageService.getJsonFile();
-        await echoFile.writeAsString(inputJson);
+        await StorageService.restoreAllData(inputJson);
+        if (!mounted) return;
+        await echoSetProvider.loadAll();
+        await themeProvider.loadThemeMode();
         if (!mounted) return;
         showTopRightToast(context, 'Data restored!');
       } catch (e) {
@@ -70,15 +75,14 @@ class _DataTabState extends State<DataTab> {
       context: context,
       title: 'Confirm Reset',
       content:
-          'Are you sure you want to reset all data? This cannot be undone.',
+          'Are you sure you want to reset all data and settings? This cannot be undone.',
       confirmText: 'Reset',
       confirmColor: Colors.red,
     );
     if (confirmed) {
-      final echoFile = await StorageService.getJsonFile();
-      await echoFile.writeAsString('{}');
+      await StorageService.resetAllData();
       if (!mounted) return;
-      showTopRightToast(context, 'All data has been reset');
+      showTopRightToast(context, 'All data and settings have been reset');
     }
   }
 

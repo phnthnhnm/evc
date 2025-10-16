@@ -6,7 +6,7 @@ class ThemeProvider extends ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.system;
 
   ThemeProvider() {
-    _loadThemeMode();
+    loadThemeMode();
   }
 
   ThemeMode get themeMode => _themeMode;
@@ -18,7 +18,7 @@ class ThemeProvider extends ChangeNotifier {
     await prefs.setString(_themeKey, mode.toString().split('.').last);
   }
 
-  Future<void> _loadThemeMode() async {
+  Future<void> loadThemeMode() async {
     final prefs = await SharedPreferences.getInstance();
     final themeString = prefs.getString(_themeKey);
     if (themeString != null) {

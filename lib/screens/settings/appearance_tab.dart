@@ -25,15 +25,33 @@ class AppearanceTab extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListTile(
-                    title: const Text('System'),
+                    title: Row(
+                      children: [
+                        const Icon(Icons.settings),
+                        const SizedBox(width: 8),
+                        const Text('System'),
+                      ],
+                    ),
                     leading: Radio<ThemeMode>(value: ThemeMode.system),
                   ),
                   ListTile(
-                    title: const Text('Light'),
+                    title: Row(
+                      children: [
+                        const Icon(Icons.light_mode),
+                        const SizedBox(width: 8),
+                        const Text('Light'),
+                      ],
+                    ),
                     leading: Radio<ThemeMode>(value: ThemeMode.light),
                   ),
                   ListTile(
-                    title: const Text('Dark'),
+                    title: Row(
+                      children: [
+                        const Icon(Icons.dark_mode),
+                        const SizedBox(width: 8),
+                        const Text('Dark'),
+                      ],
+                    ),
                     leading: Radio<ThemeMode>(value: ThemeMode.dark),
                   ),
                 ],

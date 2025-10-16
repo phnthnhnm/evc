@@ -45,4 +45,10 @@ class EchoSetProvider extends ChangeNotifier {
   }
 
   EchoSet? getEchoSet(String resonatorId) => _echoSets[resonatorId];
+
+  Future<void> deleteEchoSet(String resonatorId) async {
+    await StorageService.deleteEchoSet(resonatorId);
+    _echoSets.remove(resonatorId);
+    notifyListeners();
+  }
 }

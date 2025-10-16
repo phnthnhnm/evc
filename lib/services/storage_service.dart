@@ -37,4 +37,16 @@ class StorageService {
     if (!data.containsKey(resonatorId)) return null;
     return EchoSet.fromJson(data[resonatorId]);
   }
+
+  static Future<void> deleteEchoSet(String resonatorId) async {
+    final file = await getJsonFile();
+    if (!await file.exists()) return;
+    final content = await file.readAsString();
+    final data = jsonDecode(content) as Map<String, dynamic>;
+    if (data.containsKey(resonatorId)) {
+      data.remove(resonatorId);
+      final encoder = JsonEncoder.withIndent('  ');
+      await file.writeAsString(encoder.convert(data));
+    }
+  }
 }

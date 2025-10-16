@@ -10,6 +10,7 @@ import '../utils/toast_utils.dart';
 import '../widgets/echo_cards_row.dart';
 import '../widgets/energy_buff_row.dart';
 import '../widgets/loading_action_button.dart';
+import '../widgets/reset_resonator_button.dart';
 import '../widgets/resonator_header.dart';
 import '../widgets/result_chips.dart';
 import 'echo_compare_screen.dart';
@@ -30,6 +31,24 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
   bool loading = false;
   EchoSet? lastResult;
   String? error;
+
+  Future<void> _resetResonatorData() async {
+    setState(() {
+      energyBuff = 'None';
+      totalER = 100.0;
+      erController.text = '100.0';
+      echoStats = List.generate(5, (_) => <String, double>{});
+      lastResult = null;
+      error = null;
+    });
+    final echoSetProvider = Provider.of<EchoSetProvider>(
+      context,
+      listen: false,
+    );
+    await echoSetProvider.deleteEchoSet(widget.resonator.id);
+    if (!mounted) return;
+    showTopRightToast(context, 'Resonator data deleted!');
+  }
 
   @override
   void initState() {
@@ -132,7 +151,18 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
                 padding: const EdgeInsets.all(12),
                 child: Column(
                   children: [
-                    ResonatorHeader(resonator: widget.resonator),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ResonatorHeader(resonator: widget.resonator),
+                        ),
+                        ResetResonatorButton(
+                          onReset: (_) => _resetResonatorData(),
+                          label: 'Reset',
+                          icon: Icons.refresh,
+                        ),
+                      ],
+                    ),
                     const SizedBox(height: 12),
                     EnergyBuffRow(
                       energyBuff: energyBuff,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'data/stat.dart';
+import 'models/resonator.dart';
 import 'screens/resonator_list_screen.dart';
 import 'utils/echo_set_provider.dart';
 import 'utils/theme_provider.dart';
@@ -28,6 +30,12 @@ class _EchoValueCalcAppState extends State<EchoValueCalcApp> {
       await windowManager.maximize();
       await windowManager.show();
       await windowManager.focus();
+
+      for (final stat in allStats) {
+        if (!mounted) break;
+        final assetPath = statAsset(stat);
+        precacheImage(AssetImage(assetPath), context);
+      }
     });
   }
 

@@ -30,7 +30,17 @@ Full credit goes to [AstyuteChick](https://github.com/AstyuteChick) for making t
 2. Download the `evc-version-windows-x64.zip` file.
 3. Extract it anywhere and run `evc.exe`.
 
-#### Option 2: Build from source
+#### Option 2: Install with Scoop (Windows)
+
+1. Install [Scoop](https://scoop.sh/) if you haven't already.
+2. Add the bucket and install:
+
+```powershell
+scoop bucket add <bucketname> https://github.com/phnthnhnm/Scoop
+scoop install <bucketname>/evc
+```
+
+#### Option 3: Build from source
 
 1. **Clone the repository:**
    ```sh
@@ -41,9 +51,9 @@ Full credit goes to [AstyuteChick](https://github.com/AstyuteChick) for making t
    ```sh
    flutter pub get
    ```
-   
+
 > [!WARNING]
-> **Disclaimer:** Only the Windows version has been tested so far. Other desktop versions (MacOS and Linux) should still work as I don't use any Windows-specific APIs. No guarantees for mobile (too different layout) and web (CORS issue).  
+> **Disclaimer:** Only the Windows version has been tested so far. Other desktop versions (MacOS and Linux) should still work as I don't use any Windows-specific APIs. No guarantees for mobile (too different layout) and web (CORS issue).
 
 3. **Run the app:**
 

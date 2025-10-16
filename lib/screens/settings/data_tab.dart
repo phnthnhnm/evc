@@ -84,32 +84,36 @@ class _DataTabState extends State<DataTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton.icon(
-            onPressed: _backupData,
-            icon: const Icon(Icons.save),
-            label: const Text('Backup Data'),
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton.icon(
-            onPressed: _restoreData,
-            icon: const Icon(Icons.restore),
-            label: const Text('Restore Data'),
-          ),
-          const SizedBox(height: 16),
-          ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red.withAlpha((0.1 * 255).toInt()),
-              foregroundColor: Colors.red,
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ElevatedButton.icon(
+              onPressed: _backupData,
+              icon: const Icon(Icons.save),
+              label: const Text('Backup Data'),
             ),
-            onPressed: _resetData,
-            icon: const Icon(Icons.delete_forever),
-            label: const Text('Reset All Data'),
-          ),
-        ],
+            const SizedBox(height: 16),
+            ElevatedButton.icon(
+              onPressed: _restoreData,
+              icon: const Icon(Icons.restore),
+              label: const Text('Restore Data'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red.withAlpha((0.1 * 255).toInt()),
+                foregroundColor: Colors.red,
+              ),
+              onPressed: _resetData,
+              icon: const Icon(Icons.delete_forever),
+              label: const Text('Reset All Data'),
+            ),
+          ],
+        ),
       ),
     );
   }

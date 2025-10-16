@@ -9,32 +9,39 @@ class AppearanceTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text('Choose Theme:', style: TextStyle(fontSize: 18)),
-        const SizedBox(height: 16),
-        RadioGroup<ThemeMode>(
-          groupValue: themeProvider.themeMode,
-          onChanged: (ThemeMode? mode) => themeProvider.setThemeMode(mode!),
-          child: Column(
-            children: [
-              ListTile(
-                title: const Text('System'),
-                leading: Radio<ThemeMode>(value: ThemeMode.system),
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 24, left: 24, right: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Choose Theme:', style: TextStyle(fontSize: 18)),
+            const SizedBox(height: 16),
+            RadioGroup<ThemeMode>(
+              groupValue: themeProvider.themeMode,
+              onChanged: (ThemeMode? mode) => themeProvider.setThemeMode(mode!),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ListTile(
+                    title: const Text('System'),
+                    leading: Radio<ThemeMode>(value: ThemeMode.system),
+                  ),
+                  ListTile(
+                    title: const Text('Light'),
+                    leading: Radio<ThemeMode>(value: ThemeMode.light),
+                  ),
+                  ListTile(
+                    title: const Text('Dark'),
+                    leading: Radio<ThemeMode>(value: ThemeMode.dark),
+                  ),
+                ],
               ),
-              ListTile(
-                title: const Text('Light'),
-                leading: Radio<ThemeMode>(value: ThemeMode.light),
-              ),
-              ListTile(
-                title: const Text('Dark'),
-                leading: Radio<ThemeMode>(value: ThemeMode.dark),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

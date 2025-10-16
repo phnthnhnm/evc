@@ -1,50 +1,49 @@
 import 'package:flutter/material.dart';
 
-class ResetResonatorButton extends StatelessWidget {
-  final Future<void> Function(BuildContext context) onReset;
+import '../utils/confirm_dialog.dart';
+
+class ResetResonatorButton extends StatefulWidget {
+  final Future<void> Function() onReset;
   final String label;
   final IconData icon;
   final Color? color;
 
   const ResetResonatorButton({
-    Key? key,
+    super.key,
     required this.onReset,
     this.label = 'Reset',
     this.icon = Icons.refresh,
     this.color,
-  }) : super(key: key);
+  });
 
+  @override
+  State<ResetResonatorButton> createState() => _ResetResonatorButtonState();
+}
+
+class _ResetResonatorButtonState extends State<ResetResonatorButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: () async {
-        final confirmed = await showDialog<bool>(
+        final confirmed = await showConfirmDialog(
           context: context,
-          builder: (ctx) => AlertDialog(
-            title: const Text('Confirm Reset'),
-            content: const Text(
-              'Are you sure you want to reset this resonator? This will delete all its data.',
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(ctx).pop(false),
-                child: const Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.of(ctx).pop(true),
-                child: const Text('Reset'),
-              ),
-            ],
-          ),
+          title: 'Confirm Reset',
+          content:
+              'Are you sure you want to reset this resonator\'s echo set? This will delete all their data.',
+          confirmText: 'Reset',
+          confirmColor: Colors.red,
         );
-        if (confirmed == true) {
-          await onReset(context);
+        if (confirmed) {
+          await widget.onReset();
         }
       },
-      icon: Icon(icon, color: color ?? Theme.of(context).colorScheme.primary),
-      label: Text(label, style: TextStyle(color: color)),
+      icon: Icon(
+        widget.icon,
+        color: widget.color ?? Theme.of(context).colorScheme.primary,
+      ),
+      label: Text(widget.label, style: TextStyle(color: widget.color)),
       style: ElevatedButton.styleFrom(
-        backgroundColor: color != null ? color!.withOpacity(0.1) : null,
+        backgroundColor: widget.color?.withAlpha((0.1 * 255).toInt()),
       ),
     );
   }

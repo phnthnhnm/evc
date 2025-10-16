@@ -157,7 +157,7 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
                           child: ResonatorHeader(resonator: widget.resonator),
                         ),
                         ResetResonatorButton(
-                          onReset: (_) => _resetResonatorData(),
+                          onReset: _resetResonatorData,
                           label: 'Reset',
                           icon: Icons.refresh,
                         ),

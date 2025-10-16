@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/storage_service.dart';
+import '../../utils/confirm_dialog.dart';
 import '../../utils/toast_utils.dart';
 
 class DataTab extends StatefulWidget {
@@ -65,26 +66,15 @@ class _DataTabState extends State<DataTab> {
   }
 
   Future<void> _resetData() async {
-    final confirmed = await showDialog<bool>(
+    final confirmed = await showConfirmDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Confirm Reset'),
-        content: const Text(
+      title: 'Confirm Reset',
+      content:
           'Are you sure you want to reset all data? This cannot be undone.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Reset', style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
+      confirmText: 'Reset',
+      confirmColor: Colors.red,
     );
-    if (confirmed == true) {
+    if (confirmed) {
       final echoFile = await StorageService.getJsonFile();
       await echoFile.writeAsString('{}');
       if (!mounted) return;

@@ -55,9 +55,15 @@ class EchoCard extends StatelessWidget {
                 if (onCompare != null)
                   Align(
                     alignment: Alignment.centerRight,
-                    child: TextButton(
+                    child: ElevatedButton.icon(
                       onPressed: onCompare,
-                      child: const Text('Compare'),
+                      icon: const Icon(Icons.compare_arrows),
+                      label: const Text('Compare'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.secondaryContainer,
+                      ),
                     ),
                   ),
               ],

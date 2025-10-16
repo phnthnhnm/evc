@@ -88,20 +88,26 @@ class _DataTabState extends State<DataTab> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(
+          ElevatedButton.icon(
             onPressed: _backupData,
-            child: const Text('Backup Data'),
+            icon: const Icon(Icons.save),
+            label: const Text('Backup Data'),
           ),
           const SizedBox(height: 16),
-          ElevatedButton(
+          ElevatedButton.icon(
             onPressed: _restoreData,
-            child: const Text('Restore Data'),
+            icon: const Icon(Icons.restore),
+            label: const Text('Restore Data'),
           ),
           const SizedBox(height: 16),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red.withAlpha((0.1 * 255).toInt()),
+              foregroundColor: Colors.red,
+            ),
             onPressed: _resetData,
-            child: const Text('Reset All Data'),
+            icon: const Icon(Icons.delete_forever),
+            label: const Text('Reset All Data'),
           ),
         ],
       ),

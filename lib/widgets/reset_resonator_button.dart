@@ -23,6 +23,7 @@ class ResetResonatorButton extends StatefulWidget {
 class _ResetResonatorButtonState extends State<ResetResonatorButton> {
   @override
   Widget build(BuildContext context) {
+    final buttonColor = widget.color ?? Colors.red;
     return ElevatedButton.icon(
       onPressed: () async {
         final confirmed = await showConfirmDialog(
@@ -37,13 +38,10 @@ class _ResetResonatorButtonState extends State<ResetResonatorButton> {
           await widget.onReset();
         }
       },
-      icon: Icon(
-        widget.icon,
-        color: widget.color ?? Theme.of(context).colorScheme.primary,
-      ),
-      label: Text(widget.label, style: TextStyle(color: widget.color)),
+      icon: Icon(widget.icon, color: buttonColor),
+      label: Text(widget.label, style: TextStyle(color: buttonColor)),
       style: ElevatedButton.styleFrom(
-        backgroundColor: widget.color?.withAlpha((0.1 * 255).toInt()),
+        backgroundColor: buttonColor.withAlpha((0.1 * 255).toInt()),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/resonator.dart';
+import '../utils/resonator_utils.dart';
 
 class ResonatorCard extends StatelessWidget {
   final Resonator resonator;
@@ -20,12 +21,6 @@ class ResonatorCard extends StatelessWidget {
     const double nameBarHeight = 34;
     const double cardHeight = portraitHeight + starsBarHeight + nameBarHeight;
 
-    Color getStarBarColor(int stars) {
-      if (stars == 5) return const Color(0xFFFFD700);
-      if (stars == 4) return const Color(0xFFB266FF);
-      return Colors.grey.shade700;
-    }
-
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(18),
@@ -37,7 +32,7 @@ class ResonatorCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(18),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               blurRadius: 8,
               offset: const Offset(0, 4),
             ),
@@ -65,33 +60,45 @@ class ResonatorCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Top right: attribute & weapon icons
+                  // Top right: attribute & weapon icons with circular backgrounds
                   Positioned(
                     top: 12,
                     right: 12,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.7),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Tooltip(
-                            message: attributeLabel(resonator.attribute),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Tooltip(
+                          message: attributeLabel(resonator.attribute),
+                          child: Container(
+                            width: 36,
+                            height: 36,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: getAttributeBackgroundColor(
+                                resonator.attribute,
+                              ).withValues(alpha: 0.8),
+                            ),
+                            alignment: Alignment.center,
                             child: Image.asset(
                               attributeAsset(resonator.attribute),
                               width: 28,
                               height: 28,
                             ),
                           ),
-                          const SizedBox(width: 8),
-                          Tooltip(
-                            message: weaponLabel(resonator.weapon),
+                        ),
+                        const SizedBox(height: 8),
+                        Tooltip(
+                          message: weaponLabel(resonator.weapon),
+                          child: Container(
+                            width: 36,
+                            height: 36,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: const Color(
+                                0xFF3A3F44,
+                              ).withValues(alpha: 0.7),
+                            ),
+                            alignment: Alignment.center,
                             child: Image.asset(
                               weaponAsset(resonator.weapon),
                               width: 28,
@@ -99,8 +106,8 @@ class ResonatorCard extends StatelessWidget {
                               color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -118,7 +125,7 @@ class ResonatorCard extends StatelessWidget {
                         BoxShadow(
                           color: getStarBarColor(
                             resonator.stars,
-                          ).withOpacity(0.7),
+                          ).withValues(alpha: 0.7),
                           blurRadius: 16,
                           spreadRadius: 2,
                         ),

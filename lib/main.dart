@@ -26,7 +26,7 @@ class _EchoValueCalcAppState extends State<EchoValueCalcApp> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future.delayed(const Duration(milliseconds: 200));
       await windowManager.maximize();
       await windowManager.show();
       await windowManager.focus();

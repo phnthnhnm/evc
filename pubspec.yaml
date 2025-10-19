@@ -27,7 +27,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/portraits/
-    - assets/attributes/
-    - assets/weapons/
-    - assets/stats/
+    - assets/attribute_icons/
+    - assets/resonator_icons/
+    - assets/resonator_portraits/
+    - assets/stat_icons/
+    - assets/weapon_icons/

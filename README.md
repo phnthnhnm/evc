@@ -52,8 +52,7 @@ scoop install <bucketname>/evc
    flutter pub get
    ```
 
-> [!WARNING]
-> **Disclaimer:** Only the Windows version has been tested so far. Other desktop versions (MacOS and Linux) should still work as I don't use any Windows-specific APIs. No guarantees for mobile (too different layout) and web (CORS issue).
+> [!WARNING] > **Disclaimer:** Only the Windows version has been tested so far. Other desktop versions (MacOS and Linux) should still work as I don't use any Windows-specific APIs. No guarantees for mobile (too different layout) and web (CORS issue).
 
 3. **Run the app:**
 
@@ -111,4 +110,5 @@ This project is licensed under the GPL 3.0 License. See the [LICENSE](LICENSE) f
 ## Acknowledgements
 
 - [Echo Value Calculator](https://www.echovaluecalc.com) by [AstyuteChick](https://github.com/AstyuteChick)
+- [Tethys.gg](https://tethys.gg/resonators) for UI inspiration on the resonator card design
 - This app uses assets from the game Wuthering Waves by Kuro Games. EVC GUI is not affiliated with or endorsed by Kuro Games. All trademarks and copyrights belong to their respective owners.

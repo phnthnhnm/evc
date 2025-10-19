@@ -14,16 +14,15 @@ class ResonatorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Card size
     const double cardWidth = 240;
     const double portraitHeight = 360;
     const double starsBarHeight = 6;
-    const double nameBarHeight = 40;
+    const double nameBarHeight = 34;
     const double cardHeight = portraitHeight + starsBarHeight + nameBarHeight;
-    // Bar color by stars
+
     Color getStarBarColor(int stars) {
-      if (stars == 5) return const Color(0xFFFFD700); // Gold
-      if (stars == 4) return const Color(0xFFB266FF); // Purple
+      if (stars == 5) return const Color(0xFFFFD700);
+      if (stars == 4) return const Color(0xFFB266FF);
       return Colors.grey.shade700;
     }
 
@@ -46,7 +45,6 @@ class ResonatorCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            // Portrait
             SizedBox(
               width: cardWidth,
               height: portraitHeight,
@@ -57,11 +55,14 @@ class ResonatorCard extends StatelessWidget {
                       topLeft: Radius.circular(18),
                       topRight: Radius.circular(18),
                     ),
-                    child: Image.asset(
-                      resonator.portraitAsset,
-                      fit: BoxFit.cover,
-                      width: cardWidth,
-                      height: portraitHeight,
+                    child: Transform.scale(
+                      scale: 1.14, // Zoom in
+                      child: Image.asset(
+                        resonator.portraitAsset,
+                        fit: BoxFit.cover,
+                        width: cardWidth,
+                        height: portraitHeight,
+                      ),
                     ),
                   ),
                   // Top right: attribute & weapon icons
@@ -105,16 +106,36 @@ class ResonatorCard extends StatelessWidget {
                 ],
               ),
             ),
-            // Stars bar
-            Container(
-              width: cardWidth,
-              height: starsBarHeight,
-              decoration: BoxDecoration(
-                color: getStarBarColor(resonator.stars),
-                borderRadius: BorderRadius.zero,
-              ),
+            Stack(
+              children: [
+                Positioned.fill(
+                  child: Container(
+                    width: cardWidth,
+                    height: starsBarHeight + 10,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.zero,
+                      boxShadow: [
+                        BoxShadow(
+                          color: getStarBarColor(
+                            resonator.stars,
+                          ).withOpacity(0.7),
+                          blurRadius: 16,
+                          spreadRadius: 2,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  width: cardWidth,
+                  height: starsBarHeight,
+                  decoration: BoxDecoration(
+                    color: getStarBarColor(resonator.stars),
+                    borderRadius: BorderRadius.zero,
+                  ),
+                ),
+              ],
             ),
-            // Name bar
             Container(
               width: cardWidth,
               height: nameBarHeight,

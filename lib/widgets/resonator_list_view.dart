@@ -27,7 +27,7 @@ class ResonatorListView extends StatelessWidget {
           children: resonators.map((resonator) {
             return SizedBox(
               width: 240,
-              height: 406,
+              height: 400,
               child: ResonatorCard(
                 key: ValueKey(resonator.id),
                 resonator: resonator,

@@ -28,7 +28,7 @@ class ResonatorCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 32,
-                backgroundImage: AssetImage(resonator.portraitAsset),
+                backgroundImage: AssetImage(resonator.iconAsset),
               ),
               const SizedBox(height: 12),
               Text(

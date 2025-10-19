@@ -5,9 +5,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'aalto-sub',
     name: 'Aalto (Sub-DPS)',
+    stars: 4,
     attribute: Attribute.aero,
     weapon: Weapon.pistols,
-    portraitAsset: 'assets/resonator_icons/Aalto.png',
+    iconAsset: 'assets/resonator_icons/aalto.png',
+    portraitAsset: 'assets/resonator_portraits/aalto.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -22,9 +24,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'aalto-dps',
     name: 'Aalto (DPS)',
+    stars: 4,
     attribute: Attribute.aero,
     weapon: Weapon.pistols,
-    portraitAsset: 'assets/resonator_icons/Aalto.png',
+    iconAsset: 'assets/resonator_icons/aalto.png',
+    portraitAsset: 'assets/resonator_portraits/aalto.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -39,9 +43,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'augusta',
     name: 'Augusta',
+    stars: 5,
     attribute: Attribute.electro,
     weapon: Weapon.broadblade,
-    portraitAsset: 'assets/resonator_icons/Augusta.png',
+    iconAsset: 'assets/resonator_icons/augusta.png',
+    portraitAsset: 'assets/resonator_portraits/augusta.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -55,17 +61,21 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'baizhi',
     name: 'Baizhi',
+    stars: 4,
     attribute: Attribute.glacio,
     weapon: Weapon.rectifier,
-    portraitAsset: 'assets/resonator_icons/Baizhi.png',
+    iconAsset: 'assets/resonator_icons/baizhi.png',
+    portraitAsset: 'assets/resonator_portraits/baizhi.png',
     usableStats: [Stat.flatHp, Stat.hpPercent, Stat.erPercent],
   ),
   Resonator(
     id: 'brant',
     name: 'Brant (sub DPS, ER/ER 3 cost setup)',
+    stars: 5,
     attribute: Attribute.fusion,
     weapon: Weapon.sword,
-    portraitAsset: 'assets/resonator_icons/Brant.png',
+    iconAsset: 'assets/resonator_icons/brant.png',
+    portraitAsset: 'assets/resonator_portraits/brant.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -79,9 +89,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'calcharo',
     name: 'Calcharo',
+    stars: 5,
     attribute: Attribute.electro,
     weapon: Weapon.broadblade,
-    portraitAsset: 'assets/resonator_icons/Calcharo.png',
+    iconAsset: 'assets/resonator_icons/calcharo.png',
+    portraitAsset: 'assets/resonator_portraits/calcharo.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -95,9 +107,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'camellya',
     name: 'Camellya',
+    stars: 5,
     attribute: Attribute.havoc,
     weapon: Weapon.sword,
-    portraitAsset: 'assets/resonator_icons/Camellya.png',
+    iconAsset: 'assets/resonator_icons/camellya.png',
+    portraitAsset: 'assets/resonator_portraits/camellya.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -111,9 +125,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'cantarella',
     name: 'Cantarella',
+    stars: 5,
     attribute: Attribute.havoc,
     weapon: Weapon.rectifier,
-    portraitAsset: 'assets/resonator_icons/Cantarella.png',
+    iconAsset: 'assets/resonator_icons/cantarella.png',
+    portraitAsset: 'assets/resonator_portraits/cantarella.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -127,9 +143,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'carlotta',
     name: 'Carlotta',
+    stars: 5,
     attribute: Attribute.glacio,
     weapon: Weapon.pistols,
-    portraitAsset: 'assets/resonator_icons/Carlotta.png',
+    iconAsset: 'assets/resonator_icons/carlotta.png',
+    portraitAsset: 'assets/resonator_portraits/carlotta.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -142,9 +160,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'cartethyia',
     name: 'Cartethyia',
+    stars: 5,
     attribute: Attribute.aero,
     weapon: Weapon.sword,
-    portraitAsset: 'assets/resonator_icons/Cartethyia.png',
+    iconAsset: 'assets/resonator_icons/cartethyia.png',
+    portraitAsset: 'assets/resonator_portraits/cartethyia.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -159,9 +179,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'changli',
     name: 'Changli',
+    stars: 5,
     attribute: Attribute.fusion,
     weapon: Weapon.sword,
-    portraitAsset: 'assets/resonator_icons/Changli.png',
+    iconAsset: 'assets/resonator_icons/changli.png',
+    portraitAsset: 'assets/resonator_portraits/changli.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -176,9 +198,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'chixia',
     name: 'Chixia',
+    stars: 4,
     attribute: Attribute.fusion,
     weapon: Weapon.pistols,
-    portraitAsset: 'assets/resonator_icons/Chixia.png',
+    iconAsset: 'assets/resonator_icons/chixia.png',
+    portraitAsset: 'assets/resonator_portraits/chixia.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -192,9 +216,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'ciaccona',
     name: 'Ciaccona',
+    stars: 5,
     attribute: Attribute.aero,
     weapon: Weapon.pistols,
-    portraitAsset: 'assets/resonator_icons/Ciaccona.png',
+    iconAsset: 'assets/resonator_icons/ciaccona.png',
+    portraitAsset: 'assets/resonator_portraits/ciaccona.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -210,9 +236,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'danjin',
     name: 'Danjin',
+    stars: 4,
     attribute: Attribute.havoc,
     weapon: Weapon.sword,
-    portraitAsset: 'assets/resonator_icons/Danjin.png',
+    iconAsset: 'assets/resonator_icons/danjin.png',
+    portraitAsset: 'assets/resonator_portraits/danjin.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -227,9 +255,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'encore',
     name: 'Encore (Hypercarry)',
+    stars: 5,
     attribute: Attribute.fusion,
     weapon: Weapon.rectifier,
-    portraitAsset: 'assets/resonator_icons/Encore.png',
+    iconAsset: 'assets/resonator_icons/encore.png',
+    portraitAsset: 'assets/resonator_portraits/encore.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -244,9 +274,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'galbrena',
     name: 'Galbrena (Tentative)',
+    stars: 5,
     attribute: Attribute.fusion,
     weapon: Weapon.pistols,
-    portraitAsset: 'assets/resonator_icons/Galbrena.png',
+    iconAsset: 'assets/resonator_icons/galbrena.png',
+    portraitAsset: 'assets/resonator_portraits/galbrena.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -259,9 +291,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'iuno-dps',
     name: 'Iuno (Main DPS)',
+    stars: 5,
     attribute: Attribute.aero,
     weapon: Weapon.gauntlets,
-    portraitAsset: 'assets/resonator_icons/Iuno.png',
+    iconAsset: 'assets/resonator_icons/iuno.png',
+    portraitAsset: 'assets/resonator_portraits/iuno.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -275,9 +309,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'iuno-sub',
     name: 'Iuno (Sub DPS)',
+    stars: 5,
     attribute: Attribute.aero,
     weapon: Weapon.gauntlets,
-    portraitAsset: 'assets/resonator_icons/Iuno.png',
+    iconAsset: 'assets/resonator_icons/iuno.png',
+    portraitAsset: 'assets/resonator_portraits/iuno.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -291,9 +327,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'jianxin',
     name: 'Jianxin (DPS/sub DPS)',
+    stars: 5,
     attribute: Attribute.aero,
     weapon: Weapon.gauntlets,
-    portraitAsset: 'assets/resonator_icons/Jianxin.png',
+    iconAsset: 'assets/resonator_icons/jianxin.png',
+    portraitAsset: 'assets/resonator_portraits/jianxin.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -308,9 +346,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'jinhsi',
     name: 'Jinhsi',
+    stars: 5,
     attribute: Attribute.spectro,
     weapon: Weapon.broadblade,
-    portraitAsset: 'assets/resonator_icons/Jinhsi.png',
+    iconAsset: 'assets/resonator_icons/jinhsi.png',
+    portraitAsset: 'assets/resonator_portraits/jinhsi.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -324,9 +364,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'jiyan',
     name: 'Jiyan',
+    stars: 5,
     attribute: Attribute.aero,
     weapon: Weapon.broadblade,
-    portraitAsset: 'assets/resonator_icons/Jiyan.png',
+    iconAsset: 'assets/resonator_icons/jiyan.png',
+    portraitAsset: 'assets/resonator_portraits/jiyan.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -340,9 +382,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'lingyang',
     name: 'Lingyang',
+    stars: 5,
     attribute: Attribute.glacio,
     weapon: Weapon.gauntlets,
-    portraitAsset: 'assets/resonator_icons/Lingyang.png',
+    iconAsset: 'assets/resonator_icons/lingyang.png',
+    portraitAsset: 'assets/resonator_portraits/lingyang.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -357,9 +401,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'lumi',
     name: 'Lumi',
+    stars: 4,
     attribute: Attribute.electro,
     weapon: Weapon.broadblade,
-    portraitAsset: 'assets/resonator_icons/Lumi.png',
+    iconAsset: 'assets/resonator_icons/lumi.png',
+    portraitAsset: 'assets/resonator_portraits/lumi.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -374,9 +420,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'lupa',
     name: 'Lupa',
+    stars: 5,
     attribute: Attribute.fusion,
     weapon: Weapon.broadblade,
-    portraitAsset: 'assets/resonator_icons/Lupa.png',
+    iconAsset: 'assets/resonator_icons/lupa.png',
+    portraitAsset: 'assets/resonator_portraits/lupa.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -392,9 +440,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'mortefi',
     name: 'Mortefi',
+    stars: 4,
     attribute: Attribute.fusion,
     weapon: Weapon.pistols,
-    portraitAsset: 'assets/resonator_icons/Mortefi.png',
+    iconAsset: 'assets/resonator_icons/mortefi.png',
+    portraitAsset: 'assets/resonator_portraits/mortefi.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -409,9 +459,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'phoebe-dps',
     name: 'Phoebe (Main DPS)',
+    stars: 5,
     attribute: Attribute.spectro,
     weapon: Weapon.rectifier,
-    portraitAsset: 'assets/resonator_icons/Phoebe.png',
+    iconAsset: 'assets/resonator_icons/phoebe.png',
+    portraitAsset: 'assets/resonator_portraits/phoebe.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -425,9 +477,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'phoebe-sub',
     name: 'Phoebe (Sub DPS)',
+    stars: 5,
     attribute: Attribute.spectro,
     weapon: Weapon.rectifier,
-    portraitAsset: 'assets/resonator_icons/Phoebe.png',
+    iconAsset: 'assets/resonator_icons/phoebe.png',
+    portraitAsset: 'assets/resonator_portraits/phoebe.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -442,9 +496,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'phrolova',
     name: 'Phrolova',
+    stars: 5,
     attribute: Attribute.havoc,
     weapon: Weapon.rectifier,
-    portraitAsset: 'assets/resonator_icons/Phrolova.png',
+    iconAsset: 'assets/resonator_icons/phrolova.png',
+    portraitAsset: 'assets/resonator_portraits/phrolova.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -457,9 +513,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'roccia',
     name: 'Roccia',
+    stars: 5,
     attribute: Attribute.havoc,
     weapon: Weapon.gauntlets,
-    portraitAsset: 'assets/resonator_icons/Roccia.png',
+    iconAsset: 'assets/resonator_icons/roccia.png',
+    portraitAsset: 'assets/resonator_portraits/roccia.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -474,9 +532,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'rover-aero',
     name: 'Aero Rover',
+    stars: 5,
     attribute: Attribute.aero,
     weapon: Weapon.sword,
-    portraitAsset: 'assets/resonator_icons/RoverMale.png',
+    iconAsset: 'assets/resonator_icons/rover.png',
+    portraitAsset: 'assets/resonator_portraits/rover.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -491,9 +551,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'rover-havoc',
     name: 'Havoc Rover',
+    stars: 5,
     attribute: Attribute.havoc,
     weapon: Weapon.sword,
-    portraitAsset: 'assets/resonator_icons/RoverMale.png',
+    iconAsset: 'assets/resonator_icons/rover.png',
+    portraitAsset: 'assets/resonator_portraits/rover.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -508,9 +570,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'rover-spectro',
     name: 'Spectro Rover',
+    stars: 5,
     attribute: Attribute.spectro,
     weapon: Weapon.sword,
-    portraitAsset: 'assets/resonator_icons/RoverMale.png',
+    iconAsset: 'assets/resonator_icons/rover.png',
+    portraitAsset: 'assets/resonator_portraits/rover.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -525,9 +589,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'sanhua',
     name: 'Sanhua',
+    stars: 4,
     attribute: Attribute.glacio,
     weapon: Weapon.sword,
-    portraitAsset: 'assets/resonator_icons/Sanhua.png',
+    iconAsset: 'assets/resonator_icons/sanhua.png',
+    portraitAsset: 'assets/resonator_portraits/sanhua.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -541,9 +607,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'taoqi-sub',
     name: 'Taoqi (sub DPS)',
+    stars: 4,
     attribute: Attribute.havoc,
     weapon: Weapon.broadblade,
-    portraitAsset: 'assets/resonator_icons/Taoqi.png',
+    iconAsset: 'assets/resonator_icons/taoqi.png',
+    portraitAsset: 'assets/resonator_portraits/taoqi.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -557,17 +625,21 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'taoqi-sup',
     name: 'Taoqi (sup)',
+    stars: 4,
     attribute: Attribute.havoc,
     weapon: Weapon.broadblade,
-    portraitAsset: 'assets/resonator_icons/Taoqi.png',
+    iconAsset: 'assets/resonator_icons/taoqi.png',
+    portraitAsset: 'assets/resonator_portraits/taoqi.png',
     usableStats: [Stat.flatDef, Stat.defPercent, Stat.erPercent],
   ),
   Resonator(
     id: 'shorekeeper',
     name: 'The Shorekeeper (No Fallacy)',
+    stars: 5,
     attribute: Attribute.spectro,
     weapon: Weapon.rectifier,
-    portraitAsset: 'assets/resonator_icons/Shorekeeper.png',
+    iconAsset: 'assets/resonator_icons/shorekeeper.png',
+    portraitAsset: 'assets/resonator_portraits/shorekeeper.png',
     usableStats: [
       Stat.critDamage,
       Stat.flatHp,
@@ -580,9 +652,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'shorekeeper-fallacy',
     name: 'The Shorekeeper (With Fallacy)',
+    stars: 5,
     attribute: Attribute.spectro,
     weapon: Weapon.rectifier,
-    portraitAsset: 'assets/resonator_icons/Shorekeeper.png',
+    iconAsset: 'assets/resonator_icons/shorekeeper.png',
+    portraitAsset: 'assets/resonator_portraits/shorekeeper.png',
     usableStats: [
       Stat.critDamage,
       Stat.flatHp,
@@ -595,17 +669,21 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'verina',
     name: 'Verina',
+    stars: 5,
     attribute: Attribute.spectro,
     weapon: Weapon.rectifier,
-    portraitAsset: 'assets/resonator_icons/Verina.png',
+    iconAsset: 'assets/resonator_icons/verina.png',
+    portraitAsset: 'assets/resonator_portraits/verina.png',
     usableStats: [Stat.flatAtk, Stat.atkPercent, Stat.erPercent],
   ),
   Resonator(
     id: 'xiangli-yao',
     name: 'Xiangli Yao',
+    stars: 5,
     attribute: Attribute.electro,
     weapon: Weapon.gauntlets,
-    portraitAsset: 'assets/resonator_icons/XiangliYao.png',
+    iconAsset: 'assets/resonator_icons/xiangliyao.png',
+    portraitAsset: 'assets/resonator_portraits/xiangliyao.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -620,9 +698,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'yangyang',
     name: 'Yangyang',
+    stars: 4,
     attribute: Attribute.aero,
     weapon: Weapon.sword,
-    portraitAsset: 'assets/resonator_icons/Yangyang.png',
+    iconAsset: 'assets/resonator_icons/yangyang.png',
+    portraitAsset: 'assets/resonator_portraits/yangyang.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -636,9 +716,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'yinlin',
     name: 'Yinlin',
+    stars: 5,
     attribute: Attribute.electro,
     weapon: Weapon.rectifier,
-    portraitAsset: 'assets/resonator_icons/Yinlin.png',
+    iconAsset: 'assets/resonator_icons/yinlin.png',
+    portraitAsset: 'assets/resonator_portraits/yinlin.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -654,17 +736,21 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'youhu',
     name: 'Youhu',
+    stars: 4,
     attribute: Attribute.glacio,
     weapon: Weapon.gauntlets,
-    portraitAsset: 'assets/resonator_icons/Youhu.png',
+    iconAsset: 'assets/resonator_icons/youhu.png',
+    portraitAsset: 'assets/resonator_portraits/youhu.png',
     usableStats: [Stat.flatAtk, Stat.atkPercent, Stat.erPercent],
   ),
   Resonator(
     id: 'yuanwu',
     name: 'Yuanwu',
+    stars: 4,
     attribute: Attribute.electro,
     weapon: Weapon.gauntlets,
-    portraitAsset: 'assets/resonator_icons/Yuanwu.png',
+    iconAsset: 'assets/resonator_icons/yuanwu.png',
+    portraitAsset: 'assets/resonator_portraits/yuanwu.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -678,9 +764,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'zani',
     name: 'Zani',
+    stars: 5,
     attribute: Attribute.spectro,
     weapon: Weapon.gauntlets,
-    portraitAsset: 'assets/resonator_icons/Zani.png',
+    iconAsset: 'assets/resonator_icons/zani.png',
+    portraitAsset: 'assets/resonator_portraits/zani.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,
@@ -695,9 +783,11 @@ final List<Resonator> seedResonators = [
   Resonator(
     id: 'zhezhi',
     name: 'Zhezhi',
+    stars: 5,
     attribute: Attribute.glacio,
     weapon: Weapon.rectifier,
-    portraitAsset: 'assets/resonator_icons/Zhezhi.png',
+    iconAsset: 'assets/resonator_icons/zhezhi.png',
+    portraitAsset: 'assets/resonator_portraits/zhezhi.png',
     usableStats: [
       Stat.critRate,
       Stat.critDamage,

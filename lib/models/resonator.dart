@@ -1,6 +1,83 @@
 import '../data/stat.dart';
 import 'echo.dart';
 
+class Resonator {
+  final String id;
+  final String name;
+  final int stars;
+  final Attribute attribute;
+  final Weapon weapon;
+  final String iconAsset;
+  final String portraitAsset;
+  final List<Stat> usableStats;
+  final EchoSet? savedEchoSet;
+
+  const Resonator({
+    required this.id,
+    required this.name,
+    required this.stars,
+    required this.attribute,
+    required this.weapon,
+    required this.iconAsset,
+    required this.portraitAsset,
+    required this.usableStats,
+    this.savedEchoSet,
+  });
+
+  Resonator copyWith({EchoSet? savedEchoSet}) {
+    return Resonator(
+      id: id,
+      name: name,
+      stars: stars,
+      attribute: attribute,
+      weapon: weapon,
+      iconAsset: iconAsset,
+      portraitAsset: portraitAsset,
+      usableStats: usableStats,
+      savedEchoSet: savedEchoSet ?? this.savedEchoSet,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'stars': stars,
+      'attribute': attribute.index,
+      'weapon': weapon.index,
+      'iconAsset': iconAsset,
+      'portraitAsset': portraitAsset,
+      'usableStats': usableStats,
+      'savedEchoSet': savedEchoSet?.toJson(),
+    };
+  }
+
+  static Resonator fromJson(Map<String, dynamic> json) {
+    return Resonator(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      stars: json['stars'] as int? ?? 5,
+      attribute: Attribute.values[json['attribute'] as int],
+      weapon: Weapon.values[json['weapon'] as int],
+      iconAsset: json['iconAsset'] as String? ?? '',
+      portraitAsset: json['portraitAsset'] as String? ?? '',
+      usableStats: (json['usableStats'] as List)
+          .map(
+            (e) => statApiNames.entries
+                .firstWhere(
+                  (entry) => entry.value == e,
+                  orElse: () => MapEntry(Stat.critRate, 'Crit. Rate'),
+                )
+                .key,
+          )
+          .toList(),
+      savedEchoSet: json['savedEchoSet'] != null
+          ? EchoSet.fromJson(json['savedEchoSet'] as Map<String, dynamic>)
+          : null,
+    );
+  }
+}
+
 enum Weapon { broadblade, sword, pistols, gauntlets, rectifier }
 
 enum Attribute { aero, electro, fusion, glacio, havoc, spectro }
@@ -97,72 +174,5 @@ String statAsset(Stat s) {
       return 'assets/stat_icons/liberation.png';
     case Stat.erPercent:
       return 'assets/stat_icons/er.png';
-  }
-}
-
-class Resonator {
-  final String id;
-  final String name;
-  final Attribute attribute;
-  final Weapon weapon;
-  final String portraitAsset; // Optional: not used for rendering if null
-  final List<Stat> usableStats;
-  final EchoSet? savedEchoSet; // for autofill (optional cached)
-
-  const Resonator({
-    required this.id,
-    required this.name,
-    required this.attribute,
-    required this.weapon,
-    required this.portraitAsset,
-    required this.usableStats,
-    this.savedEchoSet,
-  });
-
-  Resonator copyWith({EchoSet? savedEchoSet}) {
-    return Resonator(
-      id: id,
-      name: name,
-      attribute: attribute,
-      weapon: weapon,
-      portraitAsset: portraitAsset,
-      usableStats: usableStats,
-      savedEchoSet: savedEchoSet ?? this.savedEchoSet,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'attribute': attribute.index,
-      'weapon': weapon.index,
-      'portraitAsset': portraitAsset,
-      'usableStats': usableStats,
-      'savedEchoSet': savedEchoSet?.toJson(),
-    };
-  }
-
-  static Resonator fromJson(Map<String, dynamic> json) {
-    return Resonator(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      attribute: Attribute.values[json['attribute'] as int],
-      weapon: Weapon.values[json['weapon'] as int],
-      portraitAsset: json['portraitAsset'] as String? ?? '',
-      usableStats: (json['usableStats'] as List)
-          .map(
-            (e) => statApiNames.entries
-                .firstWhere(
-                  (entry) => entry.value == e,
-                  orElse: () => MapEntry(Stat.critRate, 'Crit. Rate'),
-                )
-                .key,
-          )
-          .toList(),
-      savedEchoSet: json['savedEchoSet'] != null
-          ? EchoSet.fromJson(json['savedEchoSet'] as Map<String, dynamic>)
-          : null,
-    );
   }
 }

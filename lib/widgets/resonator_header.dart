@@ -13,10 +13,10 @@ class ResonatorHeader extends StatelessWidget {
         CircleAvatar(
           radius: 28,
           backgroundColor: Colors.transparent,
-          backgroundImage: resonator.portraitAsset.isNotEmpty
-              ? AssetImage(resonator.portraitAsset)
+          backgroundImage: resonator.iconAsset.isNotEmpty
+              ? AssetImage(resonator.iconAsset)
               : null,
-          child: resonator.portraitAsset.isEmpty
+          child: resonator.iconAsset.isEmpty
               ? Text(
                   resonator.name.isNotEmpty ? resonator.name[0] : '?',
                   style: const TextStyle(

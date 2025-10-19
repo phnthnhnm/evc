@@ -154,6 +154,7 @@ class ResonatorCard extends StatelessWidget {
                 ),
               ),
               alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Text(
                 resonator.name,
                 style: const TextStyle(

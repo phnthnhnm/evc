@@ -123,7 +123,7 @@ class ResonatorCard extends StatelessWidget {
                       borderRadius: BorderRadius.zero,
                       boxShadow: [
                         BoxShadow(
-                          color: getStarBarColor(
+                          color: getStarColor(
                             resonator.stars,
                           ).withValues(alpha: 0.7),
                           blurRadius: 16,
@@ -137,7 +137,7 @@ class ResonatorCard extends StatelessWidget {
                   width: cardWidth,
                   height: starsBarHeight,
                   decoration: BoxDecoration(
-                    color: getStarBarColor(resonator.stars),
+                    color: getStarColor(resonator.stars),
                     borderRadius: BorderRadius.zero,
                   ),
                 ),

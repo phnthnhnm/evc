@@ -11,7 +11,7 @@ class SearchBar extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       child: TextField(
         decoration: const InputDecoration(
-          labelText: 'Search by name',
+          labelText: 'Search resonators',
           border: OutlineInputBorder(),
           prefixIcon: Icon(Icons.search),
         ),

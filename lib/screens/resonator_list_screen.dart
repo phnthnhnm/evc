@@ -6,6 +6,7 @@ import '../data/seed_resonators.dart';
 import '../models/echo.dart';
 import '../models/resonator.dart';
 import '../utils/echo_set_provider.dart';
+import '../utils/resonator_utils.dart';
 import '../utils/tier_color_utils.dart';
 import '../widgets/resonator_list_view.dart';
 import '../widgets/search_bar.dart' as search_bar;
@@ -24,6 +25,7 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
   Attribute? _filterAttribute;
   Weapon? _filterWeapon;
   String? _filterEchoTier;
+  int? _filterStars;
 
   @override
   void initState() {
@@ -46,6 +48,7 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
               _filterAttribute == null || c.attribute == _filterAttribute;
           final matchesWeapon =
               _filterWeapon == null || c.weapon == _filterWeapon;
+          final matchesStars = _filterStars == null || c.stars == _filterStars;
           final echoSet = echoSets[c.id];
           final matchesEchoTier =
               _filterEchoTier == null ||
@@ -53,6 +56,7 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
           return matchesSearch &&
               matchesAttr &&
               matchesWeapon &&
+              matchesStars &&
               matchesEchoTier;
         })
         .map((resonator) {
@@ -107,6 +111,30 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                DropdownButton<int>(
+                  value: _filterStars,
+                  hint: const Text('Stars'),
+                  items: [
+                    const DropdownMenuItem<int>(
+                      value: null,
+                      child: Text('All Stars'),
+                    ),
+                    ...[4, 5].map(
+                      (stars) => DropdownMenuItem<int>(
+                        value: stars,
+                        child: Text(
+                          '$stars ✦',
+                          style: TextStyle(
+                            color: getStarColor(stars),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                  onChanged: (stars) => setState(() => _filterStars = stars),
+                ),
+                const SizedBox(width: 24),
                 DropdownButton<Attribute>(
                   value: _filterAttribute,
                   hint: const Text('Attribute'),

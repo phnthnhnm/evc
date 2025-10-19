@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/resonator.dart';
 
-Color getStarBarColor(int stars) {
+Color getStarColor(int stars) {
   if (stars == 5) return const Color(0xFFFFD700);
   if (stars == 4) return const Color(0xFFB266FF);
   return Colors.grey.shade700;

@@ -19,14 +19,15 @@ class ResonatorListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: SingleChildScrollView(
         child: Wrap(
-          spacing: 16,
-          runSpacing: 16,
+          spacing: 28,
+          runSpacing: 32,
           children: resonators.map((resonator) {
             return SizedBox(
-              width: 180,
+              width: 240,
+              height: 406,
               child: ResonatorCard(
                 key: ValueKey(resonator.id),
                 resonator: resonator,

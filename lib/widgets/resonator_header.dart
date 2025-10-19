@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/resonator.dart';
+import '../utils/resonator_utils.dart';
 
 class ResonatorHeader extends StatelessWidget {
   final Resonator resonator;
@@ -11,7 +12,7 @@ class ResonatorHeader extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          radius: 28,
+          radius: 36,
           backgroundColor: Colors.transparent,
           backgroundImage: resonator.iconAsset.isNotEmpty
               ? AssetImage(resonator.iconAsset)
@@ -20,7 +21,7 @@ class ResonatorHeader extends StatelessWidget {
               ? Text(
                   resonator.name.isNotEmpty ? resonator.name[0] : '?',
                   style: const TextStyle(
-                    fontSize: 24,
+                    fontSize: 32,
                     fontWeight: FontWeight.bold,
                   ),
                 )
@@ -43,20 +44,40 @@ class ResonatorHeader extends StatelessWidget {
                 children: [
                   Tooltip(
                     message: attributeLabel(resonator.attribute),
-                    child: Image.asset(
-                      attributeAsset(resonator.attribute),
-                      width: 24,
-                      height: 24,
+                    child: Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: getAttributeBackgroundColor(
+                          resonator.attribute,
+                        ).withValues(alpha: 0.8),
+                      ),
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        attributeAsset(resonator.attribute),
+                        width: 28,
+                        height: 28,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
                   Tooltip(
                     message: weaponLabel(resonator.weapon),
-                    child: Image.asset(
-                      weaponAsset(resonator.weapon),
-                      width: 24,
-                      height: 24,
-                      color: Theme.of(context).colorScheme.primary,
+                    child: Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: const Color(0xFF3A3F44).withValues(alpha: 0.7),
+                      ),
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        weaponAsset(resonator.weapon),
+                        width: 28,
+                        height: 28,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                     ),
                   ),
                 ],

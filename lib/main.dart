@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'data/seed_resonators.dart';
 import 'data/stat.dart';
 import 'models/resonator.dart';
 import 'screens/resonator_list_screen.dart';
@@ -35,6 +36,12 @@ class _EchoValueCalcAppState extends State<EchoValueCalcApp> {
         if (!mounted) break;
         final assetPath = statAsset(stat);
         precacheImage(AssetImage(assetPath), context);
+      }
+
+      for (final resonator in seedResonators) {
+        if (!mounted) break;
+        final iconAsset = resonator.iconAsset;
+        precacheImage(AssetImage(iconAsset), context);
       }
     });
   }

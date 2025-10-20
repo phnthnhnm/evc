@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:window_manager/window_manager.dart';
 
 import 'data/seed_resonators.dart';
 import 'data/stat.dart';
@@ -11,7 +10,6 @@ import 'utils/theme_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await windowManager.ensureInitialized();
   runApp(const EchoValueCalcApp());
 }
 
@@ -27,11 +25,6 @@ class _EchoValueCalcAppState extends State<EchoValueCalcApp> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(const Duration(milliseconds: 200));
-      await windowManager.maximize();
-      await windowManager.show();
-      await windowManager.focus();
-
       for (final stat in allStats) {
         if (!mounted) break;
         final assetPath = statAsset(stat);

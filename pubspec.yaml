@@ -1,7 +1,7 @@
 name: evc
 description: Flutter app for Echo value calculations with resonator browsing and scoring
 publish_to: "none"
-version: 1.6.1
+version: 1.6.2
 
 environment:
   sdk: ^3.9.2

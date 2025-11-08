@@ -141,10 +141,11 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
         error = e.toString();
       });
     } finally {
-      if (!mounted) return;
-      setState(() {
-        loading = false;
-      });
+      if (mounted) {
+        setState(() {
+          loading = false;
+        });
+      }
     }
   }
 

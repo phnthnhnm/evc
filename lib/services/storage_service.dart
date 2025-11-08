@@ -7,6 +7,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/echo.dart';
 
 class StorageService {
+  // Cache to avoid redundant file reads
+  static Map<String, dynamic>? _cachedData;
+  static DateTime? _lastCacheTime;
+  static const _cacheValidityDuration = Duration(seconds: 5);
+  
   static Future<File> getJsonFile() async {
     final supportDir = await getApplicationSupportDirectory();
     final dir = Directory(supportDir.path);
@@ -16,42 +21,70 @@ class StorageService {
     return File('${dir.path}/echo_sets.json');
   }
 
-  static Future<void> saveEchoSet(String resonatorId, EchoSet echoSet) async {
-    final file = await getJsonFile();
-    Map<String, EchoSet> allSets = {};
-    if (await file.exists()) {
-      final content = await file.readAsString();
-      final data = jsonDecode(content) as Map<String, dynamic>;
-      allSets = data.map((k, v) => MapEntry(k, EchoSet.fromJson(v)));
+  // Helper to read and cache file data
+  static Future<Map<String, dynamic>> _readData() async {
+    final now = DateTime.now();
+    
+    // Return cached data if still valid
+    if (_cachedData != null && 
+        _lastCacheTime != null && 
+        now.difference(_lastCacheTime!) < _cacheValidityDuration) {
+      return _cachedData!;
     }
+    
+    final file = await getJsonFile();
+    if (!await file.exists()) {
+      _cachedData = {};
+      _lastCacheTime = now;
+      return _cachedData!;
+    }
+    
+    final content = await file.readAsString();
+    _cachedData = jsonDecode(content) as Map<String, dynamic>;
+    _lastCacheTime = now;
+    return _cachedData!;
+  }
+  
+  // Helper to write data and invalidate cache
+  static Future<void> _writeData(Map<String, dynamic> data) async {
+    final file = await getJsonFile();
+    final encoder = JsonEncoder.withIndent('  ');
+    await file.writeAsString(encoder.convert(data));
+    _cachedData = data;
+    _lastCacheTime = DateTime.now();
+  }
+  
+  // Clear cache to force reload
+  static void clearCache() {
+    _cachedData = null;
+    _lastCacheTime = null;
+  }
+
+  static Future<void> saveEchoSet(String resonatorId, EchoSet echoSet) async {
+    final data = await _readData();
+    final allSets = data.map((k, v) => MapEntry(k, EchoSet.fromJson(v)));
     allSets[resonatorId] = echoSet;
     final map = allSets.map((k, v) => MapEntry(k, v.toJson()));
-    final encoder = JsonEncoder.withIndent('  ');
-    await file.writeAsString(encoder.convert(map));
+    await _writeData(map);
   }
 
   static Future<EchoSet?> loadEchoSet(String resonatorId) async {
-    final file = await getJsonFile();
-    if (!await file.exists()) return null;
-    final content = await file.readAsString();
-    final data = jsonDecode(content) as Map<String, dynamic>;
+    final data = await _readData();
     if (!data.containsKey(resonatorId)) return null;
     return EchoSet.fromJson(data[resonatorId]);
   }
 
   static Future<void> deleteEchoSet(String resonatorId) async {
-    final file = await getJsonFile();
-    if (!await file.exists()) return;
-    final content = await file.readAsString();
-    final data = jsonDecode(content) as Map<String, dynamic>;
+    final data = await _readData();
     if (data.containsKey(resonatorId)) {
       data.remove(resonatorId);
-      final encoder = JsonEncoder.withIndent('  ');
-      await file.writeAsString(encoder.convert(data));
+      await _writeData(data);
     }
   }
 
   static Future<String> backupAllData() async {
+    // Clear cache to ensure we read fresh data from disk
+    clearCache();
     final echoFile = await getJsonFile();
     Map<String, dynamic> echoSets = {};
     if (await echoFile.exists()) {
@@ -80,6 +113,8 @@ class StorageService {
     await echoFile.writeAsString(
       encoder.convert(backupData['echo_sets'] ?? {}),
     );
+    // Clear cache after restore
+    clearCache();
 
     if (backupData['settings'] != null) {
       final prefs = await SharedPreferences.getInstance();
@@ -107,6 +142,8 @@ class StorageService {
   static Future<void> resetAllData() async {
     final echoFile = await getJsonFile();
     await echoFile.writeAsString('{}');
+    // Clear cache after reset
+    clearCache();
 
     final prefs = await SharedPreferences.getInstance();
     final keys = prefs.getKeys();

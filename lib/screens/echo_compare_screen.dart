@@ -34,6 +34,9 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
   Echo? newEchoResult;
   late TextEditingController _erController;
   double _enteredTotalER = 0.0;
+  
+  // Cache regex pattern to avoid recreating it
+  static final _digitPattern = RegExp(r' \d+$');
 
   @override
   void initState() {
@@ -69,9 +72,10 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
       return <String, double>{};
     });
     // Remap newEchoStats keys to match the selected echo index
+    // Optimize: use cached RegExp instead of creating it in forEach
     final remappedStats = <String, double>{};
     newEchoStats.forEach((key, value) {
-      final statName = key.replaceAll(RegExp(r' \d+$'), '');
+      final statName = key.replaceAll(_digitPattern, '');
       remappedStats['$statName ${widget.echoIndex + 1}'] = value;
     });
     echoStatsList[widget.echoIndex] = remappedStats;
@@ -153,7 +157,7 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
                           echoStats: {
                             for (final entry
                                 in widget.currentEcho.stats.entries)
-                              entry.key.replaceAll(RegExp(r' \d+$'), ' 1'):
+                              entry.key.replaceAll(_digitPattern, ' 1'):
                                   entry.value,
                           },
                           onStatChanged: (_, _) {},

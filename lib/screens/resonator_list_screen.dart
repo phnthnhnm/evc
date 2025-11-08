@@ -26,6 +26,9 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
   Weapon? _filterWeapon;
   String? _filterEchoTier;
   int? _filterStars;
+  
+  // Cache normalized search term to avoid repeated toLowerCase() calls
+  String _normalizedSearch = '';
 
   @override
   void initState() {
@@ -34,35 +37,68 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
       Provider.of<EchoSetProvider>(context, listen: false).loadAll();
     });
   }
+  
+  // Helper method to filter resonators
+  List<Resonator> _filterResonators(
+    Map<String, EchoSet> echoSets,
+  ) {
+    // Early return if no filters applied
+    final hasFilters = _search.isNotEmpty ||
+        _filterAttribute != null ||
+        _filterWeapon != null ||
+        _filterStars != null ||
+        _filterEchoTier != null;
+    
+    if (!hasFilters) {
+      // No filtering needed, just attach echo sets
+      return seedResonators
+          .map((r) => r.copyWith(savedEchoSet: echoSets[r.id]))
+          .toList();
+    }
+    
+    return seedResonators.where((c) {
+      // Search filter - use cached normalized search
+      if (_normalizedSearch.isNotEmpty) {
+        if (!c.name.toLowerCase().contains(_normalizedSearch)) {
+          return false;
+        }
+      }
+      
+      // Attribute filter
+      if (_filterAttribute != null && c.attribute != _filterAttribute) {
+        return false;
+      }
+      
+      // Weapon filter
+      if (_filterWeapon != null && c.weapon != _filterWeapon) {
+        return false;
+      }
+      
+      // Stars filter
+      if (_filterStars != null && c.stars != _filterStars) {
+        return false;
+      }
+      
+      // Echo tier filter
+      if (_filterEchoTier != null) {
+        final echoSet = echoSets[c.id];
+        if (echoSet == null || 
+            !echoSet.echoes.any((e) => e.tier == _filterEchoTier)) {
+          return false;
+        }
+      }
+      
+      return true;
+    }).map((resonator) {
+      return resonator.copyWith(savedEchoSet: echoSets[resonator.id]);
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
     final echoSetProvider = Provider.of<EchoSetProvider>(context);
     final echoSets = echoSetProvider.echoSets;
-    final filtered = seedResonators
-        .where((c) {
-          final matchesSearch = c.name.toLowerCase().contains(
-            _search.toLowerCase().trim(),
-          );
-          final matchesAttr =
-              _filterAttribute == null || c.attribute == _filterAttribute;
-          final matchesWeapon =
-              _filterWeapon == null || c.weapon == _filterWeapon;
-          final matchesStars = _filterStars == null || c.stars == _filterStars;
-          final echoSet = echoSets[c.id];
-          final matchesEchoTier =
-              _filterEchoTier == null ||
-              (echoSet?.echoes.any((e) => e.tier == _filterEchoTier) ?? false);
-          return matchesSearch &&
-              matchesAttr &&
-              matchesWeapon &&
-              matchesStars &&
-              matchesEchoTier;
-        })
-        .map((resonator) {
-          return resonator.copyWith(savedEchoSet: echoSets[resonator.id]);
-        })
-        .toList();
+    final filtered = _filterResonators(echoSets);
 
     return Scaffold(
       appBar: AppBar(
@@ -106,7 +142,12 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
           children: [
             search_bar.SearchBar(
               value: _search,
-              onChanged: (v) => setState(() => _search = v),
+              onChanged: (v) {
+                setState(() {
+                  _search = v;
+                  _normalizedSearch = v.toLowerCase().trim();
+                });
+              },
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

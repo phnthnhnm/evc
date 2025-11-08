@@ -143,7 +143,7 @@ class EchoCard extends StatelessWidget {
                   ),
                   avatar: const Icon(Icons.star),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Chip(
                   label: Text.rich(
                     TextSpan(

@@ -23,19 +23,30 @@ class ApiService {
     map['char_full'] = resonatorName;
     map['er_tot_full'] = totalER.toString();
 
-    // All possible stat keys must be present, but stats not shown/unused should be 0.0.
-    // Ensure all keys for indices 1..5 exist, default 0.0 if not provided.
+    // Optimize: Build keys once and reuse
+    // Pre-calculate all possible stat keys for indices 1..5
     final statNames = allStats;
+    final statKeysCache = <String, List<String>>{};
+    
+    for (final stat in statNames) {
+      final apiName = statApiNames[stat]!;
+      statKeysCache[apiName] = List.generate(5, (i) => '$apiName ${i + 1}');
+    }
 
-    for (int i = 0; i < 5; i++) {
-      for (final stat in statNames) {
-        final apiKey = '${statApiNames[stat]} ${i + 1}';
+    // Populate with values from echoStatsList
+    for (final stat in statNames) {
+      final apiName = statApiNames[stat]!;
+      final keys = statKeysCache[apiName]!;
+      
+      for (int i = 0; i < 5; i++) {
+        final key = keys[i];
         final value = echoStatsList.length > i
-            ? (echoStatsList[i][apiKey] ?? 0.0)
+            ? (echoStatsList[i][key] ?? 0.0)
             : 0.0;
-        map[apiKey] = value.toString();
+        map[key] = value.toString();
       }
     }
+    
     return map;
   }
 

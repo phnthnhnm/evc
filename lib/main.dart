@@ -25,17 +25,23 @@ class _EchoValueCalcAppState extends State<EchoValueCalcApp> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted) return;
+      
+      // Precache all images in parallel for better performance
+      final futures = <Future>[];
+      
+      // Add stat icons
       for (final stat in allStats) {
-        if (!mounted) break;
-        final assetPath = statAsset(stat);
-        precacheImage(AssetImage(assetPath), context);
+        futures.add(precacheImage(AssetImage(statAsset(stat)), context));
       }
-
+      
+      // Add resonator icons
       for (final resonator in seedResonators) {
-        if (!mounted) break;
-        final iconAsset = resonator.iconAsset;
-        precacheImage(AssetImage(iconAsset), context);
+        futures.add(precacheImage(AssetImage(resonator.iconAsset), context));
       }
+      
+      // Wait for all images to load in parallel
+      await Future.wait(futures);
     });
   }
 

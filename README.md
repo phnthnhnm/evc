@@ -52,7 +52,8 @@ scoop install <bucketname>/evc
    flutter pub get
    ```
 
-> [!WARNING] > **Disclaimer:** Only the Windows version has been tested so far. Other desktop versions (MacOS and Linux) should still work as I don't use any Windows-specific APIs. No guarantees for mobile (too different layout) and web (CORS issue).
+> [!WARNING] 
+> **Disclaimer:** Only the Windows version has been tested so far. Other desktop versions (MacOS and Linux) should still work as I don't use any Windows-specific APIs. No guarantees for mobile (too different layout) and web (CORS issue).
 
 3. **Run the app:**
 
@@ -74,24 +75,6 @@ scoop install <bucketname>/evc
 ## How to Use
 
 For instructions, check out the [official guide](https://www.echovaluecalc.com/instruct) from the Echo Value Calculator website, specifically the "Full Score" section.
-
-## File Structure
-
-```
-lib/
-  main.dart
-  models/
-  screens/
-    settings/
-  services/
-  utils/
-  widgets/
-assets/
-  attributes/
-  portraits/
-  stats/
-  weapons/
-```
 
 ## Contributing
 

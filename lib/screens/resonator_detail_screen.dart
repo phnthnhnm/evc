@@ -114,6 +114,19 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
   }
 
   Future<void> _submit() async {
+    // Check for too many stats per echo
+    final overLimitIndices = <int>[];
+    for (int i = 0; i < echoStats.length; i++) {
+      if (echoStats[i].length > 5) overLimitIndices.add(i + 1);
+    }
+    if (overLimitIndices.isNotEmpty) {
+      final echoList = overLimitIndices.join(', ');
+      showTopRightToast(
+        context,
+        'Error: Echo${overLimitIndices.length > 1 ? 'es' : ''} $echoList have more than 5 stats. Please remove extra stats.',
+      );
+      return;
+    }
     setState(() {
       loading = true;
       error = null;

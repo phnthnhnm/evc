@@ -197,7 +197,7 @@ final List<Resonator> seedResonators = [
   ),
   Resonator(
     id: 'chisa',
-    name: 'Chisa (Tentative)',
+    name: 'Chisa',
     stars: 5,
     attribute: Attribute.havoc,
     weapon: Weapon.broadblade,

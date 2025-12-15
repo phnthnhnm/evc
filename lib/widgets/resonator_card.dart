@@ -133,33 +133,38 @@ class _ResonatorCardState extends State<ResonatorCard> {
                       Positioned(
                         top: 12,
                         left: 12,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: scoreColor.withValues(alpha: 0.18),
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: scoreColor, width: 1.2),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              //Icon(Icons.star, color: scoreColor, size: 18),
-                              const SizedBox(width: 4),
-                              Text(
-                                overallScore != null && overallScore > 0
-                                    ? overallScore.toStringAsFixed(1)
-                                    : '—',
-                                style: TextStyle(
-                                  color: scoreColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                  letterSpacing: 0.1,
+                        child: Tooltip(
+                          message:
+                              'Overall Score: This value summarizes the build quality of this Resonator. You can disable this display in Settings.',
+                          waitDuration: Duration(milliseconds: 300),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: scoreColor.withValues(alpha: 0.18),
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(color: scoreColor, width: 1.2),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                //Icon(Icons.star, color: scoreColor, size: 18),
+                                const SizedBox(width: 4),
+                                Text(
+                                  overallScore != null && overallScore > 0
+                                      ? overallScore.toStringAsFixed(1)
+                                      : '—',
+                                  style: TextStyle(
+                                    color: scoreColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                    letterSpacing: 0.1,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),

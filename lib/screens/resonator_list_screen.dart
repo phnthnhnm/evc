@@ -26,7 +26,17 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
   Weapon? _filterWeapon;
   String? _filterEchoTier;
   int? _filterStars;
-  
+  // Sorting: 'score_desc', 'score_asc', 'name_az', 'name_za'
+  static const List<String> _sortOptions = [
+    'score_desc',
+    'score_asc',
+    'name_az',
+    'name_za',
+  ];
+  String _sortOrder = 'score_desc';
+  String get _validatedSortOrder =>
+      _sortOptions.contains(_sortOrder) ? _sortOrder : _sortOptions.first;
+
   // Cache normalized search term to avoid repeated toLowerCase() calls
   String _normalizedSearch = '';
 
@@ -37,61 +47,63 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
       Provider.of<EchoSetProvider>(context, listen: false).loadAll();
     });
   }
-  
+
   // Helper method to filter resonators
-  List<Resonator> _filterResonators(
-    Map<String, EchoSet> echoSets,
-  ) {
+  List<Resonator> _filterResonators(Map<String, EchoSet> echoSets) {
     // Early return if no filters applied
-    final hasFilters = _search.isNotEmpty ||
+    final hasFilters =
+        _search.isNotEmpty ||
         _filterAttribute != null ||
         _filterWeapon != null ||
         _filterStars != null ||
         _filterEchoTier != null;
-    
+
     if (!hasFilters) {
       // No filtering needed, just attach echo sets
       return seedResonators
           .map((r) => r.copyWith(savedEchoSet: echoSets[r.id]))
           .toList();
     }
-    
-    return seedResonators.where((c) {
-      // Search filter - use cached normalized search
-      if (_normalizedSearch.isNotEmpty) {
-        if (!c.name.toLowerCase().contains(_normalizedSearch)) {
-          return false;
-        }
-      }
-      
-      // Attribute filter
-      if (_filterAttribute != null && c.attribute != _filterAttribute) {
-        return false;
-      }
-      
-      // Weapon filter
-      if (_filterWeapon != null && c.weapon != _filterWeapon) {
-        return false;
-      }
-      
-      // Stars filter
-      if (_filterStars != null && c.stars != _filterStars) {
-        return false;
-      }
-      
-      // Echo tier filter
-      if (_filterEchoTier != null) {
-        final echoSet = echoSets[c.id];
-        if (echoSet == null || 
-            !echoSet.echoes.any((e) => e.tier == _filterEchoTier)) {
-          return false;
-        }
-      }
-      
-      return true;
-    }).map((resonator) {
-      return resonator.copyWith(savedEchoSet: echoSets[resonator.id]);
-    }).toList();
+
+    return seedResonators
+        .where((c) {
+          // Search filter - use cached normalized search
+          if (_normalizedSearch.isNotEmpty) {
+            if (!c.name.toLowerCase().contains(_normalizedSearch)) {
+              return false;
+            }
+          }
+
+          // Attribute filter
+          if (_filterAttribute != null && c.attribute != _filterAttribute) {
+            return false;
+          }
+
+          // Weapon filter
+          if (_filterWeapon != null && c.weapon != _filterWeapon) {
+            return false;
+          }
+
+          // Stars filter
+          if (_filterStars != null && c.stars != _filterStars) {
+            return false;
+          }
+
+          // Echo tier filter
+          if (_filterEchoTier != null) {
+            final echoSet = echoSets[c.id];
+            if (echoSet == null ||
+                !echoSet.echoes.any((e) => e.tier == _filterEchoTier)) {
+              return false;
+            }
+          }
+
+          return true;
+        })
+        .map((resonator) {
+          return resonator.copyWith(savedEchoSet: echoSets[resonator.id]);
+        })
+        .toList();
   }
 
   @override
@@ -99,6 +111,41 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
     final echoSetProvider = Provider.of<EchoSetProvider>(context);
     final echoSets = echoSetProvider.echoSets;
     final filtered = _filterResonators(echoSets);
+
+    // Sort by selected order
+    List<Resonator> sorted = List.from(filtered);
+    switch (_sortOrder) {
+      case 'score_desc':
+        sorted.sort((a, b) {
+          final aScore = a.savedEchoSet?.overallScore;
+          final bScore = b.savedEchoSet?.overallScore;
+          if (aScore == null && bScore == null) return 0;
+          if (aScore == null) return 1;
+          if (bScore == null) return -1;
+          return bScore.compareTo(aScore);
+        });
+        break;
+      case 'score_asc':
+        sorted.sort((a, b) {
+          final aScore = a.savedEchoSet?.overallScore;
+          final bScore = b.savedEchoSet?.overallScore;
+          if (aScore == null && bScore == null) return 0;
+          if (aScore == null) return 1;
+          if (bScore == null) return -1;
+          return aScore.compareTo(bScore);
+        });
+        break;
+      case 'name_az':
+        sorted.sort(
+          (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
+        );
+        break;
+      case 'name_za':
+        sorted.sort(
+          (a, b) => b.name.toLowerCase().compareTo(a.name.toLowerCase()),
+        );
+        break;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -261,11 +308,38 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
                   ],
                   onChanged: (tier) => setState(() => _filterEchoTier = tier),
                 ),
+                const SizedBox(width: 24),
+                // Sort dropdown
+                DropdownButton<String>(
+                  value: _validatedSortOrder,
+                  hint: const Text('Sort'),
+                  items: const [
+                    DropdownMenuItem<String>(
+                      value: 'name_az',
+                      child: Text('Name: A to Z'),
+                    ),
+                    DropdownMenuItem<String>(
+                      value: 'name_za',
+                      child: Text('Name: Z to A'),
+                    ),
+                    DropdownMenuItem<String>(
+                      value: 'score_desc',
+                      child: Text('Score: High to Low'),
+                    ),
+                    DropdownMenuItem<String>(
+                      value: 'score_asc',
+                      child: Text('Score: Low to High'),
+                    ),
+                  ],
+                  onChanged: (order) {
+                    if (order != null) setState(() => _sortOrder = order);
+                  },
+                ),
               ],
             ),
             const SizedBox(height: 8),
             ResonatorListView(
-              resonators: filtered,
+              resonators: sorted,
               onEchoSetSaved: (resonator, result) async {
                 if (result != null) {
                   await echoSetProvider.saveEchoSet(resonator.id, result);

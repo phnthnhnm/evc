@@ -57,6 +57,12 @@ class AppearanceTab extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 24),
+            SwitchListTile(
+              value: themeProvider.showScoreOnCard,
+              onChanged: (v) => themeProvider.setShowScoreOnCard(v),
+              title: const Text('Show overall score on resonator cards'),
+            ),
           ],
         ),
       ),

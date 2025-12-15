@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/resonator.dart';
 import '../utils/resonator_utils.dart';
+import '../utils/theme_provider.dart';
 import '../utils/tier_color_utils.dart';
 
 class ResonatorCard extends StatefulWidget {
@@ -36,6 +38,9 @@ class _ResonatorCardState extends State<ResonatorCard> {
     final Color scoreColor = overallTier != null
         ? getTierColor(overallTier)
         : Colors.grey;
+
+    // Check if score display is enabled
+    final showScore = Provider.of<ThemeProvider>(context).showScoreOnCard;
 
     // Animation values
     final double scale = _hovering ? 1.22 : 1.14;
@@ -124,39 +129,40 @@ class _ResonatorCardState extends State<ResonatorCard> {
                       ),
                     ),
                     // Top left: overall score chip
-                    Positioned(
-                      top: 12,
-                      left: 12,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: scoreColor.withValues(alpha: 0.18),
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: scoreColor, width: 1.2),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            //Icon(Icons.star, color: scoreColor, size: 18),
-                            const SizedBox(width: 4),
-                            Text(
-                              overallScore != null && overallScore > 0
-                                  ? overallScore.toStringAsFixed(1)
-                                  : '—',
-                              style: TextStyle(
-                                color: scoreColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                                letterSpacing: 0.1,
+                    if (showScore)
+                      Positioned(
+                        top: 12,
+                        left: 12,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: scoreColor.withValues(alpha: 0.18),
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(color: scoreColor, width: 1.2),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              //Icon(Icons.star, color: scoreColor, size: 18),
+                              const SizedBox(width: 4),
+                              Text(
+                                overallScore != null && overallScore > 0
+                                    ? overallScore.toStringAsFixed(1)
+                                    : '—',
+                                style: TextStyle(
+                                  color: scoreColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                  letterSpacing: 0.1,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
                     // Top right: attribute & weapon icons with circular backgrounds
                     Positioned(
                       top: 12,

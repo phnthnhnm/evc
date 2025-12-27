@@ -109,12 +109,15 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
   void _setStatValue(int echoIndex, Stat stat, double value) {
     final key = '${statApiNames[stat]} ${echoIndex + 1}';
     setState(() {
-      echoStats[echoIndex][key] = value;
+      if (value == 0.0) {
+        echoStats[echoIndex].remove(key);
+      } else {
+        echoStats[echoIndex][key] = value;
+      }
     });
   }
 
   Future<void> _submit() async {
-    // Check for too many stats per echo
     final overLimitIndices = <int>[];
     for (int i = 0; i < echoStats.length; i++) {
       if (echoStats[i].length > 5) overLimitIndices.add(i + 1);
@@ -131,6 +134,12 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
       loading = true;
       error = null;
     });
+    final cleanedEchoStats = echoStats
+        .map(
+          (stats) =>
+              Map<String, double>.from(stats)..removeWhere((k, v) => v == 0.0),
+        )
+        .toList();
     final echoSetProvider = Provider.of<EchoSetProvider>(
       context,
       listen: false,
@@ -140,7 +149,7 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
         energyBuff: energyBuff,
         resonatorName: widget.resonator.name,
         totalER: totalER,
-        echoStatsList: echoStats,
+        echoStatsList: cleanedEchoStats,
       );
       await echoSetProvider.saveEchoSet(widget.resonator.id, result);
       if (!mounted) return;

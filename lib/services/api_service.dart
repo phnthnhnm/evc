@@ -27,7 +27,7 @@ class ApiService {
     // Pre-calculate all possible stat keys for indices 1..5
     final statNames = allStats;
     final statKeysCache = <String, List<String>>{};
-    
+
     for (final stat in statNames) {
       final apiName = statApiNames[stat]!;
       statKeysCache[apiName] = List.generate(5, (i) => '$apiName ${i + 1}');
@@ -37,7 +37,7 @@ class ApiService {
     for (final stat in statNames) {
       final apiName = statApiNames[stat]!;
       final keys = statKeysCache[apiName]!;
-      
+
       for (int i = 0; i < 5; i++) {
         final key = keys[i];
         final value = echoStatsList.length > i
@@ -46,7 +46,7 @@ class ApiService {
         map[key] = value.toString();
       }
     }
-    
+
     return map;
   }
 
@@ -142,9 +142,7 @@ class ApiService {
           echoTiers[i] = parts[i];
         }
       }
-    } catch (_) {
-      // If parsing fails, keep defaults
-    }
+    } catch (_) {}
 
     final echoes = List<Echo>.generate(5, (i) {
       return Echo(

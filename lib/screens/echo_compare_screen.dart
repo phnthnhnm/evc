@@ -4,6 +4,7 @@ import '../data/stat.dart';
 import '../models/echo.dart';
 import '../models/resonator.dart';
 import '../services/api_service.dart';
+import '../utils/tier_color_utils.dart';
 import '../widgets/comparison_sign.dart';
 import '../widgets/echo_card.dart';
 import '../widgets/loading_action_button.dart';
@@ -32,10 +33,10 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
   bool submitted = false;
   bool loading = false;
   Echo? newEchoResult;
+  EchoSet? _newEchoSet;
   late TextEditingController _erController;
   double _enteredTotalER = 0.0;
-  
-  // Cache regex pattern to avoid recreating it
+
   static final _digitPattern = RegExp(r' \d+$');
 
   @override
@@ -72,7 +73,6 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
       return <String, double>{};
     });
     // Remap newEchoStats keys to match the selected echo index
-    // Optimize: use cached RegExp instead of creating it in forEach
     final remappedStats = <String, double>{};
     newEchoStats.forEach((key, value) {
       final statName = key.replaceAll(_digitPattern, '');
@@ -89,10 +89,12 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
       final echo = result.echoes[widget.echoIndex];
       setState(() {
         newEchoResult = echo;
+        _newEchoSet = result;
       });
     } catch (e) {
       setState(() {
         newEchoResult = Echo(stats: remappedStats, score: 0.0, tier: 'Error');
+        _newEchoSet = null;
       });
     } finally {
       setState(() {
@@ -115,6 +117,12 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
       }
     }
 
+    // Overall Score for current and new builds
+    double oldOverallScore = widget.lastResult.overallScore;
+    double? newOverallScore = (_newEchoSet != null && submitted)
+        ? _newEchoSet!.overallScore
+        : null;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Compare Echoes')),
       body: Padding(
@@ -132,6 +140,112 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
                       _enteredTotalER = v;
                     });
                   },
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            // Centered overall badges above each card
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Chip(
+                            label: Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(text: 'Overall Score: '),
+                                  TextSpan(
+                                    text: oldOverallScore.toStringAsFixed(2),
+                                    style: TextStyle(
+                                      color: getTierColor(
+                                        widget.lastResult.overallTier,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            avatar: const Icon(Icons.emoji_events),
+                          ),
+                          const SizedBox(width: 8),
+                          Chip(
+                            label: Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(text: 'Overall Tier: '),
+                                  TextSpan(
+                                    text: widget.lastResult.overallTier,
+                                    style: TextStyle(
+                                      color: getTierColor(
+                                        widget.lastResult.overallTier,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            avatar: const Icon(Icons.workspace_premium),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Chip(
+                            label: Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(text: 'Overall Score: '),
+                                  TextSpan(
+                                    text: newOverallScore != null
+                                        ? newOverallScore.toStringAsFixed(2)
+                                        : '--',
+                                    style: TextStyle(
+                                      color: getTierColor(
+                                        _newEchoSet?.overallTier ?? 'Unbuilt',
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            avatar: const Icon(Icons.emoji_events),
+                          ),
+                          const SizedBox(width: 8),
+                          Chip(
+                            label: Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(text: 'Overall Tier: '),
+                                  TextSpan(
+                                    text: _newEchoSet?.overallTier ?? '--',
+                                    style: TextStyle(
+                                      color: getTierColor(
+                                        _newEchoSet?.overallTier ?? 'Unbuilt',
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            avatar: const Icon(Icons.workspace_premium),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

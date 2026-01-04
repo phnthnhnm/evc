@@ -180,88 +180,108 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Echo Build')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          children: [
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  children: [
-                    Row(
+    return Consumer<EchoSetProvider>(
+      builder: (context, echoSetProvider, _) {
+        final saved = echoSetProvider.getEchoSet(widget.resonator.id);
+        final effectiveLastResult = saved ?? lastResult;
+        final effectiveEchoStats = effectiveLastResult != null
+            ? List.generate(
+                5,
+                (i) => Map<String, double>.from(
+                  effectiveLastResult.echoes[i].stats,
+                ),
+              )
+            : echoStats;
+        return Scaffold(
+          appBar: AppBar(title: const Text('Echo Build')),
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
                       children: [
-                        Expanded(
-                          child: ResonatorHeader(resonator: widget.resonator),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ResonatorHeader(
+                                resonator: widget.resonator,
+                              ),
+                            ),
+                            ResetResonatorButton(
+                              onReset: _resetResonatorData,
+                              label: 'Reset',
+                              icon: Icons.refresh,
+                            ),
+                          ],
                         ),
-                        ResetResonatorButton(
-                          onReset: _resetResonatorData,
-                          label: 'Reset',
-                          icon: Icons.refresh,
+                        const SizedBox(height: 12),
+                        EnergyBuffRow(
+                          energyBuff: energyBuff,
+                          onBuffChanged: (v) =>
+                              setState(() => energyBuff = v ?? 'None'),
+                          erController: erController,
+                          onERChanged: (v) => setState(() => totalER = v),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 12),
-                    EnergyBuffRow(
-                      energyBuff: energyBuff,
-                      onBuffChanged: (v) =>
-                          setState(() => energyBuff = v ?? 'None'),
-                      erController: erController,
-                      onERChanged: (v) => setState(() => totalER = v),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 12),
-            EchoCardsRow(
-              resonator: widget.resonator,
-              echoStats: echoStats,
-              lastResult: lastResult,
-              onStatChanged: (i, stat, value) => _setStatValue(i, stat, value),
-              onCompare: (i) {
-                if (lastResult == null) return;
-                final echo = lastResult!.echoes[i];
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => EchoCompareScreen(
-                      resonator: widget.resonator,
-                      currentEcho: echo,
-                      echoIndex: i,
-                      lastResult: lastResult!,
-                    ),
                   ),
-                );
-              },
+                ),
+                const SizedBox(height: 12),
+                EchoCardsRow(
+                  resonator: widget.resonator,
+                  echoStats: effectiveEchoStats,
+                  lastResult: effectiveLastResult,
+                  onStatChanged: (i, stat, value) =>
+                      _setStatValue(i, stat, value),
+                  onCompare: (i) async {
+                    if (effectiveLastResult == null) return;
+                    final echo = effectiveLastResult.echoes[i];
+                    final result = await Navigator.of(context).push<EchoSet>(
+                      MaterialPageRoute(
+                        builder: (context) => EchoCompareScreen(
+                          resonator: widget.resonator,
+                          currentEcho: echo,
+                          echoIndex: i,
+                          lastResult: effectiveLastResult,
+                        ),
+                      ),
+                    );
+                    if (result != null) {
+                      await echoSetProvider.loadEchoSet(widget.resonator.id);
+                    }
+                  },
+                ),
+                if (error != null) ...[
+                  const SizedBox(height: 8),
+                  Text(error!, style: const TextStyle(color: Colors.red)),
+                ],
+              ],
             ),
-            if (error != null) ...[
-              const SizedBox(height: 8),
-              Text(error!, style: const TextStyle(color: Colors.red)),
-            ],
-          ],
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Row(
-          children: [
-            LoadingActionButton(
-              loading: loading,
-              onPressed: _submit,
-              icon: const Icon(Icons.send),
-              text: 'Submit',
+          ),
+          bottomNavigationBar: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Row(
+              children: [
+                LoadingActionButton(
+                  loading: loading,
+                  onPressed: _submit,
+                  icon: const Icon(Icons.send),
+                  text: 'Submit',
+                ),
+                const SizedBox(width: 12),
+                const Spacer(),
+                ResultChips(
+                  overallScore: effectiveLastResult?.overallScore ?? 0.0,
+                  overallTier: effectiveLastResult?.overallTier ?? 'Unbuilt',
+                ),
+              ],
             ),
-            const SizedBox(width: 12),
-            const Spacer(),
-            ResultChips(
-              overallScore: lastResult?.overallScore ?? 0.0,
-              overallTier: lastResult?.overallTier ?? 'Unbuilt',
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

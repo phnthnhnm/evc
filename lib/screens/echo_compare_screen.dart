@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../data/stat.dart';
 import '../models/echo.dart';
 import '../models/resonator.dart';
 import '../services/api_service.dart';
+import '../utils/echo_set_provider.dart';
 import '../utils/tier_color_utils.dart';
 import '../widgets/comparison_sign.dart';
 import '../widgets/echo_card.dart';
@@ -36,6 +38,8 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
   EchoSet? _newEchoSet;
   late TextEditingController _erController;
   double _enteredTotalER = 0.0;
+
+  bool _showReplaceButton = false;
 
   static final _digitPattern = RegExp(r' \d+$');
 
@@ -90,17 +94,40 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
       setState(() {
         newEchoResult = echo;
         _newEchoSet = result;
+        _showReplaceButton = true;
       });
     } catch (e) {
       setState(() {
         newEchoResult = Echo(stats: remappedStats, score: 0.0, tier: 'Error');
         _newEchoSet = null;
+        _showReplaceButton = false;
       });
     } finally {
       setState(() {
         loading = false;
       });
     }
+  }
+
+  void _replaceOldEchoWithNew() {
+    if (newEchoResult == null) return;
+    final updatedEchoes = List<Echo>.from(widget.lastResult.echoes);
+    if (widget.echoIndex < updatedEchoes.length) {
+      updatedEchoes[widget.echoIndex] = newEchoResult!;
+    }
+    final updatedEchoSet = EchoSet(
+      echoes: updatedEchoes,
+      overallScore: _newEchoSet?.overallScore ?? 0.0,
+      overallTier: _newEchoSet?.overallTier ?? 'Unbuilt',
+      energyBuff: widget.lastResult.energyBuff,
+      totalER: _enteredTotalER,
+    );
+    final echoSetProvider = Provider.of<EchoSetProvider>(
+      context,
+      listen: false,
+    );
+    echoSetProvider.saveEchoSet(widget.resonator.id, updatedEchoSet);
+    Navigator.of(context).pop(updatedEchoSet);
   }
 
   @override
@@ -313,11 +340,35 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 32.0),
               child: Center(
-                child: LoadingActionButton(
-                  loading: loading,
-                  onPressed: handleSubmit,
-                  icon: const Icon(Icons.compare_arrows),
-                  text: submitted ? 'Compare Again' : 'Compare',
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    LoadingActionButton(
+                      loading: loading,
+                      onPressed: handleSubmit,
+                      icon: const Icon(Icons.compare_arrows),
+                      text: submitted ? 'Compare Again' : 'Compare',
+                    ),
+                    if (_showReplaceButton &&
+                        newEchoResult != null &&
+                        newEchoResult!.tier != 'Error')
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: ElevatedButton.icon(
+                          icon: const Icon(Icons.swap_horiz),
+                          label: const Text('Replace with New Echo'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.primary,
+                            foregroundColor: Theme.of(
+                              context,
+                            ).colorScheme.onPrimary,
+                          ),
+                          onPressed: _replaceOldEchoWithNew,
+                        ),
+                      ),
+                  ],
                 ),
               ),
             ),

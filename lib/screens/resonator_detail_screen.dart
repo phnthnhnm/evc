@@ -184,7 +184,8 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
       builder: (context, echoSetProvider, _) {
         final saved = echoSetProvider.getEchoSet(widget.resonator.id);
         final effectiveLastResult = saved ?? lastResult;
-        final effectiveEchoStats = effectiveLastResult != null
+        final showResult = effectiveLastResult != null;
+        final displayEchoStats = showResult
             ? List.generate(
                 5,
                 (i) => Map<String, double>.from(
@@ -192,6 +193,7 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
                 ),
               )
             : echoStats;
+
         return Scaffold(
           appBar: AppBar(title: const Text('Echo Build')),
           body: SingleChildScrollView(
@@ -232,7 +234,7 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
                 const SizedBox(height: 12),
                 EchoCardsRow(
                   resonator: widget.resonator,
-                  echoStats: effectiveEchoStats,
+                  echoStats: showResult ? echoStats : displayEchoStats,
                   lastResult: effectiveLastResult,
                   onStatChanged: (i, stat, value) =>
                       _setStatValue(i, stat, value),
@@ -251,6 +253,14 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
                     );
                     if (result != null) {
                       await echoSetProvider.loadEchoSet(widget.resonator.id);
+                      setState(() {
+                        for (int idx = 0; idx < 5; idx++) {
+                          echoStats[idx] = Map<String, double>.from(
+                            result.echoes[idx].stats,
+                          );
+                        }
+                        lastResult = result;
+                      });
                     }
                   },
                 ),

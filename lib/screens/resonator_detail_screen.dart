@@ -260,6 +260,8 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
                           );
                         }
                         lastResult = result;
+                        totalER = result.totalER;
+                        erController.text = result.totalER.toString();
                       });
                     }
                   },

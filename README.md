@@ -48,29 +48,16 @@ scoop install <bucketname>/evc
    cd evc
    ```
 2. **Install dependencies:**
+
    ```sh
    flutter pub get
    ```
 
-> [!WARNING] 
-> **Disclaimer:** Only the Windows version has been tested so far. Other desktop versions (MacOS and Linux) should still work as I don't use any Windows-specific APIs. No guarantees for mobile (too different layout) and web (CORS issue).
-
 3. **Run the app:**
 
-- For mobile:
-  ```sh
-  flutter run
-  ```
-- For desktop (Windows/macOS/Linux):
-  ```sh
-  flutter run -d windows
-  flutter run -d macos
-  flutter run -d linux
-  ```
-- For web:
-  ```sh
-  flutter run -d chrome
-  ```
+   ```sh
+   flutter run -d windows
+   ```
 
 ## How to Use
 

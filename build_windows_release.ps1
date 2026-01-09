@@ -17,8 +17,7 @@ if (Test-Path $releaseFolder) {
     Push-Location $releaseFolder
     7z a -tzip -mx=9 $zipName *
     Pop-Location
-    # Open the built folder in Explorer
-    ii $releaseFolder
+    Invoke-Item $releaseFolder
 } else {
     Write-Host "Build output folder not found."
 }

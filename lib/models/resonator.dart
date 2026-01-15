@@ -117,62 +117,62 @@ String attributeLabel(Attribute a) {
 String attributeAsset(Attribute a) {
   switch (a) {
     case Attribute.aero:
-      return 'assets/attribute_icons/aero.png';
+      return 'assets/attribute_icons/aero.webp';
     case Attribute.electro:
-      return 'assets/attribute_icons/electro.png';
+      return 'assets/attribute_icons/electro.webp';
     case Attribute.fusion:
-      return 'assets/attribute_icons/fusion.png';
+      return 'assets/attribute_icons/fusion.webp';
     case Attribute.glacio:
-      return 'assets/attribute_icons/glacio.png';
+      return 'assets/attribute_icons/glacio.webp';
     case Attribute.havoc:
-      return 'assets/attribute_icons/havoc.png';
+      return 'assets/attribute_icons/havoc.webp';
     case Attribute.spectro:
-      return 'assets/attribute_icons/spectro.png';
+      return 'assets/attribute_icons/spectro.webp';
   }
 }
 
 String weaponAsset(Weapon w) {
   switch (w) {
     case Weapon.broadblade:
-      return 'assets/weapon_icons/broadblade.png';
+      return 'assets/weapon_icons/broadblade.webp';
     case Weapon.sword:
-      return 'assets/weapon_icons/sword.png';
+      return 'assets/weapon_icons/sword.webp';
     case Weapon.pistols:
-      return 'assets/weapon_icons/pistols.png';
+      return 'assets/weapon_icons/pistols.webp';
     case Weapon.gauntlets:
-      return 'assets/weapon_icons/gauntlets.png';
+      return 'assets/weapon_icons/gauntlets.webp';
     case Weapon.rectifier:
-      return 'assets/weapon_icons/rectifier.png';
+      return 'assets/weapon_icons/rectifier.webp';
   }
 }
 
 String statAsset(Stat s) {
   switch (s) {
     case Stat.critRate:
-      return 'assets/stat_icons/cr.png';
+      return 'assets/stat_icons/cr.webp';
     case Stat.critDamage:
-      return 'assets/stat_icons/cd.png';
+      return 'assets/stat_icons/cd.webp';
     case Stat.flatAtk:
-      return 'assets/stat_icons/atk.png';
+      return 'assets/stat_icons/atk.webp';
     case Stat.atkPercent:
-      return 'assets/stat_icons/atk.png';
+      return 'assets/stat_icons/atk.webp';
     case Stat.flatHp:
-      return 'assets/stat_icons/hp.png';
+      return 'assets/stat_icons/hp.webp';
     case Stat.hpPercent:
-      return 'assets/stat_icons/hp.png';
+      return 'assets/stat_icons/hp.webp';
     case Stat.flatDef:
-      return 'assets/stat_icons/def.png';
+      return 'assets/stat_icons/def.webp';
     case Stat.defPercent:
-      return 'assets/stat_icons/def.png';
+      return 'assets/stat_icons/def.webp';
     case Stat.basicPercent:
-      return 'assets/stat_icons/basic.png';
+      return 'assets/stat_icons/basic.webp';
     case Stat.heavyPercent:
-      return 'assets/stat_icons/heavy.png';
+      return 'assets/stat_icons/heavy.webp';
     case Stat.skillPercent:
-      return 'assets/stat_icons/skill.png';
+      return 'assets/stat_icons/skill.webp';
     case Stat.liberationPercent:
-      return 'assets/stat_icons/liberation.png';
+      return 'assets/stat_icons/liberation.webp';
     case Stat.erPercent:
-      return 'assets/stat_icons/er.png';
+      return 'assets/stat_icons/er.webp';
   }
 }

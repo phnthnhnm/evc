@@ -15,15 +15,11 @@ class EchoSetProvider extends ChangeNotifier {
     final List<String> allResonatorIds = seedResonators
         .map((r) => r.id)
         .toList();
-    final results = await Future.wait(
-      allResonatorIds.map((id) async {
-        final set = await StorageService.loadEchoSet(id);
-        return MapEntry(id, set);
-      }),
-    );
-    for (final entry in results) {
-      if (entry.value != null) {
-        _echoSets[entry.key] = entry.value!;
+    // Load sequentially to avoid concurrent writes to storage (migration).
+    for (final id in allResonatorIds) {
+      final set = await StorageService.loadEchoSet(id);
+      if (set != null) {
+        _echoSets[id] = set;
       }
     }
     _initialized = true;

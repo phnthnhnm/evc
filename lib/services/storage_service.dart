@@ -4,14 +4,17 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/seed_resonators.dart';
+import '../data/stat.dart';
 import '../models/echo.dart';
+import '../models/resonator.dart';
 
 class StorageService {
   // Cache to avoid redundant file reads
   static Map<String, dynamic>? _cachedData;
   static DateTime? _lastCacheTime;
   static const _cacheValidityDuration = Duration(seconds: 5);
-  
+
   static Future<File> getJsonFile() async {
     final supportDir = await getApplicationSupportDirectory();
     final dir = Directory(supportDir.path);
@@ -24,27 +27,38 @@ class StorageService {
   // Helper to read and cache file data
   static Future<Map<String, dynamic>> _readData() async {
     final now = DateTime.now();
-    
+
     // Return cached data if still valid
-    if (_cachedData != null && 
-        _lastCacheTime != null && 
+    if (_cachedData != null &&
+        _lastCacheTime != null &&
         now.difference(_lastCacheTime!) < _cacheValidityDuration) {
       return _cachedData!;
     }
-    
+
     final file = await getJsonFile();
     if (!await file.exists()) {
       _cachedData = {};
       _lastCacheTime = now;
       return _cachedData!;
     }
-    
+
     final content = await file.readAsString();
-    _cachedData = jsonDecode(content) as Map<String, dynamic>;
+    try {
+      _cachedData = jsonDecode(content) as Map<String, dynamic>;
+    } catch (e) {
+      // Backup corrupt file and start with empty data to avoid crashes.
+      final backup = File(
+        '${file.path}.corrupt_${DateTime.now().millisecondsSinceEpoch}.bak',
+      );
+      await backup.writeAsString(content);
+      _cachedData = {};
+      _lastCacheTime = now;
+      return _cachedData!;
+    }
     _lastCacheTime = now;
     return _cachedData!;
   }
-  
+
   // Helper to write data and invalidate cache
   static Future<void> _writeData(Map<String, dynamic> data) async {
     final file = await getJsonFile();
@@ -53,7 +67,7 @@ class StorageService {
     _cachedData = data;
     _lastCacheTime = DateTime.now();
   }
-  
+
   // Clear cache to force reload
   static void clearCache() {
     _cachedData = null;
@@ -71,7 +85,49 @@ class StorageService {
   static Future<EchoSet?> loadEchoSet(String resonatorId) async {
     final data = await _readData();
     if (!data.containsKey(resonatorId)) return null;
-    return EchoSet.fromJson(data[resonatorId]);
+
+    final original = data[resonatorId] as Map<String, dynamic>;
+    final set = EchoSet.fromJson(original);
+
+    // Find resonator to know which stats are currently allowed.
+    Resonator? resonator;
+    try {
+      resonator = seedResonators.firstWhere((r) => r.id == resonatorId);
+    } catch (_) {
+      return set;
+    }
+
+    final allowedApiNames = resonator.usableStats
+        .map((s) => statApiNames[s]!)
+        .toSet();
+
+    var changed = false;
+    final sanitizedEchoes = set.echoes.map((echo) {
+      final newStats = Map<String, double>.from(echo.stats);
+      final keysToRemove = <String>[];
+      for (final key in newStats.keys) {
+        final base = key.replaceAll(RegExp(r' \d+$'), '');
+        if (!allowedApiNames.contains(base)) {
+          keysToRemove.add(key);
+        }
+      }
+      if (keysToRemove.isNotEmpty) {
+        for (final k in keysToRemove) {
+          newStats.remove(k);
+        }
+        changed = true;
+      }
+      return Echo(stats: newStats, score: echo.score, tier: echo.tier);
+    }).toList();
+
+    if (changed) {
+      final sanitizedSet = set.copyWith(echoes: sanitizedEchoes);
+      data[resonatorId] = sanitizedSet.toJson();
+      await _writeData(data);
+      return sanitizedSet;
+    }
+
+    return set;
   }
 
   static Future<void> deleteEchoSet(String resonatorId) async {

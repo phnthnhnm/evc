@@ -41,6 +41,23 @@ final List<Resonator> seedResonators = [
     ],
   ),
   Resonator(
+    id: 'aemeath',
+    name: 'Aemeath (Tentative)',
+    stars: 5,
+    attribute: Attribute.fusion,
+    weapon: Weapon.sword,
+    iconAsset: 'assets/resonator_icons/aemeath.webp',
+    portraitAsset: 'assets/resonator_portraits/aemeath.webp',
+    usableStats: [
+      Stat.critRate,
+      Stat.critDamage,
+      Stat.flatAtk,
+      Stat.atkPercent,
+      Stat.liberationPercent,
+      Stat.erPercent,
+    ],
+  ),
+  Resonator(
     id: 'augusta',
     name: 'Augusta',
     stars: 5,

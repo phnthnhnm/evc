@@ -42,7 +42,7 @@ final List<Resonator> seedResonators = [
   ),
   Resonator(
     id: 'aemeath',
-    name: 'Aemeath (Tentative)',
+    name: 'Aemeath',
     stars: 5,
     attribute: Attribute.fusion,
     weapon: Weapon.sword,

@@ -444,6 +444,23 @@ final List<Resonator> seedResonators = [
     ],
   ),
   Resonator(
+    id: 'luuk-herssen',
+    name: 'Luuk Herssen',
+    stars: 5,
+    attribute: Attribute.spectro,
+    weapon: Weapon.gauntlets,
+    iconAsset: 'assets/resonator_icons/luuk_herssen.webp',
+    portraitAsset: 'assets/resonator_portraits/luuk_herssen.webp',
+    usableStats: [
+      Stat.critRate,
+      Stat.critDamage,
+      Stat.flatAtk,
+      Stat.atkPercent,
+      Stat.basicPercent,
+      Stat.erPercent,
+    ],
+  ),
+  Resonator(
     id: 'lumi',
     name: 'Lumi',
     stars: 4,

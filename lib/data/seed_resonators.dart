@@ -707,6 +707,22 @@ final List<Resonator> seedResonators = [
     ],
   ),
   Resonator(
+    id: 'sigrika',
+    name: 'Sigrika',
+    stars: 5,
+    attribute: Attribute.aero,
+    weapon: Weapon.gauntlets,
+    iconAsset: 'assets/resonator_icons/sigrika.webp',
+    portraitAsset: 'assets/resonator_portraits/sigrika.webp',
+    usableStats: [
+      Stat.critRate,
+      Stat.critDamage,
+      Stat.flatAtk,
+      Stat.atkPercent,
+      Stat.erPercent,
+    ],
+  ),
+  Resonator(
     id: 'taoqi-sub',
     name: 'Taoqi (sub DPS)',
     stars: 4,

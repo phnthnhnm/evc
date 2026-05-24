@@ -24,7 +24,7 @@ class _DataTabState extends State<DataTab> {
       Provider.of<ThemeProvider>(context, listen: false);
   Future<void> _backupData() async {
     final backupJson = await StorageService.backupAllData();
-    String? selectedDirectory = await FilePicker.platform.getDirectoryPath(
+    String? selectedDirectory = await FilePicker.getDirectoryPath(
       dialogTitle: 'Select folder to save backup',
     );
     if (selectedDirectory != null) {
@@ -48,7 +48,7 @@ class _DataTabState extends State<DataTab> {
     final echoSetProvider = _getEchoSetProvider();
     final themeProvider = _getThemeProvider();
 
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.pickFiles(
       dialogTitle: 'Select backup JSON file',
       type: FileType.custom,
       allowedExtensions: ['json'],

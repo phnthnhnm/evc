@@ -300,6 +300,23 @@ final List<Resonator> seedResonators = [
     ],
   ),
   Resonator(
+    id: 'denia',
+    name: 'Denia (Tentative)',
+    stars: 5,
+    attribute: Attribute.fusion,
+    weapon: Weapon.rectifier,
+    iconAsset: 'assets/resonator_icons/denia.webp',
+    portraitAsset: 'assets/resonator_portraits/denia.webp',
+    usableStats: [
+      Stat.critRate,
+      Stat.critDamage,
+      Stat.flatAtk,
+      Stat.atkPercent,
+      Stat.liberationPercent,
+      Stat.erPercent,
+    ],
+  ),
+  Resonator(
     id: 'encore',
     name: 'Encore (Hypercarry)',
     stars: 5,
@@ -337,7 +354,7 @@ final List<Resonator> seedResonators = [
   ),
   Resonator(
     id: 'hiyuki',
-    name: 'Hiyuki (Tentative)',
+    name: 'Hiyuki',
     stars: 5,
     attribute: Attribute.glacio,
     weapon: Weapon.sword,

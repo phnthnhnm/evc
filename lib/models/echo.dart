@@ -32,30 +32,30 @@ class EchoSet {
   final List<Echo> echoes;
   final double overallScore;
   final String overallTier;
-  final String energyBuff; // None, Yangyang, Zhezhi
   final double totalER;
+  final String? team;
 
   const EchoSet({
     required this.echoes,
     required this.overallScore,
     required this.overallTier,
-    required this.energyBuff,
     required this.totalER,
+    this.team,
   });
 
   EchoSet copyWith({
     List<Echo>? echoes,
     double? overallScore,
     String? overallTier,
-    String? energyBuff,
     double? totalER,
+    String? team,
   }) {
     return EchoSet(
       echoes: echoes ?? this.echoes,
       overallScore: overallScore ?? this.overallScore,
       overallTier: overallTier ?? this.overallTier,
-      energyBuff: energyBuff ?? this.energyBuff,
       totalER: totalER ?? this.totalER,
+      team: team ?? this.team,
     );
   }
 
@@ -64,7 +64,7 @@ class EchoSet {
       'echoes': echoes.map((e) => e.toJson()).toList(),
       'overallScore': overallScore,
       'overallTier': overallTier,
-      'energyBuff': energyBuff,
+      'team': team,
       'totalER': totalER,
     };
   }
@@ -77,8 +77,9 @@ class EchoSet {
       echoes: echoes,
       overallScore: (json['overallScore'] as num?)?.toDouble() ?? 0.0,
       overallTier: json['overallTier'] as String? ?? 'Unbuilt',
-      energyBuff: json['energyBuff'] as String? ?? 'None',
-      totalER: (json['totalER'] as num?)?.toDouble() ?? 100.0,
+      team: json['team'] as String? ?? json['energyBuff'] as String?,
+      totalER:
+          ((json['totalER'] ?? json['totEr']) as num?)?.toDouble() ?? 100.0,
     );
   }
 }

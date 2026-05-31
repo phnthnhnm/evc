@@ -45,6 +45,97 @@ class StorageService {
     final content = await file.readAsString();
     try {
       _cachedData = jsonDecode(content) as Map<String, dynamic>;
+      // Migration: detect legacy or backend-style entries and normalize them.
+      // - Convert 'ssr' arrays into canonical 'echoes' format.
+      // - Migrate 'energyBuff' -> 'team' when appropriate.
+      // - Accept 'totEr' as fallback for 'totalER'.
+      final ssrOrder = [
+        Stat.critRate,
+        Stat.critDamage,
+        Stat.atkPercent,
+        Stat.flatAtk,
+        Stat.hpPercent,
+        Stat.flatHp,
+        Stat.defPercent,
+        Stat.flatDef,
+        Stat.basicPercent,
+        Stat.heavyPercent,
+        Stat.skillPercent,
+        Stat.liberationPercent,
+        Stat.erPercent,
+      ];
+
+      var migrationNeeded = false;
+      for (final key in _cachedData!.keys.toList()) {
+        final entry = _cachedData![key];
+        if (entry is Map<String, dynamic>) {
+          final mapCopy = Map<String, dynamic>.from(entry);
+
+          // If backend-style 'ssr' exists and 'echoes' missing, convert it.
+          if (mapCopy.containsKey('ssr') && !mapCopy.containsKey('echoes')) {
+            final ssrRaw = mapCopy['ssr'] as List?;
+            final converted = <Map<String, dynamic>>[];
+            if (ssrRaw != null) {
+              for (int i = 0; i < 5; i++) {
+                final stats = <String, double>{};
+                final row = i < ssrRaw.length ? ssrRaw[i] as List? : null;
+                if (row != null) {
+                  for (int j = 0; j < row.length && j < ssrOrder.length; j++) {
+                    final raw = row[j];
+                    double? val;
+                    if (raw is String) {
+                      val = double.tryParse(raw);
+                    } else if (raw is num) {
+                      val = raw.toDouble();
+                    }
+                    if (val != null && val != 0.0) {
+                      final statName = statApiNames[ssrOrder[j]]!;
+                      stats['$statName ${i + 1}'] = val;
+                    }
+                  }
+                }
+                converted.add({
+                  'stats': stats,
+                  'score': 0.0,
+                  'tier': 'Unbuilt',
+                });
+              }
+            }
+            mapCopy['echoes'] = converted;
+            // Migrate totEr/totalER
+            if (mapCopy.containsKey('totEr') &&
+                !mapCopy.containsKey('totalER')) {
+              mapCopy['totalER'] = mapCopy['totEr'];
+            }
+            // Migrate energyBuff -> team if missing
+            if (!mapCopy.containsKey('team') &&
+                mapCopy.containsKey('energyBuff')) {
+              mapCopy['team'] = mapCopy['energyBuff'];
+            }
+            _cachedData![key] = mapCopy;
+            migrationNeeded = true;
+          } else {
+            // Ensure team exists when energyBuff was used previously
+            if (!mapCopy.containsKey('team') &&
+                mapCopy.containsKey('energyBuff')) {
+              mapCopy['team'] = mapCopy['energyBuff'];
+              _cachedData![key] = mapCopy;
+              migrationNeeded = true;
+            }
+            // Ensure totalER exists when only totEr present
+            if (!mapCopy.containsKey('totalER') &&
+                mapCopy.containsKey('totEr')) {
+              mapCopy['totalER'] = mapCopy['totEr'];
+              _cachedData![key] = mapCopy;
+              migrationNeeded = true;
+            }
+          }
+        }
+      }
+      if (migrationNeeded) {
+        // Persist migrated data back to disk
+        await _writeData(_cachedData!);
+      }
     } catch (e) {
       // Backup corrupt file and start with empty data to avoid crashes.
       final backup = File(

@@ -11,6 +11,7 @@ class Resonator {
   final String portraitAsset;
   final List<Stat> usableStats;
   final EchoSet? savedEchoSet;
+  final List<String> teams;
 
   const Resonator({
     required this.id,
@@ -22,9 +23,10 @@ class Resonator {
     required this.portraitAsset,
     required this.usableStats,
     this.savedEchoSet,
+    this.teams = const [],
   });
 
-  Resonator copyWith({EchoSet? savedEchoSet}) {
+  Resonator copyWith({EchoSet? savedEchoSet, List<String>? teams}) {
     return Resonator(
       id: id,
       name: name,
@@ -35,6 +37,7 @@ class Resonator {
       portraitAsset: portraitAsset,
       usableStats: usableStats,
       savedEchoSet: savedEchoSet ?? this.savedEchoSet,
+      teams: teams ?? this.teams,
     );
   }
 
@@ -48,6 +51,7 @@ class Resonator {
       'iconAsset': iconAsset,
       'portraitAsset': portraitAsset,
       'usableStats': usableStats,
+      'teams': teams,
       'savedEchoSet': savedEchoSet?.toJson(),
     };
   }
@@ -71,6 +75,9 @@ class Resonator {
                 .key,
           )
           .toList(),
+      teams:
+          (json['teams'] as List?)?.map((e) => e as String).toList() ??
+          const [],
       savedEchoSet: json['savedEchoSet'] != null
           ? EchoSet.fromJson(json['savedEchoSet'] as Map<String, dynamic>)
           : null,

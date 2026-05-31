@@ -85,10 +85,10 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
     echoStatsList[widget.echoIndex] = remappedStats;
     try {
       final result = await ApiService.submit(
-        energyBuff: widget.lastResult.energyBuff,
         resonatorName: widget.resonator.name,
         totalER: _enteredTotalER,
         echoStatsList: echoStatsList,
+        team: widget.lastResult.team,
       );
       final echo = result.echoes[widget.echoIndex];
       setState(() {
@@ -119,7 +119,7 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
       echoes: updatedEchoes,
       overallScore: _newEchoSet?.overallScore ?? 0.0,
       overallTier: _newEchoSet?.overallTier ?? 'Unbuilt',
-      energyBuff: widget.lastResult.energyBuff,
+      team: widget.lastResult.team,
       totalER: _enteredTotalER,
     );
     final echoSetProvider = Provider.of<EchoSetProvider>(
@@ -292,7 +292,6 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
                             echoes: [widget.currentEcho],
                             overallScore: widget.currentEcho.score,
                             overallTier: widget.currentEcho.tier,
-                            energyBuff: 'None',
                             totalER: 0.0,
                           ),
                           echoStats: {
@@ -320,7 +319,6 @@ class _EchoCompareScreenState extends State<EchoCompareScreen> {
                                   echoes: [newEchoResult!],
                                   overallScore: newEchoResult!.score,
                                   overallTier: newEchoResult!.tier,
-                                  energyBuff: 'None',
                                   totalER: 0.0,
                                 )
                               : null,

@@ -8,11 +8,11 @@ import '../services/api_service.dart';
 import '../utils/echo_set_provider.dart';
 import '../utils/toast_utils.dart';
 import '../widgets/echo_cards_row.dart';
-import '../widgets/energy_buff_row.dart';
 import '../widgets/loading_action_button.dart';
 import '../widgets/reset_resonator_button.dart';
 import '../widgets/resonator_header.dart';
 import '../widgets/result_chips.dart';
+import '../widgets/team_row.dart';
 import 'echo_compare_screen.dart';
 
 class ResonatorDetailScreen extends StatefulWidget {
@@ -29,17 +29,17 @@ class ResonatorDetailScreen extends StatefulWidget {
 }
 
 class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
-  String energyBuff = 'None'; // None, Yangyang, Zhezhi
   double totalER = 100.0;
   late TextEditingController erController;
   late List<Map<String, double>> echoStats;
   bool loading = false;
   EchoSet? lastResult;
   String? error;
+  String? selectedTeam;
 
   Future<void> _resetResonatorData() async {
     setState(() {
-      energyBuff = 'None';
+      selectedTeam = null;
       totalER = 100.0;
       erController.text = '100.0';
       echoStats = List.generate(5, (_) => <String, double>{});
@@ -63,7 +63,7 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
     erController.addListener(_onERTextChanged);
     if (widget.savedEchoSet != null) {
       lastResult = widget.savedEchoSet;
-      energyBuff = widget.savedEchoSet!.energyBuff;
+      selectedTeam = widget.savedEchoSet!.team;
       totalER = widget.savedEchoSet!.totalER;
       erController.text = widget.savedEchoSet!.totalER.toString();
       for (int i = 0; i < 5; i++) {
@@ -96,7 +96,7 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
     if (saved != null) {
       setState(() {
         lastResult = saved;
-        energyBuff = saved.energyBuff;
+        selectedTeam = saved.team;
         totalER = saved.totalER;
         erController.text = saved.totalER.toString();
         for (int i = 0; i < 5; i++) {
@@ -146,15 +146,16 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
     );
     try {
       final result = await ApiService.submit(
-        energyBuff: energyBuff,
         resonatorName: widget.resonator.name,
         totalER: totalER,
         echoStatsList: cleanedEchoStats,
+        team: selectedTeam,
       );
       await echoSetProvider.saveEchoSet(widget.resonator.id, result);
       if (!mounted) return;
       setState(() {
         lastResult = result;
+        selectedTeam = result.team;
       });
       showTopRightToast(context, 'Submitted and saved!');
     } catch (e) {
@@ -220,10 +221,11 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
                           ],
                         ),
                         const SizedBox(height: 12),
-                        EnergyBuffRow(
-                          energyBuff: energyBuff,
-                          onBuffChanged: (v) =>
-                              setState(() => energyBuff = v ?? 'None'),
+                        TeamRow(
+                          selectedTeam: selectedTeam,
+                          teams: widget.resonator.teams,
+                          onTeamChanged: (v) =>
+                              setState(() => selectedTeam = v),
                           erController: erController,
                           onERChanged: (v) => setState(() => totalER = v),
                         ),

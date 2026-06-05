@@ -60,8 +60,9 @@ final List<Resonator> seedResonators = [
     ],
     teams: [
       'Default',
-      'Lynae + Mornye',
+      'Denia + Chisa/Lupa',
       'Lynae + Shorekeeper',
+      'Lynae/Lupa + Mornye',
       'Yangyang Outro',
       'Zhezhi Outro',
     ],
@@ -84,8 +85,9 @@ final List<Resonator> seedResonators = [
       Stat.erPercent,
     ],
     teams: [
+      'Default',
       'Iuno + Shorekeeper',
-      'Mortefi + Shorekeeper (Default)',
+      'Mortefi + Shorekeeper',
       'Yangyang Outro',
       'Zhezhi Outro',
     ],
@@ -278,7 +280,13 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: [
+      'Aemeath + Denia',
+      'Default',
+      'With Cartethyia/Hiyuki/Zani',
+      'Yangyang Outro',
+      'Zhezhi Outro',
+    ],
   ),
   Resonator(
     id: 'chixia',
@@ -422,7 +430,13 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: [
+      'Default',
+      'Lynae + Chisa',
+      'Lynae + Shorekeeper',
+      'Yangyang Outro',
+      'Zhezhi Outro',
+    ],
   ),
   Resonator(
     id: 'iuno',
@@ -440,7 +454,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Main DPS', 'Sub DPS (Default)', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Default', 'Main DPS', 'Sub DPS', 'Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'jianxin',
@@ -903,8 +917,9 @@ final List<Resonator> seedResonators = [
       Stat.erPercent,
     ],
     teams: [
+      'Default',
       'No Fallacy',
-      'With Fallacy (Default)',
+      'With Fallacy',
       'Yangyang Outro',
       'Zhezhi Outro',
     ],
@@ -1067,7 +1082,8 @@ final List<Resonator> seedResonators = [
       Stat.erPercent,
     ],
     teams: [
-      'Empyrean Anthem (Default)',
+      'Default',
+      'Empyrean Anthem',
       'Moonlit Clouds',
       'Yangyang Outro',
       'Zhezhi Outro',

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "resonators.schema.json",
+  "title": "EVC Resonators",
+  "description": "Resonator definitions for Echo Value Calculator.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name", "stars", "attribute", "weapon", "iconAsset", "portraitAsset", "usableStats"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique kebab-case identifier for this resonator variant."
+      },
+      "name": {
+        "type": "string",
+        "description": "Display name shown in the UI."
+      },
+      "stars": {
+        "type": "integer",
+        "enum": [4, 5]
+      },
+      "attribute": {
+        "type": "string",
+        "enum": ["aero", "electro", "fusion", "glacio", "havoc", "spectro"]
+      },
+      "weapon": {
+        "type": "string",
+        "enum": ["broadblade", "sword", "pistols", "gauntlets", "rectifier"]
+      },
+      "iconAsset": {
+        "type": "string",
+        "pattern": "^assets/resonator_icons/[a-z_]+\\.webp$"
+      },
+      "portraitAsset": {
+        "type": "string",
+        "pattern": "^assets/resonator_portraits/[a-z_]+\\.webp$"
+      },
+      "usableStats": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "string",
+          "enum": ["critRate", "critDamage", "flatAtk", "atkPercent", "flatHp", "hpPercent", "flatDef", "defPercent", "basicPercent", "heavyPercent", "skillPercent", "liberationPercent", "erPercent"]
+        }
+      },
+      "teams": {
+        "type": "array",
+        "description": "Optional team comps. \"Default\" is always available and should not be listed here.",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

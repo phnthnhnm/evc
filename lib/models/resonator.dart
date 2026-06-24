@@ -1,4 +1,4 @@
-import '../data/stat.dart';
+import '../data/stat.dart' show Stat, statByName;
 import 'echo.dart';
 
 class Resonator {
@@ -51,11 +51,11 @@ class Resonator {
       'id': id,
       'name': name,
       'stars': stars,
-      'attribute': attribute.index,
-      'weapon': weapon.index,
+      'attribute': attribute.name,
+      'weapon': weapon.name,
       'iconAsset': iconAsset,
       'portraitAsset': portraitAsset,
-      'usableStats': usableStats,
+      'usableStats': usableStats.map((s) => s.name).toList(),
       'teams': teams,
       'savedEchoSet': savedEchoSet?.toJson(),
     };
@@ -66,19 +66,12 @@ class Resonator {
       id: json['id'] as String,
       name: json['name'] as String,
       stars: json['stars'] as int? ?? 5,
-      attribute: Attribute.values[json['attribute'] as int],
-      weapon: Weapon.values[json['weapon'] as int],
+      attribute: Attribute.values.byName(json['attribute'] as String),
+      weapon: Weapon.values.byName(json['weapon'] as String),
       iconAsset: json['iconAsset'] as String? ?? '',
       portraitAsset: json['portraitAsset'] as String? ?? '',
       usableStats: (json['usableStats'] as List)
-          .map(
-            (e) => statApiNames.entries
-                .firstWhere(
-                  (entry) => entry.value == e,
-                  orElse: () => MapEntry(Stat.critRate, 'Crit. Rate'),
-                )
-                .key,
-          )
+          .map((e) => statByName[e as String]!)
           .toList(),
       teams:
           (json['teams'] as List?)?.map((e) => e as String).toList() ??

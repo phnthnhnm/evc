@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../data/seed_resonators.dart';
 import '../data/stat.dart';
 import '../models/echo.dart';
 import '../models/resonator.dart';
@@ -14,6 +13,13 @@ class StorageService {
   static Map<String, dynamic>? _cachedData;
   static DateTime? _lastCacheTime;
   static const _cacheValidityDuration = Duration(seconds: 5);
+
+  static List<Resonator>? _resonators;
+
+  /// Set the resonator definitions used for stat sanitization on load.
+  static void setResonators(List<Resonator> resonators) {
+    _resonators = resonators;
+  }
 
   static Future<File> getJsonFile() async {
     final supportDir = await getApplicationSupportDirectory();
@@ -183,7 +189,7 @@ class StorageService {
     // Find resonator to know which stats are currently allowed.
     Resonator? resonator;
     try {
-      resonator = seedResonators.firstWhere((r) => r.id == resonatorId);
+      resonator = _resonators!.firstWhere((r) => r.id == resonatorId);
     } catch (_) {
       return set;
     }

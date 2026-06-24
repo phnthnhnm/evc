@@ -30,6 +30,22 @@ const List<Stat> allStats = [
   Stat.erPercent,
 ];
 
+const Map<String, Stat> statByName = {
+  'critRate': Stat.critRate,
+  'critDamage': Stat.critDamage,
+  'flatAtk': Stat.flatAtk,
+  'atkPercent': Stat.atkPercent,
+  'flatHp': Stat.flatHp,
+  'hpPercent': Stat.hpPercent,
+  'flatDef': Stat.flatDef,
+  'defPercent': Stat.defPercent,
+  'basicPercent': Stat.basicPercent,
+  'heavyPercent': Stat.heavyPercent,
+  'skillPercent': Stat.skillPercent,
+  'liberationPercent': Stat.liberationPercent,
+  'erPercent': Stat.erPercent,
+};
+
 const Map<Stat, String> statApiNames = {
   Stat.critRate: 'Crit Rate(%)',
   Stat.critDamage: 'Crit Damage(%)',

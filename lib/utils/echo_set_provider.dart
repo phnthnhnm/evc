@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
-import '../data/seed_resonators.dart';
 import '../models/echo.dart';
 import '../services/storage_service.dart';
 
 class EchoSetProvider extends ChangeNotifier {
+  final List<String> _resonatorIds;
   final Map<String, EchoSet> _echoSets = {};
   bool _initialized = false;
+
+  EchoSetProvider({required List<String> resonatorIds})
+    : _resonatorIds = resonatorIds;
 
   Map<String, EchoSet> get echoSets => _echoSets;
   bool get initialized => _initialized;
 
   Future<void> loadAll() async {
-    final List<String> allResonatorIds = seedResonators
-        .map((r) => r.id)
-        .toList();
     // Load sequentially to avoid concurrent writes to storage (migration).
-    for (final id in allResonatorIds) {
+    for (final id in _resonatorIds) {
       final set = await StorageService.loadEchoSet(id);
       if (set != null) {
         _echoSets[id] = set;

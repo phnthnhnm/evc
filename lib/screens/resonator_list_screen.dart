@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../data/seed_resonators.dart';
 import '../models/echo.dart';
 import '../models/resonator.dart';
 import '../utils/echo_set_provider.dart';
@@ -49,7 +48,10 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
   }
 
   // Helper method to filter resonators
-  List<Resonator> _filterResonators(Map<String, EchoSet> echoSets) {
+  List<Resonator> _filterResonators(
+    List<Resonator> resonators,
+    Map<String, EchoSet> echoSets,
+  ) {
     // Early return if no filters applied
     final hasFilters =
         _search.isNotEmpty ||
@@ -60,13 +62,12 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
 
     if (!hasFilters) {
       // No filtering needed, just attach echo sets
-      return seedResonators
+      return resonators
           .map((r) => r.copyWith(savedEchoSet: echoSets[r.id]))
           .toList();
     }
 
-    return seedResonators
-        .where((c) {
+    return resonators.where((c) {
           // Search filter - use cached normalized search
           if (_normalizedSearch.isNotEmpty) {
             if (!c.name.toLowerCase().contains(_normalizedSearch)) {
@@ -108,9 +109,10 @@ class _ResonatorListScreenState extends State<ResonatorListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final resonators = context.watch<List<Resonator>>();
     final echoSetProvider = Provider.of<EchoSetProvider>(context);
     final echoSets = echoSetProvider.echoSets;
-    final filtered = _filterResonators(echoSets);
+    final filtered = _filterResonators(resonators, echoSets);
 
     // Sort by selected order
     List<Resonator> sorted = List.from(filtered);

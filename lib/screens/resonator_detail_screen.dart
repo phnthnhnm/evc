@@ -35,11 +35,11 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
   bool loading = false;
   EchoSet? lastResult;
   String? error;
-  String? selectedTeam;
+  String selectedTeam = 'Default';
 
   Future<void> _resetResonatorData() async {
     setState(() {
-      selectedTeam = null;
+      selectedTeam = 'Default';
       totalER = 100.0;
       erController.text = '100.0';
       echoStats = List.generate(5, (_) => <String, double>{});
@@ -63,7 +63,7 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
     erController.addListener(_onERTextChanged);
     if (widget.savedEchoSet != null) {
       lastResult = widget.savedEchoSet;
-      selectedTeam = widget.savedEchoSet!.team;
+      selectedTeam = widget.savedEchoSet!.team ?? 'Default';
       totalER = widget.savedEchoSet!.totalER;
       erController.text = widget.savedEchoSet!.totalER.toString();
       for (int i = 0; i < 5; i++) {
@@ -96,7 +96,7 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
     if (saved != null) {
       setState(() {
         lastResult = saved;
-        selectedTeam = saved.team;
+        selectedTeam = saved.team ?? 'Default';
         totalER = saved.totalER;
         erController.text = saved.totalER.toString();
         for (int i = 0; i < 5; i++) {
@@ -155,7 +155,7 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
       if (!mounted) return;
       setState(() {
         lastResult = result;
-        selectedTeam = result.team;
+        selectedTeam = result.team ?? 'Default';
       });
       showTopRightToast(context, 'Submitted and saved!');
     } catch (e) {
@@ -223,7 +223,7 @@ class _ResonatorDetailScreenState extends State<ResonatorDetailScreen> {
                         const SizedBox(height: 12),
                         TeamRow(
                           selectedTeam: selectedTeam,
-                          teams: widget.resonator.teams,
+                          teams: widget.resonator.effectiveTeams,
                           onTeamChanged: (v) =>
                               setState(() => selectedTeam = v),
                           erController: erController,

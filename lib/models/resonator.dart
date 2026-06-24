@@ -13,6 +13,11 @@ class Resonator {
   final EchoSet? savedEchoSet;
   final List<String> teams;
 
+  /// Always includes 'Default' as the first option, even when [teams] is empty.
+  List<String> get effectiveTeams {
+    return ['Default', ...teams.where((t) => t != 'Default')];
+  }
+
   const Resonator({
     required this.id,
     required this.name,

@@ -20,7 +20,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default'],
+    teams: [],
   ),
   Resonator(
     id: 'aalto-sub',
@@ -40,7 +40,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default'],
+    teams: [],
   ),
   Resonator(
     id: 'aemeath-fusion-burst',
@@ -59,7 +59,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Denia + Chisa/Lupa'],
+    teams: ['Denia + Chisa/Lupa'],
   ),
   Resonator(
     id: 'aemeath-rupture',
@@ -78,7 +78,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Lynae + Shorekeeper', 'Lynae/Lupa + Mornye'],
+    teams: ['Lynae + Shorekeeper', 'Lynae/Lupa + Mornye'],
   ),
   Resonator(
     id: 'augusta',
@@ -97,7 +97,7 @@ final List<Resonator> seedResonators = [
       Stat.skillPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Iuno + Shorekeeper', 'Mortefi + Shorekeeper'],
+    teams: ['Iuno + Shorekeeper', 'Mortefi + Shorekeeper'],
   ),
   Resonator(
     id: 'baizhi',
@@ -108,7 +108,7 @@ final List<Resonator> seedResonators = [
     iconAsset: 'assets/resonator_icons/baizhi.webp',
     portraitAsset: 'assets/resonator_portraits/baizhi.webp',
     usableStats: [Stat.hpPercent, Stat.flatHp, Stat.erPercent],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'brant',
@@ -127,7 +127,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'buling',
@@ -163,7 +163,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'camellya',
@@ -207,7 +207,6 @@ final List<Resonator> seedResonators = [
       Stat.erPercent,
     ],
     teams: [
-      'Default',
       'Midnight Veil (Phrolova + Roccia)',
       'Moonlit Clouds (Carlotta + Shorekeeper)',
     ],
@@ -228,7 +227,7 @@ final List<Resonator> seedResonators = [
       Stat.skillPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Zhezhi Outro'],
+    teams: ['Zhezhi Outro'],
   ),
   Resonator(
     id: 'cartethyia',
@@ -248,7 +247,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default'],
+    teams: [],
   ),
   Resonator(
     id: 'changli',
@@ -267,7 +266,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Mono Fusion', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Mono Fusion', 'Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'chisa',
@@ -285,7 +284,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Aemeath + Denia', 'Default', 'With Cartethyia/Hiyuki/Zani'],
+    teams: ['Aemeath + Denia','With Cartethyia/Hiyuki/Zani'],
   ),
   Resonator(
     id: 'chixia',
@@ -304,7 +303,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'ciaccona',
@@ -324,7 +323,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default'],
+    teams: [],
   ),
   Resonator(
     id: 'danjin',
@@ -343,7 +342,7 @@ final List<Resonator> seedResonators = [
       Stat.skillPercent,
       Stat.liberationPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'denia',
@@ -388,7 +387,6 @@ final List<Resonator> seedResonators = [
     ],
     teams: [
       'Advanced Rotation',
-      'Default',
       'Easy Rotation',
       'Yangyang Outro',
       'Zhezhi Outro',
@@ -410,7 +408,7 @@ final List<Resonator> seedResonators = [
       Stat.heavyPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Mono Fusion', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Mono Fusion', 'Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'hiyuki',
@@ -429,7 +427,12 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Lynae + Chisa', 'Lynae + Shorekeeper', 'Zhezhi Outro'],
+    teams: [
+      'Lucilla + Chisa',
+      'Lynae + Chisa',
+      'Lynae + Shorekeeper',
+      'Zhezhi Outro',
+    ],
   ),
   Resonator(
     id: 'iuno-sub',
@@ -447,7 +450,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default'],
+    teams: [],
   ),
   Resonator(
     id: 'jianxin',
@@ -467,7 +470,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'jinhsi',
@@ -486,7 +489,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Alternate Rotation Burst', 'Default', 'Zhezhi Outro'],
+    teams: ['Alternate Rotation Burst','Zhezhi Outro'],
   ),
   Resonator(
     id: 'jiyan',
@@ -505,7 +508,7 @@ final List<Resonator> seedResonators = [
       Stat.skillPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Iuno + Ciaccona', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Iuno + Ciaccona', 'Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'lingyang',
@@ -525,7 +528,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'lucilla-echo',
@@ -543,7 +546,7 @@ final List<Resonator> seedResonators = [
       Stat.basicPercent,
       Stat.skillPercent,
     ],
-    teams: ['Default'],
+    teams: [],
   ),
   Resonator(
     id: 'lucilla-glacio-chafe',
@@ -561,7 +564,7 @@ final List<Resonator> seedResonators = [
       Stat.basicPercent,
       Stat.skillPercent,
     ],
-    teams: ['Default'],
+    teams: [],
   ),
   Resonator(
     id: 'lucy',
@@ -579,7 +582,7 @@ final List<Resonator> seedResonators = [
       Stat.heavyPercent,
       Stat.erPercent,
     ],
-    teams: ['Default'],
+    teams: [],
   ),
   Resonator(
     id: 'lumi',
@@ -599,7 +602,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'lupa',
@@ -620,7 +623,6 @@ final List<Resonator> seedResonators = [
     ],
     teams: [
       'Changli + Brant',
-      'Default',
       'Encore + Shorekeeper',
       'Yangyang Outro',
       'Zhezhi Outro',
@@ -666,7 +668,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Iuno + Ciaccona'],
+    teams: ['Iuno + Ciaccona'],
   ),
   Resonator(
     id: 'mornye',
@@ -684,7 +686,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default'],
+    teams: [],
   ),
   Resonator(
     id: 'mornye-sup',
@@ -695,7 +697,7 @@ final List<Resonator> seedResonators = [
     iconAsset: 'assets/resonator_icons/mornye.webp',
     portraitAsset: 'assets/resonator_portraits/mornye.webp',
     usableStats: [Stat.defPercent, Stat.flatDef, Stat.erPercent],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'mortefi',
@@ -715,7 +717,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'phoebe',
@@ -752,7 +754,7 @@ final List<Resonator> seedResonators = [
       Stat.flatAtk,
       Stat.skillPercent,
     ],
-    teams: ['Default'],
+    teams: [],
   ),
   Resonator(
     id: 'qiuyuan',
@@ -771,7 +773,6 @@ final List<Resonator> seedResonators = [
       Stat.erPercent,
     ],
     teams: [
-      'Default',
       'Galbrena + Shorekeeper',
       'Phrolova + Cantarella',
       'Yangyang Outro',
@@ -794,7 +795,7 @@ final List<Resonator> seedResonators = [
       Stat.basicPercent,
       Stat.erPercent,
     ],
-    teams: ['Default'],
+    teams: [],
   ),
   Resonator(
     id: 'roccia',
@@ -813,7 +814,7 @@ final List<Resonator> seedResonators = [
       Stat.skillPercent,
       Stat.erPercent,
     ],
-    teams: ['Camellya + Shorekeeper', 'Default', 'Phrolova + Cantarella'],
+    teams: ['Camellya + Shorekeeper','Phrolova + Cantarella'],
   ),
   Resonator(
     id: 'rover-aero',
@@ -881,7 +882,7 @@ final List<Resonator> seedResonators = [
       Stat.skillPercent,
       Stat.liberationPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'sanhua',
@@ -901,7 +902,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'sigrika',
@@ -942,7 +943,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'taoqi-sup',
@@ -953,7 +954,7 @@ final List<Resonator> seedResonators = [
     iconAsset: 'assets/resonator_icons/taoqi.webp',
     portraitAsset: 'assets/resonator_portraits/taoqi.webp',
     usableStats: [Stat.defPercent, Stat.flatDef, Stat.erPercent],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'shorekeeper',
@@ -971,7 +972,6 @@ final List<Resonator> seedResonators = [
       Stat.erPercent,
     ],
     teams: [
-      'Default',
       'No Fallacy',
       'With Fallacy',
       'Yangyang Outro',
@@ -1003,7 +1003,7 @@ final List<Resonator> seedResonators = [
     iconAsset: 'assets/resonator_icons/verina.webp',
     portraitAsset: 'assets/resonator_portraits/verina.webp',
     usableStats: [Stat.atkPercent, Stat.flatAtk, Stat.erPercent],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'xiangli-yao',
@@ -1023,7 +1023,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'yangyang',
@@ -1043,7 +1043,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'yinlin',
@@ -1064,7 +1064,6 @@ final List<Resonator> seedResonators = [
       Stat.erPercent,
     ],
     teams: [
-      'Default',
       'Xiangli Yao + Shorekeeper',
       'Yangyang Outro',
       'Zhezhi Outro',
@@ -1079,7 +1078,7 @@ final List<Resonator> seedResonators = [
     iconAsset: 'assets/resonator_icons/youhu.webp',
     portraitAsset: 'assets/resonator_portraits/youhu.webp',
     usableStats: [Stat.atkPercent, Stat.flatAtk, Stat.erPercent],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'yuanwu',
@@ -1098,7 +1097,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'No Liberation', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['No Liberation', 'Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'zani',
@@ -1117,7 +1116,7 @@ final List<Resonator> seedResonators = [
       Stat.liberationPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Yangyang Outro', 'Zhezhi Outro'],
+    teams: ['Yangyang Outro', 'Zhezhi Outro'],
   ),
   Resonator(
     id: 'zhezhi',
@@ -1135,6 +1134,6 @@ final List<Resonator> seedResonators = [
       Stat.basicPercent,
       Stat.erPercent,
     ],
-    teams: ['Default', 'Empyrean Anthem', 'Moonlit Clouds'],
+    teams: ['Empyrean Anthem', 'Moonlit Clouds'],
   ),
 ];

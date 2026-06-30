@@ -7,7 +7,16 @@
     "weapon": "pistols",
     "iconAsset": "assets/resonator_icons/aalto.webp",
     "portraitAsset": "assets/resonator_portraits/aalto.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "skillPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -18,7 +27,16 @@
     "weapon": "pistols",
     "iconAsset": "assets/resonator_icons/aalto.webp",
     "portraitAsset": "assets/resonator_portraits/aalto.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "skillPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -29,8 +47,18 @@
     "weapon": "sword",
     "iconAsset": "assets/resonator_icons/aemeath.webp",
     "portraitAsset": "assets/resonator_portraits/aemeath.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "liberationPercent", "erPercent"],
-    "teams": ["Denia + Chisa/Lupa"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Denia + Chisa/Lupa"
+    ]
   },
   {
     "id": "aemeath-rupture",
@@ -40,8 +68,19 @@
     "weapon": "sword",
     "iconAsset": "assets/resonator_icons/aemeath.webp",
     "portraitAsset": "assets/resonator_portraits/aemeath.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "liberationPercent", "erPercent"],
-    "teams": ["Lynae + Shorekeeper", "Lynae/Lupa + Mornye"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Lynae + Shorekeeper",
+      "Lynae/Lupa + Mornye"
+    ]
   },
   {
     "id": "augusta",
@@ -51,8 +90,19 @@
     "weapon": "broadblade",
     "iconAsset": "assets/resonator_icons/augusta.webp",
     "portraitAsset": "assets/resonator_portraits/augusta.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "heavyPercent", "skillPercent", "erPercent"],
-    "teams": ["Iuno + Shorekeeper", "Mortefi + Shorekeeper"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "heavyPercent",
+      "skillPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Iuno + Shorekeeper",
+      "Mortefi + Shorekeeper"
+    ]
   },
   {
     "id": "baizhi",
@@ -62,7 +112,11 @@
     "weapon": "rectifier",
     "iconAsset": "assets/resonator_icons/baizhi.webp",
     "portraitAsset": "assets/resonator_portraits/baizhi.webp",
-    "usableStats": ["hpPercent", "flatHp", "erPercent"],
+    "usableStats": [
+      "hpPercent",
+      "flatHp",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -73,7 +127,15 @@
     "weapon": "sword",
     "iconAsset": "assets/resonator_icons/brant.webp",
     "portraitAsset": "assets/resonator_portraits/brant.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -84,8 +146,17 @@
     "weapon": "rectifier",
     "iconAsset": "assets/resonator_icons/buling.webp",
     "portraitAsset": "assets/resonator_portraits/buling.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "erPercent"],
-    "teams": ["Carlotta", "Phrolova"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "erPercent"
+    ],
+    "teams": [
+      "Carlotta",
+      "Phrolova"
+    ]
   },
   {
     "id": "calcharo",
@@ -95,7 +166,15 @@
     "weapon": "broadblade",
     "iconAsset": "assets/resonator_icons/calcharo.webp",
     "portraitAsset": "assets/resonator_portraits/calcharo.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -106,8 +185,19 @@
     "weapon": "sword",
     "iconAsset": "assets/resonator_icons/camellya.webp",
     "portraitAsset": "assets/resonator_portraits/camellya.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "liberationPercent", "erPercent"],
-    "teams": ["Lynae + Shorekeeper", "Roccia + Shorekeeper"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Lynae + Shorekeeper",
+      "Roccia + Shorekeeper"
+    ]
   },
   {
     "id": "cantarella",
@@ -117,8 +207,19 @@
     "weapon": "rectifier",
     "iconAsset": "assets/resonator_icons/cantarella.webp",
     "portraitAsset": "assets/resonator_portraits/cantarella.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "skillPercent", "erPercent"],
-    "teams": ["Midnight Veil (Phrolova + Roccia)", "Moonlit Clouds (Carlotta + Shorekeeper)"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "skillPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Midnight Veil (Phrolova + Roccia)",
+      "Moonlit Clouds (Carlotta + Shorekeeper)"
+    ]
   },
   {
     "id": "carlotta",
@@ -128,8 +229,17 @@
     "weapon": "pistols",
     "iconAsset": "assets/resonator_icons/carlotta.webp",
     "portraitAsset": "assets/resonator_portraits/carlotta.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "skillPercent", "erPercent"],
-    "teams": ["Zhezhi Outro"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "skillPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Zhezhi Outro"
+    ]
   },
   {
     "id": "cartethyia",
@@ -139,7 +249,16 @@
     "weapon": "sword",
     "iconAsset": "assets/resonator_icons/cartethyia.webp",
     "portraitAsset": "assets/resonator_portraits/cartethyia.webp",
-    "usableStats": ["critRate", "critDamage", "hpPercent", "flatHp", "basicPercent", "skillPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "hpPercent",
+      "flatHp",
+      "basicPercent",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -150,8 +269,18 @@
     "weapon": "sword",
     "iconAsset": "assets/resonator_icons/changli.webp",
     "portraitAsset": "assets/resonator_portraits/changli.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "skillPercent", "liberationPercent", "erPercent"],
-    "teams": ["Mono Fusion"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Mono Fusion"
+    ]
   },
   {
     "id": "chisa",
@@ -161,8 +290,18 @@
     "weapon": "broadblade",
     "iconAsset": "assets/resonator_icons/chisa.webp",
     "portraitAsset": "assets/resonator_portraits/chisa.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "liberationPercent", "erPercent"],
-    "teams": ["Aemeath + Denia", "With Cartethyia/Hiyuki/Zani"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Aemeath + Denia",
+      "With Cartethyia/Hiyuki/Zani"
+    ]
   },
   {
     "id": "chixia",
@@ -172,7 +311,15 @@
     "weapon": "pistols",
     "iconAsset": "assets/resonator_icons/chixia.webp",
     "portraitAsset": "assets/resonator_portraits/chixia.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "skillPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -183,7 +330,16 @@
     "weapon": "pistols",
     "iconAsset": "assets/resonator_icons/ciaccona.webp",
     "portraitAsset": "assets/resonator_portraits/ciaccona.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "heavyPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "heavyPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -194,7 +350,15 @@
     "weapon": "sword",
     "iconAsset": "assets/resonator_icons/danjin.webp",
     "portraitAsset": "assets/resonator_portraits/danjin.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "heavyPercent", "skillPercent", "liberationPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "heavyPercent",
+      "skillPercent",
+      "liberationPercent"
+    ],
     "teams": []
   },
   {
@@ -205,8 +369,18 @@
     "weapon": "rectifier",
     "iconAsset": "assets/resonator_icons/denia.webp",
     "portraitAsset": "assets/resonator_portraits/denia.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "liberationPercent", "erPercent"],
-    "teams": ["Aemeath + Lupa/Chisa", "Luuk Herssen + Mornye"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Aemeath + Lupa/Chisa",
+      "Luuk Herssen + Mornye"
+    ]
   },
   {
     "id": "encore-hypercarry",
@@ -216,8 +390,20 @@
     "weapon": "rectifier",
     "iconAsset": "assets/resonator_icons/encore.webp",
     "portraitAsset": "assets/resonator_portraits/encore.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "skillPercent", "liberationPercent", "erPercent"],
-    "teams": ["Advanced Rotation", "Easy Rotation"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Advanced Rotation",
+      "Easy Rotation"
+    ]
   },
   {
     "id": "galbrena",
@@ -227,8 +413,17 @@
     "weapon": "pistols",
     "iconAsset": "assets/resonator_icons/galbrena.webp",
     "portraitAsset": "assets/resonator_portraits/galbrena.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "heavyPercent", "erPercent"],
-    "teams": ["Mono Fusion"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "heavyPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Mono Fusion"
+    ]
   },
   {
     "id": "hiyuki",
@@ -238,8 +433,21 @@
     "weapon": "sword",
     "iconAsset": "assets/resonator_icons/hiyuki.webp",
     "portraitAsset": "assets/resonator_portraits/hiyuki.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "skillPercent", "liberationPercent", "erPercent"],
-    "teams": ["Lucilla + Chisa", "Lynae + Chisa", "Lynae + Shorekeeper", "Zhezhi Outro"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Lucilla + Chisa",
+      "Lynae + Chisa",
+      "Lynae + Shorekeeper",
+      "Zhezhi Outro"
+    ]
   },
   {
     "id": "iuno-main-dps",
@@ -249,7 +457,14 @@
     "weapon": "gauntlets",
     "iconAsset": "assets/resonator_icons/iuno.webp",
     "portraitAsset": "assets/resonator_portraits/iuno.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -260,7 +475,14 @@
     "weapon": "gauntlets",
     "iconAsset": "assets/resonator_icons/iuno.webp",
     "portraitAsset": "assets/resonator_portraits/iuno.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -271,7 +493,16 @@
     "weapon": "gauntlets",
     "iconAsset": "assets/resonator_icons/jianxin.webp",
     "portraitAsset": "assets/resonator_portraits/jianxin.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "heavyPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "heavyPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -282,8 +513,19 @@
     "weapon": "broadblade",
     "iconAsset": "assets/resonator_icons/jinhsi.webp",
     "portraitAsset": "assets/resonator_portraits/jinhsi.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "skillPercent", "liberationPercent", "erPercent"],
-    "teams": ["Alternate Rotation Burst", "Zhezhi Outro"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Alternate Rotation Burst",
+      "Zhezhi Outro"
+    ]
   },
   {
     "id": "jiyan",
@@ -293,8 +535,18 @@
     "weapon": "broadblade",
     "iconAsset": "assets/resonator_icons/jiyan.webp",
     "portraitAsset": "assets/resonator_portraits/jiyan.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "heavyPercent", "skillPercent", "erPercent"],
-    "teams": ["Iuno + Ciaccona"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "heavyPercent",
+      "skillPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Iuno + Ciaccona"
+    ]
   },
   {
     "id": "lingyang",
@@ -304,8 +556,19 @@
     "weapon": "gauntlets",
     "iconAsset": "assets/resonator_icons/lingyang.webp",
     "portraitAsset": "assets/resonator_portraits/lingyang.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "skillPercent", "liberationPercent", "erPercent"],
-    "teams": ["Zhezhi Outro"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Zhezhi Outro"
+    ]
   },
   {
     "id": "lucilla-echo",
@@ -315,7 +578,14 @@
     "weapon": "rectifier",
     "iconAsset": "assets/resonator_icons/lucilla.webp",
     "portraitAsset": "assets/resonator_portraits/lucilla.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "skillPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "skillPercent"
+    ],
     "teams": []
   },
   {
@@ -326,7 +596,14 @@
     "weapon": "rectifier",
     "iconAsset": "assets/resonator_icons/lucilla.webp",
     "portraitAsset": "assets/resonator_portraits/lucilla.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "skillPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "skillPercent"
+    ],
     "teams": []
   },
   {
@@ -337,7 +614,14 @@
     "weapon": "pistols",
     "iconAsset": "assets/resonator_icons/lucy.webp",
     "portraitAsset": "assets/resonator_portraits/lucy.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "heavyPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "heavyPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -348,7 +632,16 @@
     "weapon": "broadblade",
     "iconAsset": "assets/resonator_icons/lumi.webp",
     "portraitAsset": "assets/resonator_portraits/lumi.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "skillPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -359,8 +652,20 @@
     "weapon": "broadblade",
     "iconAsset": "assets/resonator_icons/lupa.webp",
     "portraitAsset": "assets/resonator_portraits/lupa.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "skillPercent", "liberationPercent", "erPercent"],
-    "teams": ["Aemeath + Mornye", "Encore + Shorekeeper", "Mono-Fusion - Brant + Changli, Galbrena + Mornye, Aemeath + Denia"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Aemeath + Mornye",
+      "Encore + Shorekeeper",
+      "Mono-Fusion - Brant + Changli, Galbrena + Mornye, Aemeath + Denia"
+    ]
   },
   {
     "id": "luuk-herssen",
@@ -370,8 +675,18 @@
     "weapon": "gauntlets",
     "iconAsset": "assets/resonator_icons/luuk_herssen.webp",
     "portraitAsset": "assets/resonator_portraits/luuk_herssen.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "erPercent"],
-    "teams": ["Lynae + Mornye", "Sanhua + Mornye"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Lynae + Mornye",
+      "Sanhua + Mornye"
+    ]
   },
   {
     "id": "lynae",
@@ -381,8 +696,18 @@
     "weapon": "pistols",
     "iconAsset": "assets/resonator_icons/lynae.webp",
     "portraitAsset": "assets/resonator_portraits/lynae.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "liberationPercent", "erPercent"],
-    "teams": ["Iuno + Ciaccona"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Iuno + Ciaccona"
+    ]
   },
   {
     "id": "mornye",
@@ -392,7 +717,14 @@
     "weapon": "broadblade",
     "iconAsset": "assets/resonator_icons/mornye.webp",
     "portraitAsset": "assets/resonator_portraits/mornye.webp",
-    "usableStats": ["critRate", "critDamage", "defPercent", "flatDef", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "defPercent",
+      "flatDef",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -403,7 +735,11 @@
     "weapon": "broadblade",
     "iconAsset": "assets/resonator_icons/mornye.webp",
     "portraitAsset": "assets/resonator_portraits/mornye.webp",
-    "usableStats": ["defPercent", "flatDef", "erPercent"],
+    "usableStats": [
+      "defPercent",
+      "flatDef",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -414,7 +750,16 @@
     "weapon": "pistols",
     "iconAsset": "assets/resonator_icons/mortefi.webp",
     "portraitAsset": "assets/resonator_portraits/mortefi.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "skillPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -425,8 +770,20 @@
     "weapon": "rectifier",
     "iconAsset": "assets/resonator_icons/phoebe.webp",
     "portraitAsset": "assets/resonator_portraits/phoebe.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "heavyPercent", "liberationPercent", "erPercent"],
-    "teams": ["Absolution", "Confession"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "heavyPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Absolution",
+      "Confession"
+    ]
   },
   {
     "id": "phrolova",
@@ -436,7 +793,13 @@
     "weapon": "rectifier",
     "iconAsset": "assets/resonator_icons/phrolova.webp",
     "portraitAsset": "assets/resonator_portraits/phrolova.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "skillPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "skillPercent"
+    ],
     "teams": []
   },
   {
@@ -447,8 +810,18 @@
     "weapon": "sword",
     "iconAsset": "assets/resonator_icons/qiuyuan.webp",
     "portraitAsset": "assets/resonator_portraits/qiuyuan.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "heavyPercent", "erPercent"],
-    "teams": ["Galbrena + Shorekeeper", "Phrolova + Cantarella"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "heavyPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Galbrena + Shorekeeper",
+      "Phrolova + Cantarella"
+    ]
   },
   {
     "id": "rebecca",
@@ -458,7 +831,14 @@
     "weapon": "pistols",
     "iconAsset": "assets/resonator_icons/rebecca.webp",
     "portraitAsset": "assets/resonator_portraits/rebecca.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -469,8 +849,19 @@
     "weapon": "gauntlets",
     "iconAsset": "assets/resonator_icons/roccia.webp",
     "portraitAsset": "assets/resonator_portraits/roccia.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "heavyPercent", "skillPercent", "erPercent"],
-    "teams": ["Camellya + Shorekeeper", "Phrolova + Cantarella"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "heavyPercent",
+      "skillPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Camellya + Shorekeeper",
+      "Phrolova + Cantarella"
+    ]
   },
   {
     "id": "rover-aero",
@@ -480,8 +871,19 @@
     "weapon": "sword",
     "iconAsset": "assets/resonator_icons/rover.webp",
     "portraitAsset": "assets/resonator_portraits/rover.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "skillPercent", "liberationPercent", "erPercent"],
-    "teams": ["Cartethyia + Ciaccona", "Iuno + Ciaccona"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Cartethyia + Ciaccona",
+      "Iuno + Ciaccona"
+    ]
   },
   {
     "id": "rover-havoc",
@@ -491,8 +893,20 @@
     "weapon": "sword",
     "iconAsset": "assets/resonator_icons/rover.webp",
     "portraitAsset": "assets/resonator_portraits/rover.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "skillPercent", "liberationPercent", "erPercent"],
-    "teams": ["Main DPS / Lynae + Shorekeeper", "Sub DPS / Phrolova + Cantarella"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Main DPS / Lynae + Shorekeeper",
+      "Sub DPS / Phrolova + Cantarella"
+    ]
   },
   {
     "id": "rover-spectro",
@@ -502,7 +916,16 @@
     "weapon": "sword",
     "iconAsset": "assets/resonator_icons/rover.webp",
     "portraitAsset": "assets/resonator_portraits/rover.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "heavyPercent", "skillPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "heavyPercent",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -513,7 +936,16 @@
     "weapon": "sword",
     "iconAsset": "assets/resonator_icons/sanhua.webp",
     "portraitAsset": "assets/resonator_portraits/sanhua.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "heavyPercent", "skillPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "heavyPercent",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -524,8 +956,17 @@
     "weapon": "gauntlets",
     "iconAsset": "assets/resonator_icons/sigrika.webp",
     "portraitAsset": "assets/resonator_portraits/sigrika.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "erPercent"],
-    "teams": ["Qiuyuan + Ciaccona/Phrolova", "Qiuyuan + Shorekeeper"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "erPercent"
+    ],
+    "teams": [
+      "Qiuyuan + Ciaccona/Phrolova",
+      "Qiuyuan + Shorekeeper"
+    ]
   },
   {
     "id": "taoqi-sub-dps",
@@ -535,7 +976,15 @@
     "weapon": "broadblade",
     "iconAsset": "assets/resonator_icons/taoqi.webp",
     "portraitAsset": "assets/resonator_portraits/taoqi.webp",
-    "usableStats": ["critRate", "critDamage", "defPercent", "flatDef", "basicPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "defPercent",
+      "flatDef",
+      "basicPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -546,7 +995,11 @@
     "weapon": "broadblade",
     "iconAsset": "assets/resonator_icons/taoqi.webp",
     "portraitAsset": "assets/resonator_portraits/taoqi.webp",
-    "usableStats": ["defPercent", "flatDef", "erPercent"],
+    "usableStats": [
+      "defPercent",
+      "flatDef",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -557,8 +1010,17 @@
     "weapon": "rectifier",
     "iconAsset": "assets/resonator_icons/shorekeeper.webp",
     "portraitAsset": "assets/resonator_portraits/shorekeeper.webp",
-    "usableStats": ["critDamage", "hpPercent", "flatHp", "liberationPercent", "erPercent"],
-    "teams": ["No Fallacy", "With Fallacy"]
+    "usableStats": [
+      "critDamage",
+      "hpPercent",
+      "flatHp",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "No Fallacy",
+      "With Fallacy"
+    ]
   },
   {
     "id": "the-shorekeeper-pure-support",
@@ -568,8 +1030,15 @@
     "weapon": "rectifier",
     "iconAsset": "assets/resonator_icons/shorekeeper.webp",
     "portraitAsset": "assets/resonator_portraits/shorekeeper.webp",
-    "usableStats": ["hpPercent", "flatHp", "erPercent"],
-    "teams": ["No Fallacy", "With Fallacy"]
+    "usableStats": [
+      "hpPercent",
+      "flatHp",
+      "erPercent"
+    ],
+    "teams": [
+      "No Fallacy",
+      "With Fallacy"
+    ]
   },
   {
     "id": "verina",
@@ -579,7 +1048,11 @@
     "weapon": "rectifier",
     "iconAsset": "assets/resonator_icons/verina.webp",
     "portraitAsset": "assets/resonator_portraits/verina.webp",
-    "usableStats": ["atkPercent", "flatAtk", "erPercent"],
+    "usableStats": [
+      "atkPercent",
+      "flatAtk",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -590,7 +1063,16 @@
     "weapon": "gauntlets",
     "iconAsset": "assets/resonator_icons/xiangliyao.webp",
     "portraitAsset": "assets/resonator_portraits/xiangliyao.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "skillPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -601,7 +1083,16 @@
     "weapon": "sword",
     "iconAsset": "assets/resonator_icons/yangyang.webp",
     "portraitAsset": "assets/resonator_portraits/yangyang.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "skillPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -612,8 +1103,18 @@
     "weapon": "rectifier",
     "iconAsset": "assets/resonator_icons/yinlin.webp",
     "portraitAsset": "assets/resonator_portraits/yinlin.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "skillPercent", "liberationPercent", "erPercent"],
-    "teams": ["Xiangli Yao + Shorekeeper"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Xiangli Yao + Shorekeeper"
+    ]
   },
   {
     "id": "youhu",
@@ -623,7 +1124,11 @@
     "weapon": "gauntlets",
     "iconAsset": "assets/resonator_icons/youhu.webp",
     "portraitAsset": "assets/resonator_portraits/youhu.webp",
-    "usableStats": ["atkPercent", "flatAtk", "erPercent"],
+    "usableStats": [
+      "atkPercent",
+      "flatAtk",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -634,8 +1139,18 @@
     "weapon": "gauntlets",
     "iconAsset": "assets/resonator_icons/yuanwu.webp",
     "portraitAsset": "assets/resonator_portraits/yuanwu.webp",
-    "usableStats": ["critRate", "critDamage", "defPercent", "flatDef", "skillPercent", "liberationPercent", "erPercent"],
-    "teams": ["No Liberation"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "defPercent",
+      "flatDef",
+      "skillPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "No Liberation"
+    ]
   },
   {
     "id": "zani",
@@ -645,7 +1160,15 @@
     "weapon": "gauntlets",
     "iconAsset": "assets/resonator_icons/zani.webp",
     "portraitAsset": "assets/resonator_portraits/zani.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "heavyPercent", "liberationPercent", "erPercent"],
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "heavyPercent",
+      "liberationPercent",
+      "erPercent"
+    ],
     "teams": []
   },
   {
@@ -656,7 +1179,17 @@
     "weapon": "rectifier",
     "iconAsset": "assets/resonator_icons/zhezhi.webp",
     "portraitAsset": "assets/resonator_portraits/zhezhi.webp",
-    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "erPercent"],
-    "teams": ["Empyrean Anthem", "Moonlit Clouds"]
+    "usableStats": [
+      "critRate",
+      "critDamage",
+      "atkPercent",
+      "flatAtk",
+      "basicPercent",
+      "erPercent"
+    ],
+    "teams": [
+      "Empyrean Anthem",
+      "Moonlit Clouds"
+    ]
   }
 ]

@@ -24,4 +24,11 @@ abstract interface class IStorageService {
 
   /// Delete all data and settings.
   Future<Result<void>> resetAllData();
+
+  /// Migrate saved echo sets whose resonator IDs have changed.
+  ///
+  /// [migrations] maps old resonator IDs → new resonator IDs.
+  /// Keys in echo_sets.json matching an old ID are renamed to the new ID.
+  /// This is idempotent — safe to call on every app launch.
+  Future<Result<int>> migrateEchoSets(Map<String, String> migrations);
 }

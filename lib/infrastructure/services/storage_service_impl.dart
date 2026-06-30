@@ -164,6 +164,27 @@ final class StorageServiceImpl implements IStorageService {
   }
 
   @override
+  Future<Result<int>> migrateEchoSets(Map<String, String> migrations) async {
+    if (migrations.isEmpty) return const Ok(0);
+    try {
+      final data = await _readData();
+      var count = 0;
+      for (final entry in migrations.entries) {
+        if (data.containsKey(entry.key)) {
+          data[entry.value] = data.remove(entry.key);
+          count++;
+        }
+      }
+      if (count > 0) {
+        await _writeData(data);
+      }
+      return Ok(count);
+    } catch (e) {
+      return Err('Failed to migrate echo sets', cause: e);
+    }
+  }
+
+  @override
   Future<Result<void>> resetAllData() async {
     try {
       final echoFile = await _getJsonFile();

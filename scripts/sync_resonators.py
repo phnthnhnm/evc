@@ -20,6 +20,7 @@ from pathlib import Path
 
 EVC_URL = "https://www.echovaluecalc.com/echo"
 RESONATORS_PATH = Path(__file__).parent.parent / "assets" / "data" / "resonators.json"
+MIGRATIONS_PATH = Path(__file__).parent.parent / "assets" / "data" / "resonator_id_migrations.json"
 
 # Website stat names → project stat keys
 STAT_MAP = {
@@ -262,6 +263,98 @@ def print_diff(added, removed, modified, unchanged):
     print("=" * 60)
 
 
+# ---- Migration map ---------------------------------------------------------
+
+def compute_new_migrations(old_entries: list[dict], new_entries: list[dict]) -> dict:
+    """Find ID changes between old and new entries.
+
+    Matching strategy:
+    1. Exact name match — most reliable (name didn't change, only ID did)
+    2. Base name match — for renamed entries where only the specifier changed
+       (e.g. "Aalto (DPS)" → "Aalto (Main-DPS)"). Only applied when exactly
+       one unmatched new entry shares the base name.
+
+    Returns {old_id: new_id} for entries whose ID changed.
+    """
+    migrations = {}
+
+    new_by_name = {e["name"]: e for e in new_entries}
+
+    # Pass 1: exact name matches
+    unmatched_old = []
+    for old in old_entries:
+        new = new_by_name.get(old["name"])
+        if new and new["id"] != old["id"]:
+            migrations[old["id"]] = new["id"]
+        elif not new:
+            unmatched_old.append(old)
+
+    # Pass 2: base-name matching for renamed entries.
+    matched_new_ids = set(migrations.values())
+    new_by_base = {}  # base_name → [unmatched_new_entry, ...]
+    for new in new_entries:
+        if new["id"] in matched_new_ids:
+            continue
+        base = derive_base_name(new["name"]).lower()
+        new_by_base.setdefault(base, []).append(new)
+
+    for old in unmatched_old:
+        old_base = derive_base_name(old["name"]).lower()
+        candidates = new_by_base.get(old_base, [])
+        if len(candidates) == 1:
+            new = candidates[0]
+            if new["id"] != old["id"]:
+                migrations[old["id"]] = new["id"]
+
+    return migrations
+
+
+def load_migration_map() -> dict:
+    """Read the existing cumulative migration map from disk."""
+    if MIGRATIONS_PATH.exists():
+        with open(MIGRATIONS_PATH, encoding="utf-8") as f:
+            return json.load(f)
+    return {}
+
+
+def update_migration_map(old_entries: list[dict],
+                         new_entries: list[dict]) -> dict:
+    """Build a cumulative migration map by merging new ID changes into the
+    existing map.
+
+    The existing map is preserved so that users who skip releases still get
+    all historical migrations applied.
+    """
+    existing = load_migration_map()
+
+    # Apply existing migrations to old entries so we only detect *new* changes.
+    # e.g. if char1→char2 was already migrated, old entries with char1 become
+    # char2 before we compare, so we won't re-detect char1→char2.
+    migrated_old = []
+    for e in old_entries:
+        entry = dict(e)
+        if entry["id"] in existing:
+            entry["id"] = existing[entry["id"]]
+        migrated_old.append(entry)
+
+    new_migrations = compute_new_migrations(migrated_old, new_entries)
+
+    # Merge: existing migrations first (historical), then new (current release).
+    # The combined map is {historical_old_id: current_new_id}.
+    merged = dict(existing)
+    merged.update(new_migrations)
+    return merged
+
+
+def print_migrations(migrations: dict):
+    """Print the migration map."""
+    if not migrations:
+        return
+    print(f"\n[MIGRATE] Echo set keys to rename ({len(migrations)}):")
+    for old_id, new_id in sorted(migrations.items()):
+        print(f"  {old_id} → {new_id}")
+
+
 # ---- Main ------------------------------------------------------------------
 
 def main():
@@ -287,11 +380,27 @@ def main():
     added, removed, modified, unchanged = diff_entries(new_entries, existing)
     print_diff(added, removed, modified, unchanged)
 
+    existing_migrations = load_migration_map()
+    migrations = update_migration_map(existing, new_entries)
+    new_count = len(migrations) - len(existing_migrations)
+    if new_count > 0:
+        print(f"\n[MIGRATE] {new_count} new ID change(s) this run "
+              f"({len(migrations)} total in cumulative map)")
+    print_migrations(migrations)
+
     if args.apply:
         with open(RESONATORS_PATH, "w", encoding="utf-8") as f:
             json.dump(new_entries, f, indent=2, ensure_ascii=False)
             f.write("\n")
         print(f"Wrote {len(new_entries)} entries to {RESONATORS_PATH}")
+
+        with open(MIGRATIONS_PATH, "w", encoding="utf-8") as f:
+            json.dump(migrations, f, indent=2, ensure_ascii=False)
+            f.write("\n")
+        if migrations:
+            print(f"Wrote {len(migrations)} migrations to {MIGRATIONS_PATH}")
+        else:
+            print(f"Wrote empty migration file to {MIGRATIONS_PATH}")
 
 
 if __name__ == "__main__":

@@ -193,6 +193,8 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
                           onTeamChanged: (v) => notifier.setTeam(v),
                           erController: _erController,
                           onERChanged: (_) {},
+                          showTeamInfo: true,
+                          showERInfo: true,
                         ),
                       ],
                     ),

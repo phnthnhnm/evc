@@ -7,6 +7,7 @@ class TotalERInputField extends StatelessWidget {
   final String label;
   final double width;
   final EdgeInsetsGeometry? padding;
+  final Widget? infoContent;
 
   const TotalERInputField({
     super.key,
@@ -15,7 +16,24 @@ class TotalERInputField extends StatelessWidget {
     this.label = 'Total ER of the build:',
     this.width = 90,
     this.padding,
+    this.infoContent,
   });
+
+  void _showInfoPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Energy Regen'),
+        content: infoContent!,
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +42,22 @@ class TotalERInputField extends StatelessWidget {
       child: Row(
         children: [
           Text(label),
+          if (infoContent != null) ...[
+            const SizedBox(width: 4),
+            SizedBox(
+              width: 28,
+              height: 28,
+              child: InkWell(
+                onTap: () => _showInfoPopup(context),
+                borderRadius: BorderRadius.circular(14),
+                child: const Icon(
+                  Icons.help_outline,
+                  size: 20,
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+          ],
           const SizedBox(width: 12),
           SizedBox(
             width: width,

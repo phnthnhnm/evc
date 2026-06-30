@@ -254,17 +254,21 @@ class _ResonatorCardState extends State<ResonatorCard> {
                 ),
                 alignment: Alignment.center,
                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Text(
-                  widget.resonator.name,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFFCBD5E1),
-                    letterSpacing: 0.04,
+                child: Tooltip(
+                  message: widget.resonator.name,
+                  waitDuration: const Duration(milliseconds: 300),
+                  child: Text(
+                    widget.resonator.name,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFFCBD5E1),
+                      letterSpacing: 0.04,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.center,
                 ),
               ),
             ],

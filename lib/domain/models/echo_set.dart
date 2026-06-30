@@ -21,9 +21,38 @@ abstract class EchoSet with _$EchoSet {
       _$EchoSetFromJson(json);
 }
 
-List<Echo> _echoesFromJson(List<dynamic>? json) =>
-    json?.map((e) => Echo.fromJson(e as Map<String, dynamic>)).toList() ??
-    const [];
+/// Pattern that matches the echo-slot suffix on stat keys (" 1" … " 5").
+final _slotSuffix = RegExp(r' \d+$');
+
+List<Echo> _echoesFromJson(List<dynamic>? json) {
+  if (json == null) return const [];
+  return json.asMap().entries.map((entry) {
+    final i = entry.key;
+    final map = Map<String, dynamic>.from(entry.value as Map<String, dynamic>);
+    if (map['stats'] case final Map<String, dynamic> rawStats) {
+      final suffixed = <String, double>{};
+      rawStats.forEach((key, value) {
+        // If the key already has a suffix (old format), replace it with the
+        // correct one. Otherwise add the suffix based on array position.
+        final base = key.replaceAll(_slotSuffix, '');
+        suffixed['$base ${i + 1}'] = (value as num).toDouble();
+      });
+      map['stats'] = suffixed;
+    }
+    return Echo.fromJson(map);
+  }).toList();
+}
 
 List<Map<String, dynamic>> _echoesToJson(List<Echo> echoes) =>
-    echoes.map((e) => e.toJson()).toList();
+    echoes.map((echo) {
+      final json = echo.toJson();
+      // Strip the echo-slot suffix from stat keys before persisting.
+      if (json['stats'] case final Map<String, dynamic> rawStats) {
+        final clean = <String, double>{};
+        rawStats.forEach((key, value) {
+          clean[key.replaceAll(_slotSuffix, '')] = (value as num).toDouble();
+        });
+        json['stats'] = clean;
+      }
+      return json;
+    }).toList();

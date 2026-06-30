@@ -120,7 +120,12 @@ class _EchoValueCalcAppState extends ConsumerState<EchoValueCalcApp> {
       ),
       themeMode: ThemeMode.dark,
       routerConfig: router,
-      builder: (context, child) => ToastLayer(child: child!),
+      builder: (context, child) => CallbackShortcuts(
+        bindings: {
+          LogicalKeySet(LogicalKeyboardKey.escape): () => router.pop(),
+        },
+        child: ToastLayer(child: child!),
+      ),
     );
   }
 }

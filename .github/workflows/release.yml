@@ -1,0 +1,49 @@
+name: Release Build and Upload
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    name: Build and Upload Windows
+    runs-on: windows-latest
+    steps:
+      - name: Checkout release tag
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.23.0
+        with:
+          channel: "stable"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Windows
+        run: flutter build windows --release --obfuscate --split-debug-info=build/debug-info
+
+      - name: Extract version and zip
+        id: zip
+        shell: bash
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+          VERSION="${TAG#v}"
+          ZIP_NAME="evc-${VERSION}-windows-x64.zip"
+          cd build/windows/x64/runner/Release
+          7z a -tzip -mx=9 "../${ZIP_NAME}" *
+          echo "ZIP_NAME=${ZIP_NAME}" >> $GITHUB_OUTPUT
+
+      - name: Upload to release
+        shell: bash
+        run: |
+          gh release upload "${{ github.event.release.tag_name }}" \
+            "build/windows/x64/runner/${{ steps.zip.outputs.ZIP_NAME }}" \
+            --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

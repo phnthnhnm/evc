@@ -29,6 +29,23 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
   bool _scheduledClear = false;
   final ScrollController _scrollController = ScrollController();
   final FocusNode _focusNode = FocusNode();
+  late final TextEditingController _erController;
+  bool _syncingER = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _erController = TextEditingController(text: '100.0');
+    _erController.addListener(() {
+      if (_syncingER) return;
+      final parsed = double.tryParse(_erController.text);
+      if (parsed != null) {
+        ref
+            .read(resonatorDetailProvider(widget.resonatorId).notifier)
+            .setTotalER(parsed);
+      }
+    });
+  }
 
   @override
   void didUpdateWidget(ResonatorDetailScreen oldWidget) {
@@ -40,6 +57,7 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
 
   @override
   void dispose() {
+    _erController.dispose();
     _scrollController.dispose();
     _focusNode.dispose();
     super.dispose();
@@ -88,6 +106,15 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
     final hasPrev = adjacent.previousId != null;
     final hasNext = adjacent.nextId != null;
 
+    final stateER = state.totalER;
+    final controllerER = double.tryParse(_erController.text);
+    if (controllerER != null && controllerER != stateER) {
+      _syncingER = true;
+      _erController.text = stateER.toString();
+      _syncingER = false;
+    }
+    final erValid = stateER >= 100.0;
+
     _maybeShowSuccess(state.successMessage);
     _maybeShowError(state.error);
 
@@ -131,7 +158,6 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
         child: Listener(
           behavior: HitTestBehavior.deferToChild,
           onPointerDown: (_) {
-            // Defer to post-frame so the text field's blur completes first.
             WidgetsBinding.instance.addPostFrameCallback((_) {
               if (mounted) _focusNode.requestFocus();
             });
@@ -165,10 +191,8 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
                           selectedTeam: state.selectedTeam,
                           teams: notifier.resonator.effectiveTeams,
                           onTeamChanged: (v) => notifier.setTeam(v),
-                          erController: TextEditingController(
-                            text: state.totalER.toString(),
-                          ),
-                          onERChanged: (v) => notifier.setTotalER(v),
+                          erController: _erController,
+                          onERChanged: (_) {},
                         ),
                       ],
                     ),
@@ -206,11 +230,23 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
           children: [
             LoadingActionButton(
               loading: state.loading,
-              onPressed: () => notifier.submit(),
+              onPressed: erValid ? () => notifier.submit() : null,
               icon: const Icon(Icons.send),
               text: 'Submit',
             ),
             const SizedBox(width: 12),
+            if (!erValid)
+              const Padding(
+                padding: EdgeInsets.only(left: 4),
+                child: Text(
+                  'ER must be ≥ 100',
+                  style: TextStyle(
+                    color: Colors.redAccent,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
             const Spacer(),
             ResultChips(
               overallScore: state.lastResult?.overallScore ?? 0.0,

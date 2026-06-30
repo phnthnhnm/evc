@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
-
 import 'package:evc/domain/enums/stat.dart';
 import 'package:evc/domain/models/echo_set.dart';
 import 'package:evc/domain/models/resonator.dart';
 import 'package:evc/presentation/theme/app_colors.dart';
 import 'package:evc/presentation/widgets/stat_dropdown.dart';
+import 'package:flutter/material.dart';
 
 class EchoCard extends StatelessWidget {
   final int index;
@@ -33,11 +32,29 @@ class EchoCard extends StatelessWidget {
     return echoStats[key] ?? 0.0;
   }
 
+  int get _nonZeroStatCount {
+    var count = 0;
+    for (final stat in resonator.usableStats) {
+      final key = '${stat.apiName} ${index + 1}';
+      if ((echoStats[key] ?? 0.0) != 0.0) count++;
+    }
+    return count;
+  }
+
+  bool get _hasTooManyStats => _nonZeroStatCount > 5;
+
   @override
   Widget build(BuildContext context) {
     final usable = resonator.usableStats;
+    final tooMany = _hasTooManyStats;
     return Card(
       elevation: 1,
+      shape: tooMany
+          ? RoundedRectangleBorder(
+              side: const BorderSide(color: Colors.redAccent, width: 1.5),
+              borderRadius: BorderRadius.circular(12),
+            )
+          : null,
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -45,12 +62,27 @@ class EchoCard extends StatelessWidget {
           children: [
             Row(
               children: [
+                if (tooMany)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 6),
+                    child: Tooltip(
+                      message:
+                          'This echo has $_nonZeroStatCount non-zero stats '
+                          '(max 5).',
+                      child: const Icon(
+                        Icons.warning_amber_rounded,
+                        size: 18,
+                        color: Colors.redAccent,
+                      ),
+                    ),
+                  ),
                 Expanded(
                   child: Text(
                     customTitle ?? 'Echo ${index + 1}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      color: tooMany ? Colors.redAccent : null,
                     ),
                   ),
                 ),

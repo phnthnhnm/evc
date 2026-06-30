@@ -1,5 +1,7 @@
 # EVC GUI
 
+[![CI](https://github.com/phnthnhnm/evc/actions/workflows/ci.yml/badge.svg)](https://github.com/phnthnhnm/evc/actions/workflows/ci.yml)
+
 ## About
 
 I made this app because I use the Echo Value Calculator website a lot, but I really wanted a way to save echo presets; and honestly, the web UI could use some love. So I built a cross-platform Flutter app for it!
@@ -58,6 +60,20 @@ scoop install <bucketname>/evc
    ```sh
    flutter run -d windows
    ```
+
+#### Option 4: Download a nightly build
+
+> [!WARNING]
+> These builds are **untested** and may be unstable or broken. Use at your own risk.
+
+> [!NOTE]
+> You must be signed into a GitHub account to download artifacts.
+
+1. Go to the [Actions tab](https://github.com/phnthnhnm/evc/actions).
+2. Click the latest workflow run with a green checkmark (✔).
+3. Scroll to the **Artifacts** section at the bottom of the run page.
+4. Download **windows-build**.
+5. Extract the zip and run `evc.exe`.
 
 ## How to Use
 

@@ -302,7 +302,7 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
                                   ).notifier,
                                 )
                                 .applyCompareResult(result);
-                            if (mounted) context.pop();
+                            if (context.mounted) context.pop();
                           },
                         ),
                       ),

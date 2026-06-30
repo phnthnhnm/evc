@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:evc/core/providers/notification_provider.dart';
 import 'package:evc/core/providers/service_providers.dart';
 import 'package:evc/core/result.dart';
+import 'package:evc/features/resonator_detail/providers/echo_sets_provider.dart';
 import 'package:evc/features/settings/providers/settings_provider.dart';
 import 'package:evc/presentation/widgets/confirm_dialog.dart';
 
@@ -18,6 +19,22 @@ class DataTab extends ConsumerStatefulWidget {
 }
 
 class _DataTabState extends ConsumerState<DataTab> {
+  void _showToast(String message) {
+    ref.read(toastMessageProvider.notifier).show(message);
+  }
+
+  /// Invalidate cached providers so the UI picks up restored / reset data.
+  ///
+  /// Deferred to the next frame so the toast notification is already rendered
+  /// and won't be disrupted by the cascade of rebuilds that follow.
+  void _refreshAppData() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      ref.invalidate(echoSetsProvider);
+      ref.invalidate(showScoreOnCardProvider);
+    });
+  }
+
   Future<void> _backupData() async {
     final storage = ref.read(storageServiceInterfaceProvider);
     final result = await storage.backupAllData();
@@ -26,23 +43,24 @@ class _DataTabState extends ConsumerState<DataTab> {
         final selectedDirectory = await FilePicker.getDirectoryPath(
           dialogTitle: 'Select folder to save backup',
         );
-        if (selectedDirectory != null && mounted) {
-          final now = DateTime.now();
-          final formatted =
-              '${now.year.toString().padLeft(4, '0')}'
-              '${now.month.toString().padLeft(2, '0')}'
-              '${now.day.toString().padLeft(2, '0')}'
-              '${now.hour.toString().padLeft(2, '0')}'
-              '${now.minute.toString().padLeft(2, '0')}'
-              '${now.second.toString().padLeft(2, '0')}';
-          final filename = 'evc_backup_$formatted.json';
-          final backupFile = File('$selectedDirectory/$filename');
-          await backupFile.writeAsString(backupJson);
-          if (!mounted) return;
-          ToastNotification.show(ref, 'Backup saved as $filename');
-        }
+        if (!mounted) return;
+        if (selectedDirectory == null) return; // user cancelled
+        final now = DateTime.now();
+        final formatted =
+            '${now.year.toString().padLeft(4, '0')}'
+            '${now.month.toString().padLeft(2, '0')}'
+            '${now.day.toString().padLeft(2, '0')}'
+            '${now.hour.toString().padLeft(2, '0')}'
+            '${now.minute.toString().padLeft(2, '0')}'
+            '${now.second.toString().padLeft(2, '0')}';
+        final filename = 'evc_backup_$formatted.json';
+        final backupFile = File('$selectedDirectory/$filename');
+        await backupFile.writeAsString(backupJson);
+        if (!mounted) return;
+        _showToast('Backup saved as $filename');
       case Err():
-        if (mounted) ToastNotification.show(ref, 'Failed to create backup');
+        if (!mounted) return;
+        _showToast('Failed to create backup');
     }
   }
 
@@ -52,17 +70,19 @@ class _DataTabState extends ConsumerState<DataTab> {
       type: FileType.custom,
       allowedExtensions: ['json'],
     );
-    if (result != null && result.files.single.path != null) {
-      final file = File(result.files.single.path!);
-      final inputJson = await file.readAsString();
-      final storage = ref.read(storageServiceInterfaceProvider);
-      final restoreResult = await storage.restoreAllData(inputJson);
-      switch (restoreResult) {
-        case Ok():
-          if (mounted) ToastNotification.show(ref, 'Data restored!');
-        case Err():
-          if (mounted) ToastNotification.show(ref, 'Invalid backup data');
-      }
+    if (!mounted) return;
+    if (result == null || result.files.single.path == null) return; // user cancelled
+    final file = File(result.files.single.path!);
+    final inputJson = await file.readAsString();
+    final storage = ref.read(storageServiceInterfaceProvider);
+    final restoreResult = await storage.restoreAllData(inputJson);
+    if (!mounted) return;
+    switch (restoreResult) {
+      case Ok():
+        _refreshAppData();
+        _showToast('Data restored!');
+      case Err():
+        _showToast('Invalid backup data');
     }
   }
 
@@ -75,13 +95,12 @@ class _DataTabState extends ConsumerState<DataTab> {
       confirmText: 'Reset',
       confirmColor: Colors.red,
     );
-    if (confirmed) {
-      final storage = ref.read(storageServiceInterfaceProvider);
-      await storage.resetAllData();
-      if (mounted) {
-        ToastNotification.show(ref, 'All data and settings have been reset');
-      }
-    }
+    if (!confirmed || !mounted) return;
+    final storage = ref.read(storageServiceInterfaceProvider);
+    await storage.resetAllData();
+    if (!mounted) return;
+    _refreshAppData();
+    _showToast('All data and settings have been reset');
   }
 
   @override

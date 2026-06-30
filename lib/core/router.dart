@@ -23,12 +23,8 @@ final router = GoRouter(
               path: 'compare/:echoIndex',
               builder: (context, state) {
                 final id = state.pathParameters['id']!;
-                final echoIndex =
-                    int.parse(state.pathParameters['echoIndex']!);
-                return EchoCompareScreen(
-                  resonatorId: id,
-                  echoIndex: echoIndex,
-                );
+                final echoIndex = int.parse(state.pathParameters['echoIndex']!);
+                return EchoCompareScreen(resonatorId: id, echoIndex: echoIndex);
               },
             ),
           ],

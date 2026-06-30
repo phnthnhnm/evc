@@ -62,9 +62,9 @@ class EchoCard extends StatelessWidget {
                       icon: const Icon(Icons.compare_arrows),
                       label: const Text('Compare'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context)
-                            .colorScheme
-                            .secondaryContainer,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).colorScheme.secondaryContainer,
                       ),
                     ),
                   ),
@@ -124,17 +124,14 @@ class EchoCard extends StatelessWidget {
                           text: lastResult != null
                               ? '${lastResult!.echoes[index].score}'
                               : '0.0',
-                          style: (Theme.of(context)
-                                      .chipTheme
-                                      .labelStyle
-                                      ?.copyWith(
-                                        color: AppColors.tierColor(
-                                          lastResult != null
-                                              ? lastResult!
-                                                  .echoes[index].tier
-                                              : 'Unbuilt',
-                                        ),
-                                      )) ??
+                          style:
+                              (Theme.of(context).chipTheme.labelStyle?.copyWith(
+                                color: AppColors.tierColor(
+                                  lastResult != null
+                                      ? lastResult!.echoes[index].tier
+                                      : 'Unbuilt',
+                                ),
+                              )) ??
                               TextStyle(
                                 color: AppColors.tierColor(
                                   lastResult != null
@@ -161,17 +158,14 @@ class EchoCard extends StatelessWidget {
                           text: lastResult != null
                               ? lastResult!.echoes[index].tier
                               : 'Unbuilt',
-                          style: (Theme.of(context)
-                                      .chipTheme
-                                      .labelStyle
-                                      ?.copyWith(
-                                        color: AppColors.tierColor(
-                                          lastResult != null
-                                              ? lastResult!
-                                                  .echoes[index].tier
-                                              : 'Unbuilt',
-                                        ),
-                                      )) ??
+                          style:
+                              (Theme.of(context).chipTheme.labelStyle?.copyWith(
+                                color: AppColors.tierColor(
+                                  lastResult != null
+                                      ? lastResult!.echoes[index].tier
+                                      : 'Unbuilt',
+                                ),
+                              )) ??
                               TextStyle(
                                 color: AppColors.tierColor(
                                   lastResult != null

@@ -21,10 +21,10 @@ final class ResonatorServiceImpl implements IResonatorService {
   Future<Result<void>> load() async {
     if (_cache != null) return const Ok(null);
     try {
-      final jsonStr =
-          await rootBundle.loadString('assets/data/resonators.json');
-      final list =
-          (jsonDecode(jsonStr) as List).cast<Map<String, dynamic>>();
+      final jsonStr = await rootBundle.loadString(
+        'assets/data/resonators.json',
+      );
+      final list = (jsonDecode(jsonStr) as List).cast<Map<String, dynamic>>();
       _cache = list.map((e) => Resonator.fromJson(e)).toList();
       return const Ok(null);
     } catch (e) {

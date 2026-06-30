@@ -54,8 +54,7 @@ class _ResonatorListScreenState extends ConsumerState<ResonatorListScreen> {
             icon: const Icon(Icons.help_outline),
             tooltip: 'How to Use',
             onPressed: () async {
-              final url =
-                  Uri.parse('https://www.echovaluecalc.com/instruct');
+              final url = Uri.parse('https://www.echovaluecalc.com/instruct');
               if (await canLaunchUrl(url)) {
                 await launchUrl(url, mode: LaunchMode.externalApplication);
               }
@@ -127,8 +126,7 @@ class _ResonatorListScreenState extends ConsumerState<ResonatorListScreen> {
           ),
         ),
       ],
-      onChanged: (s) =>
-          ref.read(resonatorFiltersProvider.notifier).setStars(s),
+      onChanged: (s) => ref.read(resonatorFiltersProvider.notifier).setStars(s),
     );
   }
 
@@ -164,19 +162,18 @@ class _ResonatorListScreenState extends ConsumerState<ResonatorListScreen> {
       value: filters.weapon,
       hint: const Text('Weapons'),
       items: [
-        const DropdownMenuItem<Weapon>(
-          value: null,
-          child: Text('All Weapons'),
-        ),
+        const DropdownMenuItem<Weapon>(value: null, child: Text('All Weapons')),
         ...Weapon.values.map(
           (w) => DropdownMenuItem<Weapon>(
             value: w,
             child: Row(
               children: [
-                Image.asset(w.assetPath,
-                    width: 24,
-                    height: 24,
-                    color: Theme.of(context).colorScheme.primary),
+                Image.asset(
+                  w.assetPath,
+                  width: 24,
+                  height: 24,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
                 const SizedBox(width: 8),
                 Text(w.label),
               ],
@@ -206,8 +203,10 @@ class _ResonatorListScreenState extends ConsumerState<ResonatorListScreen> {
         ].map(
           (tier) => DropdownMenuItem<String>(
             value: tier,
-            child: Text(tier,
-                style: TextStyle(color: AppColors.tierColor(tier))),
+            child: Text(
+              tier,
+              style: TextStyle(color: AppColors.tierColor(tier)),
+            ),
           ),
         ),
       ],
@@ -224,9 +223,13 @@ class _ResonatorListScreenState extends ConsumerState<ResonatorListScreen> {
         DropdownMenuItem(value: SortOrder.nameAz, child: Text('Name: A to Z')),
         DropdownMenuItem(value: SortOrder.nameZa, child: Text('Name: Z to A')),
         DropdownMenuItem(
-            value: SortOrder.scoreDesc, child: Text('Score: High to Low')),
+          value: SortOrder.scoreDesc,
+          child: Text('Score: High to Low'),
+        ),
         DropdownMenuItem(
-            value: SortOrder.scoreAsc, child: Text('Score: Low to High')),
+          value: SortOrder.scoreAsc,
+          child: Text('Score: Low to High'),
+        ),
       ],
       onChanged: (o) {
         if (o != null) {

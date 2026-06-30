@@ -26,12 +26,10 @@ class ResultChips extends StatelessWidget {
                 ),
                 TextSpan(
                   text: '$overallScore',
-                  style: (Theme.of(context)
-                              .chipTheme
-                              .labelStyle
-                              ?.copyWith(
-                                color: AppColors.tierColor(overallTier),
-                              )) ??
+                  style:
+                      (Theme.of(context).chipTheme.labelStyle?.copyWith(
+                        color: AppColors.tierColor(overallTier),
+                      )) ??
                       TextStyle(color: AppColors.tierColor(overallTier)),
                 ),
               ],
@@ -49,12 +47,10 @@ class ResultChips extends StatelessWidget {
                 ),
                 TextSpan(
                   text: overallTier,
-                  style: (Theme.of(context)
-                              .chipTheme
-                              .labelStyle
-                              ?.copyWith(
-                                color: AppColors.tierColor(overallTier),
-                              )) ??
+                  style:
+                      (Theme.of(context).chipTheme.labelStyle?.copyWith(
+                        color: AppColors.tierColor(overallTier),
+                      )) ??
                       TextStyle(color: AppColors.tierColor(overallTier)),
                 ),
               ],

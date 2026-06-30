@@ -10,7 +10,6 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.6.0
-  html: ^0.15.6
   shared_preferences: ^2.5.3
   url_launcher: ^6.3.2
   package_info_plus: ^10.1.0

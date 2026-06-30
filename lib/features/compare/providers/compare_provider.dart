@@ -7,10 +7,6 @@ import '../../../domain/models/echo.dart';
 import '../../../domain/models/echo_set.dart';
 import '../../../domain/models/resonator.dart';
 
-// ---------------------------------------------------------------------------
-// State
-// ---------------------------------------------------------------------------
-
 class CompareState {
   final Map<String, double> newEchoStats;
   final bool submitted;
@@ -51,12 +47,7 @@ class CompareState {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Notifier
-// ---------------------------------------------------------------------------
-
 class CompareNotifier extends Notifier<CompareState> {
-  /// Must be called before any operation to set the compare context.
   String? _resonatorId;
   int? _echoIndex;
 
@@ -131,11 +122,7 @@ class CompareNotifier extends Notifier<CompareState> {
       case Err():
         state = state.copyWith(
           loading: false,
-          newEchoResult: Echo(
-            stats: remappedStats,
-            score: 0.0,
-            tier: 'Error',
-          ),
+          newEchoResult: Echo(stats: remappedStats, score: 0.0, tier: 'Error'),
           newEchoSet: null,
           showReplaceButton: false,
         );
@@ -160,10 +147,6 @@ class CompareNotifier extends Notifier<CompareState> {
     return updatedEchoSet;
   }
 }
-
-// ---------------------------------------------------------------------------
-// Provider — single compare session (only one active at a time).
-// ---------------------------------------------------------------------------
 
 final compareProvider = NotifierProvider<CompareNotifier, CompareState>(
   CompareNotifier.new,

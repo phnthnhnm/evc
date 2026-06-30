@@ -5,10 +5,7 @@ import '../../../core/result.dart';
 import '../../../domain/enums/stat.dart';
 import '../../../domain/models/echo_set.dart';
 import '../../../domain/models/resonator.dart';
-
-// ---------------------------------------------------------------------------
-// State
-// ---------------------------------------------------------------------------
+import 'echo_sets_provider.dart';
 
 class ResonatorDetailState {
   final double totalER;
@@ -47,15 +44,12 @@ class ResonatorDetailState {
       loading: loading ?? this.loading,
       lastResult: lastResult ?? this.lastResult,
       error: clearError ? null : (error ?? this.error),
-      successMessage:
-          clearSuccess ? null : (successMessage ?? this.successMessage),
+      successMessage: clearSuccess
+          ? null
+          : (successMessage ?? this.successMessage),
     );
   }
 }
-
-// ---------------------------------------------------------------------------
-// Notifier (per-resonator, keyed by ID)
-// ---------------------------------------------------------------------------
 
 class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
   ResonatorDetailNotifier(this.resonatorId);
@@ -84,15 +78,12 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
           lastResult: echoSet,
           selectedTeam: echoSet.team ?? 'Default',
           totalER: echoSet.totalER,
-          echoStats: List.generate(
-            5,
-            (i) {
-              if (i < echoSet.echoes.length) {
-                return Map<String, double>.from(echoSet.echoes[i].stats);
-              }
-              return <String, double>{};
-            },
-          ),
+          echoStats: List.generate(5, (i) {
+            if (i < echoSet.echoes.length) {
+              return Map<String, double>.from(echoSet.echoes[i].stats);
+            }
+            return <String, double>{};
+          }),
         );
       case _:
         break;
@@ -109,8 +100,9 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
 
   void setStatValue(int echoIndex, Stat stat, double value) {
     final key = '${stat.apiName} ${echoIndex + 1}';
-    final newStats =
-        state.echoStats.map((m) => Map<String, double>.from(m)).toList();
+    final newStats = state.echoStats
+        .map((m) => Map<String, double>.from(m))
+        .toList();
     if (value == 0.0) {
       newStats[echoIndex].remove(key);
     } else {
@@ -126,18 +118,22 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
     }
     if (overLimitIndices.isNotEmpty) {
       state = state.copyWith(
-        error: 'Error: Echo${overLimitIndices.length > 1 ? 'es' : ''} '
+        error:
+            'Error: Echo${overLimitIndices.length > 1 ? 'es' : ''} '
             '${overLimitIndices.join(', ')} have more than 5 stats. '
             'Please remove extra stats.',
+        clearSuccess: true,
       );
       return;
     }
 
-    state = state.copyWith(loading: true, error: null, clearError: true);
+    state = state.copyWith(loading: true, clearError: true, clearSuccess: true);
 
     final cleanedEchoStats = state.echoStats
-        .map((stats) =>
-            Map<String, double>.from(stats)..removeWhere((k, v) => v == 0.0))
+        .map(
+          (stats) =>
+              Map<String, double>.from(stats)..removeWhere((k, v) => v == 0.0),
+        )
         .toList();
 
     final api = ref.read(apiServiceInterfaceProvider);
@@ -152,6 +148,7 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
       case Ok(value: final echoSet):
         final storage = ref.read(storageServiceInterfaceProvider);
         await storage.saveEchoSet(resonatorId, echoSet);
+        ref.invalidate(echoSetsProvider);
         state = state.copyWith(
           loading: false,
           lastResult: echoSet,
@@ -159,7 +156,7 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
           successMessage: 'Submitted and saved!',
         );
       case Err(message: final msg):
-        state = state.copyWith(loading: false, error: msg);
+        state = state.copyWith(loading: false, error: msg, clearSuccess: true);
     }
   }
 
@@ -170,30 +167,30 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
     );
     final storage = ref.read(storageServiceInterfaceProvider);
     await storage.deleteEchoSet(resonatorId);
+    ref.invalidate(echoSetsProvider);
+  }
+
+  void clearMessages() {
+    state = state.copyWith(clearSuccess: true, clearError: true);
   }
 
   void applyCompareResult(EchoSet echoSet) {
     state = state.copyWith(
       lastResult: echoSet,
       totalER: echoSet.totalER,
-      echoStats: List.generate(
-        5,
-        (i) {
-          if (i < echoSet.echoes.length) {
-            return Map<String, double>.from(echoSet.echoes[i].stats);
-          }
-          return <String, double>{};
-        },
-      ),
+      echoStats: List.generate(5, (i) {
+        if (i < echoSet.echoes.length) {
+          return Map<String, double>.from(echoSet.echoes[i].stats);
+        }
+        return <String, double>{};
+      }),
     );
   }
 }
 
-// ---------------------------------------------------------------------------
-// Provider family
-// ---------------------------------------------------------------------------
-
 final resonatorDetailProvider =
-    NotifierProvider.family<ResonatorDetailNotifier, ResonatorDetailState, String>(
-  (id) => ResonatorDetailNotifier(id),
-);
+    NotifierProvider.family<
+      ResonatorDetailNotifier,
+      ResonatorDetailState,
+      String
+    >((id) => ResonatorDetailNotifier(id));

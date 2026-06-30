@@ -8,10 +8,6 @@ import '../../infrastructure/services/api_service_impl.dart';
 import '../../infrastructure/services/resonator_service_impl.dart';
 import '../../infrastructure/services/storage_service_impl.dart';
 
-// ---------------------------------------------------------------------------
-// Concrete implementations
-// ---------------------------------------------------------------------------
-
 final resonatorServiceProvider = Provider<ResonatorServiceImpl>(
   (ref) => ResonatorServiceImpl(),
 );
@@ -24,10 +20,6 @@ final apiServiceProvider = Provider<ApiServiceImpl>(
   (ref) => const ApiServiceImpl(),
 );
 
-// ---------------------------------------------------------------------------
-// Interface-typed providers (for test overrides)
-// ---------------------------------------------------------------------------
-
 final resonatorServiceInterfaceProvider = Provider<IResonatorService>(
   (ref) => ref.watch(resonatorServiceProvider),
 );
@@ -39,10 +31,6 @@ final storageServiceInterfaceProvider = Provider<IStorageService>(
 final apiServiceInterfaceProvider = Provider<IApiService>(
   (ref) => ref.watch(apiServiceProvider),
 );
-
-// ---------------------------------------------------------------------------
-// Repository
-// ---------------------------------------------------------------------------
 
 final echoRepositoryProvider = Provider<EchoRepository>(
   (ref) => EchoRepository(

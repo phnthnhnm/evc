@@ -39,10 +39,10 @@ class _DataTabState extends ConsumerState<DataTab> {
           final backupFile = File('$selectedDirectory/$filename');
           await backupFile.writeAsString(backupJson);
           if (!mounted) return;
-          _showToast('Backup saved as $filename');
+          ToastNotification.show(ref, 'Backup saved as $filename');
         }
       case Err():
-        if (mounted) _showToast('Failed to create backup');
+        if (mounted) ToastNotification.show(ref, 'Failed to create backup');
     }
   }
 
@@ -59,9 +59,9 @@ class _DataTabState extends ConsumerState<DataTab> {
       final restoreResult = await storage.restoreAllData(inputJson);
       switch (restoreResult) {
         case Ok():
-          if (mounted) _showToast('Data restored!');
+          if (mounted) ToastNotification.show(ref, 'Data restored!');
         case Err():
-          if (mounted) _showToast('Invalid backup data');
+          if (mounted) ToastNotification.show(ref, 'Invalid backup data');
       }
     }
   }
@@ -79,13 +79,9 @@ class _DataTabState extends ConsumerState<DataTab> {
       final storage = ref.read(storageServiceInterfaceProvider);
       await storage.resetAllData();
       if (mounted) {
-        _showToast('All data and settings have been reset');
+        ToastNotification.show(ref, 'All data and settings have been reset');
       }
     }
-  }
-
-  void _showToast(String msg) {
-    ToastNotification.show(context, msg);
   }
 
   @override

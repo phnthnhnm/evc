@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/interfaces/storage_service.dart';
 import '../../core/result.dart';
-import '../../domain/enums/stat.dart';
 import '../../domain/models/echo.dart';
 import '../../domain/models/echo_set.dart';
 import '../../domain/models/resonator.dart';
@@ -15,10 +14,6 @@ final class StorageServiceImpl implements IStorageService {
   List<Resonator>? _resonators;
 
   StorageServiceImpl();
-
-  // ---------------------------------------------------------------------------
-  // IStorageService
-  // ---------------------------------------------------------------------------
 
   @override
   void setResonators(List<Resonator> resonators) {
@@ -32,7 +27,7 @@ final class StorageServiceImpl implements IStorageService {
       if (!data.containsKey(resonatorId)) return const Ok(null);
 
       final original = data[resonatorId] as Map<String, dynamic>;
-      final set = EchoSet.fromLegacyJson(original);
+      final set = EchoSet.fromJson(original);
 
       // Stat sanitization: remove stats no longer valid for this resonator.
       Resonator? resonator;
@@ -42,8 +37,9 @@ final class StorageServiceImpl implements IStorageService {
         return Ok(set);
       }
 
-      final allowedApiNames =
-          resonator.usableStats.map((s) => s.apiName).toSet();
+      final allowedApiNames = resonator.usableStats
+          .map((s) => s.apiName)
+          .toSet();
 
       var changed = false;
       final sanitizedEchoes = set.echoes.map((echo) {
@@ -61,11 +57,7 @@ final class StorageServiceImpl implements IStorageService {
           }
           changed = true;
         }
-        return Echo(
-          stats: newStats,
-          score: echo.score,
-          tier: echo.tier,
-        );
+        return Echo(stats: newStats, score: echo.score, tier: echo.tier);
       }).toList();
 
       if (changed) {
@@ -82,10 +74,7 @@ final class StorageServiceImpl implements IStorageService {
   }
 
   @override
-  Future<Result<void>> saveEchoSet(
-    String resonatorId,
-    EchoSet echoSet,
-  ) async {
+  Future<Result<void>> saveEchoSet(String resonatorId, EchoSet echoSet) async {
     try {
       final data = await _readData();
       final allSets = data.map((k, v) => MapEntry(k, EchoSet.fromJson(v)));
@@ -191,10 +180,6 @@ final class StorageServiceImpl implements IStorageService {
     }
   }
 
-  // ---------------------------------------------------------------------------
-  // File helpers
-  // ---------------------------------------------------------------------------
-
   Future<File> _getJsonFile() async {
     final supportDir = await getApplicationSupportDirectory();
     final dir = Directory(supportDir.path);
@@ -212,101 +197,8 @@ final class StorageServiceImpl implements IStorageService {
 
     final content = await file.readAsString();
     try {
-      final data = jsonDecode(content) as Map<String, dynamic>;
-
-      // Migration: detect legacy or backend-style entries and normalize them.
-      const ssrOrder = [
-        Stat.critRate,
-        Stat.critDamage,
-        Stat.atkPercent,
-        Stat.flatAtk,
-        Stat.hpPercent,
-        Stat.flatHp,
-        Stat.defPercent,
-        Stat.flatDef,
-        Stat.basicPercent,
-        Stat.heavyPercent,
-        Stat.skillPercent,
-        Stat.liberationPercent,
-        Stat.erPercent,
-      ];
-
-      var migrationNeeded = false;
-      for (final key in data.keys.toList()) {
-        final entry = data[key];
-        if (entry is Map<String, dynamic>) {
-          final mapCopy = Map<String, dynamic>.from(entry);
-
-          // If backend-style 'ssr' exists and 'echoes' missing, convert it.
-          if (mapCopy.containsKey('ssr') && !mapCopy.containsKey('echoes')) {
-            final ssrRaw = mapCopy['ssr'] as List?;
-            final converted = <Map<String, dynamic>>[];
-            if (ssrRaw != null) {
-              for (int i = 0; i < 5; i++) {
-                final stats = <String, double>{};
-                final row = i < ssrRaw.length ? ssrRaw[i] as List? : null;
-                if (row != null) {
-                  for (int j = 0;
-                      j < row.length && j < ssrOrder.length;
-                      j++) {
-                    final raw = row[j];
-                    double? val;
-                    if (raw is String) {
-                      val = double.tryParse(raw);
-                    } else if (raw is num) {
-                      val = raw.toDouble();
-                    }
-                    if (val != null && val != 0.0) {
-                      final statName = ssrOrder[j].apiName;
-                      stats['$statName ${i + 1}'] = val;
-                    }
-                  }
-                }
-                converted.add({
-                  'stats': stats,
-                  'score': 0.0,
-                  'tier': 'Unbuilt',
-                });
-              }
-            }
-            mapCopy['echoes'] = converted;
-            // Migrate totEr/totalER
-            if (mapCopy.containsKey('totEr') &&
-                !mapCopy.containsKey('totalER')) {
-              mapCopy['totalER'] = mapCopy['totEr'];
-            }
-            if (!mapCopy.containsKey('team') &&
-                mapCopy.containsKey('energyBuff')) {
-              mapCopy['team'] = mapCopy['energyBuff'];
-            }
-            data[key] = mapCopy;
-            migrationNeeded = true;
-          } else {
-            if (!mapCopy.containsKey('team') &&
-                mapCopy.containsKey('energyBuff')) {
-              mapCopy['team'] = mapCopy['energyBuff'];
-              data[key] = mapCopy;
-              migrationNeeded = true;
-            }
-            if (!mapCopy.containsKey('totalER') &&
-                mapCopy.containsKey('totEr')) {
-              mapCopy['totalER'] = mapCopy['totEr'];
-              data[key] = mapCopy;
-              migrationNeeded = true;
-            }
-          }
-        }
-      }
-      if (migrationNeeded) {
-        await _writeData(data);
-      }
-      return data;
+      return jsonDecode(content) as Map<String, dynamic>;
     } catch (e) {
-      // Backup corrupt file and start with empty data to avoid crashes.
-      final backup = File(
-        '${file.path}.corrupt_${DateTime.now().millisecondsSinceEpoch}.bak',
-      );
-      await backup.writeAsString(content);
       return {};
     }
   }

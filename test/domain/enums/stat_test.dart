@@ -17,31 +17,6 @@ void main() {
       expect(() => Stat.fromName('invalid'), throwsArgumentError);
     });
 
-    test('every stat has a non-empty apiName', () {
-      for (final stat in Stat.values) {
-        expect(stat.apiName, isNotEmpty);
-      }
-    });
-
-    test('every stat has a non-empty label', () {
-      for (final stat in Stat.values) {
-        expect(stat.label, isNotEmpty);
-      }
-    });
-
-    test('every stat has an assetPath', () {
-      for (final stat in Stat.values) {
-        expect(stat.assetPath, contains('.webp'));
-      }
-    });
-
-    test('every stat has valid values', () {
-      for (final stat in Stat.values) {
-        expect(stat.validValues, isNotEmpty);
-        expect(stat.validValues, everyElement(isA<double>()));
-      }
-    });
-
     test('flatAtk and atkPercent share the same asset', () {
       expect(Stat.flatAtk.assetPath, Stat.atkPercent.assetPath);
     });

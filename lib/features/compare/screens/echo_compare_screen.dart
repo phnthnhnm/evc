@@ -1,7 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-
 import 'package:evc/core/providers/compare_context_provider.dart';
 import 'package:evc/domain/models/echo_set.dart';
 import 'package:evc/features/compare/providers/compare_provider.dart';
@@ -11,6 +7,9 @@ import 'package:evc/presentation/widgets/comparison_sign.dart';
 import 'package:evc/presentation/widgets/echo_card.dart';
 import 'package:evc/presentation/widgets/loading_action_button.dart';
 import 'package:evc/presentation/widgets/total_er_input_field.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class EchoCompareScreen extends ConsumerStatefulWidget {
   final String resonatorId;
@@ -23,8 +22,7 @@ class EchoCompareScreen extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<EchoCompareScreen> createState() =>
-      _EchoCompareScreenState();
+  ConsumerState<EchoCompareScreen> createState() => _EchoCompareScreenState();
 }
 
 class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
@@ -35,21 +33,21 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
     super.initState();
     final ctx = ref.read(compareContextProvider);
     if (ctx == null) {
-      // Missing context — pop back
       Future.microtask(() {
         if (mounted) context.pop();
       });
     } else {
-      ref.read(compareProvider.notifier).init(
-            resonatorId: widget.resonatorId,
-            echoIndex: widget.echoIndex,
-          );
       _erController = TextEditingController(
         text: ctx.lastResult.totalER.toString(),
       );
-      ref
-          .read(compareProvider.notifier)
-          .setTotalER(ctx.lastResult.totalER);
+      // Defer provider mutation to after the build phase.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        ref
+            .read(compareProvider.notifier)
+            .init(resonatorId: widget.resonatorId, echoIndex: widget.echoIndex);
+        ref.read(compareProvider.notifier).setTotalER(ctx.lastResult.totalER);
+      });
     }
   }
 
@@ -81,8 +79,9 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
     }
 
     final double oldOverallScore = ctx.lastResult.overallScore;
-    final double? newOverallScore =
-        (state.submitted) ? state.newEchoSet?.overallScore : null;
+    final double? newOverallScore = (state.submitted)
+        ? state.newEchoSet?.overallScore
+        : null;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Compare Echoes')),
@@ -122,7 +121,8 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
                                     text: oldOverallScore.toStringAsFixed(2),
                                     style: TextStyle(
                                       color: AppColors.tierColor(
-                                          ctx.lastResult.overallTier),
+                                        ctx.lastResult.overallTier,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -140,7 +140,8 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
                                     text: ctx.lastResult.overallTier,
                                     style: TextStyle(
                                       color: AppColors.tierColor(
-                                          ctx.lastResult.overallTier),
+                                        ctx.lastResult.overallTier,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -170,8 +171,9 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
                                         : '--',
                                     style: TextStyle(
                                       color: AppColors.tierColor(
-                                          state.newEchoSet?.overallTier ??
-                                              'Unbuilt'),
+                                        state.newEchoSet?.overallTier ??
+                                            'Unbuilt',
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -186,12 +188,12 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
                                 children: [
                                   const TextSpan(text: 'Overall Tier: '),
                                   TextSpan(
-                                    text: state.newEchoSet?.overallTier ??
-                                        '--',
+                                    text: state.newEchoSet?.overallTier ?? '--',
                                     style: TextStyle(
                                       color: AppColors.tierColor(
-                                          state.newEchoSet?.overallTier ??
-                                              'Unbuilt'),
+                                        state.newEchoSet?.overallTier ??
+                                            'Unbuilt',
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -222,8 +224,7 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
                         totalER: 0.0,
                       ),
                       echoStats: {
-                        for (final entry
-                            in currentEcho.stats.entries)
+                        for (final entry in currentEcho.stats.entries)
                           entry.key.replaceAll(RegExp(r' \d+$'), ' 1'):
                               entry.value,
                       },
@@ -232,9 +233,7 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
                       showCompareButton: false,
                     ),
                   ),
-                  SizedBox(
-                      width: 96,
-                      child: ComparisonSign(sign: compareSign)),
+                  SizedBox(width: 96, child: ComparisonSign(sign: compareSign)),
                   Expanded(
                     child: EchoCard(
                       index: 0,
@@ -274,8 +273,7 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
                             .submit(ctx.lastResult);
                       },
                       icon: const Icon(Icons.compare_arrows),
-                      text:
-                          state.submitted ? 'Compare Again' : 'Compare',
+                      text: state.submitted ? 'Compare Again' : 'Compare',
                     ),
                     if (state.showReplaceButton &&
                         state.newEchoResult != null &&
@@ -286,21 +284,23 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
                           icon: const Icon(Icons.swap_horiz),
                           label: const Text('Replace with New Echo'),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context)
-                                .colorScheme
-                                .primary,
-                            foregroundColor: Theme.of(context)
-                                .colorScheme
-                                .onPrimary,
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.primary,
+                            foregroundColor: Theme.of(
+                              context,
+                            ).colorScheme.onPrimary,
                           ),
                           onPressed: () async {
                             final result = await ref
                                 .read(compareProvider.notifier)
                                 .replaceOldEchoWithNew(ctx.lastResult);
                             ref
-                                .read(resonatorDetailProvider(
-                                        widget.resonatorId)
-                                    .notifier)
+                                .read(
+                                  resonatorDetailProvider(
+                                    widget.resonatorId,
+                                  ).notifier,
+                                )
                                 .applyCompareResult(result);
                             if (mounted) context.pop();
                           },

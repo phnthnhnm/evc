@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:html/parser.dart' as html_parser;
 import 'package:http/http.dart' as http;
 
 import '../../core/interfaces/api_service.dart';
@@ -35,10 +34,6 @@ final class ApiServiceImpl implements IApiService {
   final http.Client? client;
 
   http.Client get _client => client ?? http.Client();
-
-  // ---------------------------------------------------------------------------
-  // Builder helpers
-  // ---------------------------------------------------------------------------
 
   static List<List<double>> _buildSsrMatrix(
     List<Map<String, double>> echoStatsList,
@@ -159,10 +154,6 @@ final class ApiServiceImpl implements IApiService {
     return echoes;
   }
 
-  // ---------------------------------------------------------------------------
-  // IApiService
-  // ---------------------------------------------------------------------------
-
   @override
   Map<String, dynamic> buildPayload({
     required String resonatorName,
@@ -230,22 +221,16 @@ final class ApiServiceImpl implements IApiService {
     }
   }
 
-  // ---------------------------------------------------------------------------
-  // Response parsing
-  // ---------------------------------------------------------------------------
-
   Result<EchoSet> _parseResponse(
     String body,
     double totalER,
     List<Map<String, double>> echoStatsList,
     String? team,
   ) {
-    // Try JSON first
     try {
       final Map<String, dynamic> jsonResp = jsonDecode(body);
       final teamResp = jsonResp['team'] as String?;
-      final totalErResp =
-          ((jsonResp['totEr']) as num?)?.toDouble() ?? totalER;
+      final totalErResp = ((jsonResp['totEr']) as num?)?.toDouble() ?? totalER;
       final teamOut = teamResp ?? team;
 
       final ssr = jsonResp['ssr'] as List?;
@@ -280,58 +265,8 @@ final class ApiServiceImpl implements IApiService {
           team: teamOut,
         ),
       );
-    } catch (_) {
-      // Fall through to HTML parsing
-    }
-
-    // Try HTML parsing
-    try {
-      final document = html_parser.parse(body);
-      final subAnal = document.querySelector('div.sub_anal_f');
-      if (subAnal == null) {
-        return const Err('No result section found.');
-      }
-
-      final h2s = subAnal.querySelectorAll('div > h2');
-      if (h2s.length < 2) {
-        return const Err('Incomplete result format.');
-      }
-
-      final scoresText = h2s[0].text.trim();
-      final tiersText = h2s[1].text.trim();
-
-      final parsedScore = _parseScoreString(scoresText);
-      final parsedTier = _parseTierString(tiersText);
-
-      final double overallScore = parsedScore['overallScore'] as double;
-      final List<double> echoScores =
-          parsedScore['echoScores'] as List<double>;
-      final String overallTier = parsedTier['overallTier'] as String;
-      final List<String> echoTiers =
-          parsedTier['echoTiers'] as List<String>;
-
-      final echoes = List<Echo>.generate(_echoCount, (i) {
-        final stats = (echoStatsList.length > i)
-            ? Map<String, double>.from(echoStatsList[i])
-            : <String, double>{};
-        return Echo(
-          stats: stats,
-          score: echoScores[i],
-          tier: echoTiers[i],
-        );
-      });
-
-      return Ok(
-        EchoSet(
-          echoes: echoes,
-          overallScore: overallScore,
-          overallTier: overallTier,
-          totalER: totalER,
-          team: team,
-        ),
-      );
     } catch (e) {
-      return Err('Failed to parse response', cause: e);
+      return Err('Failed to parse response as JSON', cause: e);
     }
   }
 }

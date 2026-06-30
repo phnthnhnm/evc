@@ -5,10 +5,6 @@ import '../../../domain/models/resonator.dart';
 import '../../resonator_detail/providers/echo_sets_provider.dart';
 import 'resonator_list_provider.dart';
 
-// ---------------------------------------------------------------------------
-// Filter state
-// ---------------------------------------------------------------------------
-
 enum SortOrder { scoreDesc, scoreAsc, nameAz, nameZa }
 
 class ResonatorFilters {
@@ -63,24 +59,20 @@ class ResonatorFilters {
           sortOrder == other.sortOrder;
 
   @override
-  int get hashCode => Object.hash(search, attribute, weapon, stars, echoTier, sortOrder);
+  int get hashCode =>
+      Object.hash(search, attribute, weapon, stars, echoTier, sortOrder);
 }
-
-// ---------------------------------------------------------------------------
-// Notifier
-// ---------------------------------------------------------------------------
 
 final resonatorFiltersProvider =
     NotifierProvider<ResonatorFiltersNotifier, ResonatorFilters>(
-  ResonatorFiltersNotifier.new,
-);
+      ResonatorFiltersNotifier.new,
+    );
 
 class ResonatorFiltersNotifier extends Notifier<ResonatorFilters> {
   @override
   ResonatorFilters build() => const ResonatorFilters();
 
-  void setSearch(String search) =>
-      state = state.copyWith(search: search);
+  void setSearch(String search) => state = state.copyWith(search: search);
 
   void setAttribute(Attribute? attr) =>
       state = state.copyWith(attribute: attr, clearAttribute: attr == null);
@@ -98,10 +90,6 @@ class ResonatorFiltersNotifier extends Notifier<ResonatorFilters> {
       state = state.copyWith(sortOrder: order);
 }
 
-// ---------------------------------------------------------------------------
-// Derived: filtered + sorted resonators
-// ---------------------------------------------------------------------------
-
 final filteredResonatorsProvider = Provider<List<Resonator>>((ref) {
   final resonators = ref.watch(resonatorListProvider);
   final filters = ref.watch(resonatorFiltersProvider);
@@ -110,31 +98,33 @@ final filteredResonatorsProvider = Provider<List<Resonator>>((ref) {
 
   final normalizedSearch = filters.search.toLowerCase().trim();
 
-  var filtered = resonators.where((r) {
-    if (normalizedSearch.isNotEmpty &&
-        !r.name.toLowerCase().contains(normalizedSearch)) {
-      return false;
-    }
-    if (filters.attribute != null && r.attribute != filters.attribute) {
-      return false;
-    }
-    if (filters.weapon != null && r.weapon != filters.weapon) {
-      return false;
-    }
-    if (filters.stars != null && r.stars != filters.stars) {
-      return false;
-    }
-    if (filters.echoTier != null) {
-      final echoSet = echoSets[r.id];
-      if (echoSet == null ||
-          !echoSet.echoes.any((e) => e.tier == filters.echoTier)) {
-        return false;
-      }
-    }
-    return true;
-  }).map((r) => r.copyWith(savedEchoSet: echoSets[r.id])).toList();
+  var filtered = resonators
+      .where((r) {
+        if (normalizedSearch.isNotEmpty &&
+            !r.name.toLowerCase().contains(normalizedSearch)) {
+          return false;
+        }
+        if (filters.attribute != null && r.attribute != filters.attribute) {
+          return false;
+        }
+        if (filters.weapon != null && r.weapon != filters.weapon) {
+          return false;
+        }
+        if (filters.stars != null && r.stars != filters.stars) {
+          return false;
+        }
+        if (filters.echoTier != null) {
+          final echoSet = echoSets[r.id];
+          if (echoSet == null ||
+              !echoSet.echoes.any((e) => e.tier == filters.echoTier)) {
+            return false;
+          }
+        }
+        return true;
+      })
+      .map((r) => r.copyWith(savedEchoSet: echoSets[r.id]))
+      .toList();
 
-  // Sort
   switch (filters.sortOrder) {
     case SortOrder.scoreDesc:
       filtered.sort((a, b) {

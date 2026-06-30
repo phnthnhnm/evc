@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:evc/core/providers/notification_provider.dart';
 import 'package:evc/core/providers/service_providers.dart';
 import 'package:evc/core/providers/shared_preferences_provider.dart';
 import 'package:evc/core/router.dart';
@@ -58,8 +59,7 @@ class _EchoValueCalcAppState extends ConsumerState<EchoValueCalcApp> {
 
       final resonators = ref.read(resonatorServiceProvider).resonators;
       for (final resonator in resonators) {
-        futures.add(
-            precacheImage(AssetImage(resonator.iconAsset), context));
+        futures.add(precacheImage(AssetImage(resonator.iconAsset), context));
       }
 
       await Future.wait(futures);
@@ -89,6 +89,7 @@ class _EchoValueCalcAppState extends ConsumerState<EchoValueCalcApp> {
       ),
       themeMode: ThemeMode.dark,
       routerConfig: router,
+      builder: (context, child) => ToastLayer(child: child!),
     );
   }
 }

@@ -19,22 +19,6 @@ abstract class EchoSet with _$EchoSet {
 
   factory EchoSet.fromJson(Map<String, dynamic> json) =>
       _$EchoSetFromJson(json);
-
-  /// Parses JSON that may contain legacy keys (`totEr` → `totalER`,
-  /// `energyBuff` → `team`) and normalizes them before deserializing.
-  factory EchoSet.fromLegacyJson(Map<String, dynamic> json) {
-    final data = Map<String, dynamic>.from(json);
-
-    if (!data.containsKey('totalER') && data.containsKey('totEr')) {
-      data['totalER'] = data['totEr'];
-    }
-
-    if (!data.containsKey('team') && data.containsKey('energyBuff')) {
-      data['team'] = data['energyBuff'];
-    }
-
-    return EchoSet.fromJson(data);
-  }
 }
 
 List<Echo> _echoesFromJson(List<dynamic>? json) =>

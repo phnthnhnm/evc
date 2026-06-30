@@ -19,8 +19,8 @@ class CompareContext {
 
 final compareContextProvider =
     NotifierProvider<CompareContextNotifier, CompareContext?>(
-  CompareContextNotifier.new,
-);
+      CompareContextNotifier.new,
+    );
 
 class CompareContextNotifier extends Notifier<CompareContext?> {
   @override

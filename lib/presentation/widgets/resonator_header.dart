@@ -51,8 +51,8 @@ class ResonatorHeader extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: AppColors.attributeBackground(
-                                resonator.attribute)
-                            .withValues(alpha: 0.8),
+                          resonator.attribute,
+                        ).withValues(alpha: 0.8),
                       ),
                       alignment: Alignment.center,
                       child: Image.asset(
@@ -70,8 +70,7 @@ class ResonatorHeader extends StatelessWidget {
                       height: 36,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color:
-                            const Color(0xFF3A3F44).withValues(alpha: 0.7),
+                        color: const Color(0xFF3A3F44).withValues(alpha: 0.7),
                       ),
                       alignment: Alignment.center,
                       child: Image.asset(

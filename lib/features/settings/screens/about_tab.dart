@@ -39,11 +39,12 @@ class AboutTab extends StatelessWidget {
                       ),
                     ),
                     onTap: () async {
-                      final url =
-                          Uri.parse('https://github.com/phnthnhnm/evc');
+                      final url = Uri.parse('https://github.com/phnthnhnm/evc');
                       if (await canLaunchUrl(url)) {
-                        await launchUrl(url,
-                            mode: LaunchMode.externalApplication);
+                        await launchUrl(
+                          url,
+                          mode: LaunchMode.externalApplication,
+                        );
                       }
                     },
                   ),
@@ -62,11 +63,12 @@ class AboutTab extends StatelessWidget {
                       ),
                     ),
                     onTap: () async {
-                      final url =
-                          Uri.parse('https://www.echovaluecalc.com');
+                      final url = Uri.parse('https://www.echovaluecalc.com');
                       if (await canLaunchUrl(url)) {
-                        await launchUrl(url,
-                            mode: LaunchMode.externalApplication);
+                        await launchUrl(
+                          url,
+                          mode: LaunchMode.externalApplication,
+                        );
                       }
                     },
                   ),

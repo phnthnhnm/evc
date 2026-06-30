@@ -2,9 +2,6 @@ import 'package:riverpod/riverpod.dart';
 
 import '../../../core/providers/shared_preferences_provider.dart';
 
-/// Controls the "show score on card" toggle.
-///
-/// Persisted via [SharedPreferences].
 final showScoreOnCardProvider = NotifierProvider<ShowScoreOnCard, bool>(
   ShowScoreOnCard.new,
 );

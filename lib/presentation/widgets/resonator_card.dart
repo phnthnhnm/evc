@@ -62,8 +62,7 @@ class _ResonatorCardState extends State<ResonatorCard> {
             borderRadius: BorderRadius.circular(18),
             boxShadow: [
               BoxShadow(
-                color: Colors.yellow
-                    .withValues(alpha: _hovering ? 0.10 : 0.0),
+                color: Colors.yellow.withValues(alpha: _hovering ? 0.10 : 0.0),
                 blurRadius: _hovering ? 32 : 0,
                 spreadRadius: _hovering ? 8 : 0,
               ),
@@ -93,10 +92,26 @@ class _ResonatorCardState extends State<ResonatorCard> {
                         curve: Curves.easeOut,
                         child: ColorFiltered(
                           colorFilter: ColorFilter.matrix(<double>[
-                            brightness, 0, 0, 0, 0,
-                            0, brightness, 0, 0, 0,
-                            0, 0, brightness, 0, 0,
-                            0, 0, 0, 1, 0,
+                            brightness,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            brightness,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            brightness,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
                           ]),
                           child: Image.asset(
                             widget.resonator.portraitAsset,
@@ -123,8 +138,7 @@ class _ResonatorCardState extends State<ResonatorCard> {
                             decoration: BoxDecoration(
                               color: scoreColor.withValues(alpha: 0.18),
                               borderRadius: BorderRadius.circular(16),
-                              border:
-                                  Border.all(color: scoreColor, width: 1.2),
+                              border: Border.all(color: scoreColor, width: 1.2),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -160,8 +174,8 @@ class _ResonatorCardState extends State<ResonatorCard> {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: AppColors.attributeBackground(
-                                        widget.resonator.attribute)
-                                    .withValues(alpha: 0.8),
+                                  widget.resonator.attribute,
+                                ).withValues(alpha: 0.8),
                               ),
                               alignment: Alignment.center,
                               child: Image.asset(
@@ -179,8 +193,9 @@ class _ResonatorCardState extends State<ResonatorCard> {
                               height: 36,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: const Color(0xFF3A3F44)
-                                    .withValues(alpha: 0.7),
+                                color: const Color(
+                                  0xFF3A3F44,
+                                ).withValues(alpha: 0.7),
                               ),
                               alignment: Alignment.center,
                               child: Image.asset(
@@ -207,8 +222,9 @@ class _ResonatorCardState extends State<ResonatorCard> {
                         borderRadius: BorderRadius.zero,
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.starColor(widget.resonator.stars)
-                                .withValues(alpha: 0.7),
+                            color: AppColors.starColor(
+                              widget.resonator.stars,
+                            ).withValues(alpha: 0.7),
                             blurRadius: 16,
                             spreadRadius: 2,
                           ),

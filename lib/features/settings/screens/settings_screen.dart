@@ -20,9 +20,7 @@ class SettingsScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
-          children: [DataTab(), AboutTab()],
-        ),
+        body: const TabBarView(children: [DataTab(), AboutTab()]),
       ),
     );
   }

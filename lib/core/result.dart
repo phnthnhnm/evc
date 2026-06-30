@@ -1,12 +1,3 @@
-/// A discriminated union for operations that can succeed or fail.
-///
-/// Pattern-match with `switch` for exhaustive handling:
-/// ```dart
-/// final text = switch (result) {
-///   Ok(value: final v) => v,
-///   Err(message: final m) => 'Error: $m',
-/// };
-/// ```
 sealed class Result<T> {
   const Result();
 }
@@ -22,5 +13,6 @@ final class Err<T> extends Result<T> {
   const Err(this.message, {this.cause});
 
   @override
-  String toString() => 'Err: $message${cause != null ? ' (cause: $cause)' : ''}';
+  String toString() =>
+      'Err: $message${cause != null ? ' (cause: $cause)' : ''}';
 }

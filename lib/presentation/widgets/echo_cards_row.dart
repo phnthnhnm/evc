@@ -35,8 +35,7 @@ class EchoCardsRow extends StatelessWidget {
               lastResult: lastResult,
               echoStats: echoStats[i],
               onStatChanged: (stat, value) => onStatChanged(i, stat, value),
-              onCompare:
-                  onCompare != null ? () => onCompare!(i) : null,
+              onCompare: onCompare != null ? () => onCompare!(i) : null,
             ),
           ),
         ),

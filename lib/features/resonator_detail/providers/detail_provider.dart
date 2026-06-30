@@ -63,31 +63,29 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
 
   @override
   ResonatorDetailState build() {
-    _loadSaved();
+    final echoSetsAsync = ref.watch(echoSetsProvider);
+    final savedSet = switch (echoSetsAsync) {
+      AsyncData(value: final echoSets) => echoSets[resonatorId],
+      _ => null,
+    };
+
+    if (savedSet != null) {
+      return ResonatorDetailState(
+        lastResult: savedSet,
+        selectedTeam: savedSet.team ?? 'Default',
+        totalER: savedSet.totalER,
+        echoStats: List.generate(5, (i) {
+          if (i < savedSet.echoes.length) {
+            return Map<String, double>.from(savedSet.echoes[i].stats);
+          }
+          return <String, double>{};
+        }),
+      );
+    }
+
     return ResonatorDetailState(
       echoStats: List.generate(5, (_) => <String, double>{}),
     );
-  }
-
-  Future<void> _loadSaved() async {
-    final storage = ref.read(storageServiceInterfaceProvider);
-    final result = await storage.loadEchoSet(resonatorId);
-    switch (result) {
-      case Ok(value: final echoSet?):
-        state = state.copyWith(
-          lastResult: echoSet,
-          selectedTeam: echoSet.team ?? 'Default',
-          totalER: echoSet.totalER,
-          echoStats: List.generate(5, (i) {
-            if (i < echoSet.echoes.length) {
-              return Map<String, double>.from(echoSet.echoes[i].stats);
-            }
-            return <String, double>{};
-          }),
-        );
-      case _:
-        break;
-    }
   }
 
   void setTotalER(double value) {

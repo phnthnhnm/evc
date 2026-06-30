@@ -1,5 +1,6 @@
 import 'package:evc/core/providers/compare_context_provider.dart';
 import 'package:evc/core/providers/notification_provider.dart';
+import 'package:evc/features/resonator_detail/providers/adjacent_resonator_provider.dart';
 import 'package:evc/features/resonator_detail/providers/detail_provider.dart';
 import 'package:evc/presentation/widgets/echo_cards_row.dart';
 import 'package:evc/presentation/widgets/loading_action_button.dart';
@@ -8,6 +9,7 @@ import 'package:evc/presentation/widgets/resonator_header.dart';
 import 'package:evc/presentation/widgets/result_chips.dart';
 import 'package:evc/presentation/widgets/team_row.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,6 +27,23 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
   String? _lastSuccessMessage;
   String? _lastErrorMessage;
   bool _scheduledClear = false;
+  final ScrollController _scrollController = ScrollController();
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void didUpdateWidget(ResonatorDetailScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.resonatorId != widget.resonatorId) {
+      _scrollController.jumpTo(0);
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   void _maybeShowSuccess(String? message) {
     if (message != null && message != _lastSuccessMessage) {
@@ -46,9 +65,6 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
     }
   }
 
-  /// Schedule clearing notification fields from state after the current frame,
-  /// so the same message can fire again on the next submit and won't replay
-  /// when the screen is recreated (e.g. navigating away and back).
   void _scheduleClear() {
     if (_scheduledClear) return;
     _scheduledClear = true;
@@ -68,69 +84,120 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
     final notifier = ref.read(
       resonatorDetailProvider(widget.resonatorId).notifier,
     );
+    final adjacent = ref.watch(adjacentResonatorsProvider(widget.resonatorId));
+    final hasPrev = adjacent.previousId != null;
+    final hasNext = adjacent.nextId != null;
 
     _maybeShowSuccess(state.successMessage);
     _maybeShowError(state.error);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Echo Build')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          children: [
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  children: [
-                    Row(
+      appBar: AppBar(
+        title: const Text('Echo Build'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.chevron_left),
+            tooltip: 'Previous Resonator',
+            onPressed: hasPrev
+                ? () => context.replace('/resonator/${adjacent.previousId}')
+                : null,
+          ),
+          IconButton(
+            icon: const Icon(Icons.chevron_right),
+            tooltip: 'Next Resonator',
+            onPressed: hasNext
+                ? () => context.replace('/resonator/${adjacent.nextId}')
+                : null,
+          ),
+        ],
+      ),
+      body: Focus(
+        focusNode: _focusNode,
+        autofocus: true,
+        onKeyEvent: (node, event) {
+          if (!_focusNode.hasPrimaryFocus) return KeyEventResult.ignored;
+          if (event is! KeyDownEvent) return KeyEventResult.ignored;
+
+          if (event.logicalKey == LogicalKeyboardKey.arrowLeft && hasPrev) {
+            context.replace('/resonator/${adjacent.previousId}');
+            return KeyEventResult.handled;
+          }
+          if (event.logicalKey == LogicalKeyboardKey.arrowRight && hasNext) {
+            context.replace('/resonator/${adjacent.nextId}');
+            return KeyEventResult.handled;
+          }
+          return KeyEventResult.ignored;
+        },
+        child: Listener(
+          behavior: HitTestBehavior.deferToChild,
+          onPointerDown: (_) {
+            // Defer to post-frame so the text field's blur completes first.
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (mounted) _focusNode.requestFocus();
+            });
+          },
+          child: SingleChildScrollView(
+            controller: _scrollController,
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              children: [
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
                       children: [
-                        Expanded(
-                          child: ResonatorHeader(resonator: notifier.resonator),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ResonatorHeader(
+                                resonator: notifier.resonator,
+                              ),
+                            ),
+                            ResetResonatorButton(
+                              onReset: () => notifier.reset(),
+                              label: 'Reset',
+                              icon: Icons.refresh,
+                            ),
+                          ],
                         ),
-                        ResetResonatorButton(
-                          onReset: () => notifier.reset(),
-                          label: 'Reset',
-                          icon: Icons.refresh,
+                        const SizedBox(height: 12),
+                        TeamRow(
+                          selectedTeam: state.selectedTeam,
+                          teams: notifier.resonator.effectiveTeams,
+                          onTeamChanged: (v) => notifier.setTeam(v),
+                          erController: TextEditingController(
+                            text: state.totalER.toString(),
+                          ),
+                          onERChanged: (v) => notifier.setTotalER(v),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 12),
-                    TeamRow(
-                      selectedTeam: state.selectedTeam,
-                      teams: notifier.resonator.effectiveTeams,
-                      onTeamChanged: (v) => notifier.setTeam(v),
-                      erController: TextEditingController(
-                        text: state.totalER.toString(),
-                      ),
-                      onERChanged: (v) => notifier.setTotalER(v),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                const SizedBox(height: 12),
+                EchoCardsRow(
+                  resonator: notifier.resonator,
+                  echoStats: state.echoStats,
+                  lastResult: state.lastResult,
+                  onStatChanged: (i, stat, value) =>
+                      notifier.setStatValue(i, stat, value),
+                  onCompare: (i) {
+                    if (state.lastResult == null) return;
+                    ref
+                        .read(compareContextProvider.notifier)
+                        .set(
+                          CompareContext(
+                            resonator: notifier.resonator,
+                            lastResult: state.lastResult!,
+                            echoIndex: i,
+                          ),
+                        );
+                    context.push('/resonator/${widget.resonatorId}/compare/$i');
+                  },
+                ),
+              ],
             ),
-            const SizedBox(height: 12),
-            EchoCardsRow(
-              resonator: notifier.resonator,
-              echoStats: state.echoStats,
-              lastResult: state.lastResult,
-              onStatChanged: (i, stat, value) =>
-                  notifier.setStatValue(i, stat, value),
-              onCompare: (i) {
-                if (state.lastResult == null) return;
-                ref
-                    .read(compareContextProvider.notifier)
-                    .set(
-                      CompareContext(
-                        resonator: notifier.resonator,
-                        lastResult: state.lastResult!,
-                        echoIndex: i,
-                      ),
-                    );
-                context.push('/resonator/${widget.resonatorId}/compare/$i');
-              },
-            ),
-          ],
+          ),
         ),
       ),
       bottomNavigationBar: Padding(

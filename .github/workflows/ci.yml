@@ -7,8 +7,36 @@ on:
     branches: [main]
 
 jobs:
+  check-message:
+    name: Check commit message
+    runs-on: ubuntu-latest
+    outputs:
+      should-run: ${{ steps.check.outputs.should-run }}
+    steps:
+      - name: Determine if CI should run
+        id: check
+        shell: bash
+        run: |
+          # Get the commit message: PR title for PRs, head commit for pushes.
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            MSG="${{ github.event.pull_request.title }}"
+          else
+            MSG="${{ github.event.head_commit.message }}"
+          fi
+
+          echo "commit message: ${MSG:0:80}"
+
+          # Check if message starts with a qualifying conventional-commit type.
+          if echo "$MSG" | grep -qiE '^(feat|fix|refactor|ci|build)(\(.+\))?!?:'; then
+            echo "should-run=true" >> $GITHUB_OUTPUT
+          else
+            echo "should-run=false" >> $GITHUB_OUTPUT
+          fi
+
   ci:
     name: CI
+    needs: check-message
+    if: needs.check-message.outputs.should-run == 'true'
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v7

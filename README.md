@@ -69,7 +69,7 @@ scoop install <bucketname>/evc
 > [!NOTE]
 > You must be signed into a GitHub account to download artifacts.
 
-1. Go to the [Actions tab](https://github.com/phnthnhnm/evc/actions).
+1. Go to the [Actions tab](https://github.com/phnthnhnm/evc/actions/workflows/ci.yml).
 2. Click the latest workflow run with a green checkmark (✔).
 3. Scroll to the **Artifacts** section at the bottom of the run page.
 4. Download **windows-build**.

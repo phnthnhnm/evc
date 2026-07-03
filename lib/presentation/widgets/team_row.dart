@@ -42,9 +42,7 @@ class TeamRow extends StatelessWidget {
           ),
           const TextSpan(text: 'Default', style: _boldStyle),
           const TextSpan(text: '"!\n\n'),
-          const TextSpan(
-            text: 'This option sets the ',
-          ),
+          const TextSpan(text: 'This option sets the '),
           const TextSpan(text: 'widely accepted ER-target', style: _boldStyle),
           const TextSpan(
             text:
@@ -89,9 +87,7 @@ class TeamRow extends StatelessWidget {
       text: TextSpan(
         style: DefaultTextStyle.of(context).style.copyWith(fontSize: 18),
         children: const [
-          TextSpan(
-            text: 'Make sure your character is "',
-          ),
+          TextSpan(text: 'Make sure your character is "'),
           TextSpan(text: 'battle-ready', style: _boldStyle),
           TextSpan(
             text:
@@ -119,11 +115,7 @@ class TeamRow extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(14),
-        child: const Icon(
-          Icons.help_outline,
-          size: 20,
-          color: Colors.grey,
-        ),
+        child: const Icon(Icons.help_outline, size: 20, color: Colors.grey),
       ),
     );
   }
@@ -151,11 +143,9 @@ class TeamRow extends StatelessWidget {
         TotalERInputField(
           controller: erController,
           onChanged: onERChanged,
-          infoContent:
-              showERInfo ? _buildERInfoContent(context) : null,
+          infoContent: showERInfo ? _buildERInfoContent(context) : null,
         ),
       ],
     );
   }
 }
-

@@ -71,7 +71,9 @@ class _DataTabState extends ConsumerState<DataTab> {
       allowedExtensions: ['json'],
     );
     if (!mounted) return;
-    if (result == null || result.files.single.path == null) return; // user cancelled
+    if (result == null || result.files.single.path == null) {
+      return; // user cancelled
+    }
     final file = File(result.files.single.path!);
     final inputJson = await file.readAsString();
     final storage = ref.read(storageServiceInterfaceProvider);

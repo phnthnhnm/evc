@@ -39,10 +39,7 @@ abstract class Resonator with _$Resonator {
     final min = entry['min'];
     final max = entry['max'];
     if (min == null || max == null) return null;
-    return {
-      'min': (min as num).toDouble(),
-      'max': (max as num).toDouble(),
-    };
+    return {'min': (min as num).toDouble(), 'max': (max as num).toDouble()};
   }
 
   /// Whether ER is explicitly marked as not needed for this team.

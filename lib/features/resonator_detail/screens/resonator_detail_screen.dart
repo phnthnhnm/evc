@@ -31,6 +31,7 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
   final FocusNode _focusNode = FocusNode();
   late final TextEditingController _erController;
   bool _syncingER = false;
+  ResonatorDetailNotifier? _notifier;
 
   @override
   void initState() {
@@ -52,6 +53,8 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.resonatorId != widget.resonatorId) {
       _scrollController.jumpTo(0);
+      final oldNotifier = _notifier;
+      Future(() => oldNotifier?.revertToDefaults());
     }
   }
 
@@ -60,6 +63,7 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
     _erController.dispose();
     _scrollController.dispose();
     _focusNode.dispose();
+    Future(() => _notifier?.revertToDefaults());
     super.dispose();
   }
 
@@ -102,6 +106,7 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
     final notifier = ref.read(
       resonatorDetailProvider(widget.resonatorId).notifier,
     );
+    _notifier = notifier;
     final adjacent = ref.watch(adjacentResonatorsProvider(widget.resonatorId));
     final hasPrev = adjacent.previousId != null;
     final hasNext = adjacent.nextId != null;
@@ -195,10 +200,12 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
                           onERChanged: (_) {},
                           showTeamInfo: true,
                           showERInfo: true,
-                          erTarget: notifier.resonator
-                              .erTargetForTeam(state.selectedTeam),
-                          erNotNeeded: notifier.resonator
-                              .erNotNeededForTeam(state.selectedTeam),
+                          erTarget: notifier.resonator.erTargetForTeam(
+                            state.selectedTeam,
+                          ),
+                          erNotNeeded: notifier.resonator.erNotNeededForTeam(
+                            state.selectedTeam,
+                          ),
                           currentER: state.totalER,
                         ),
                       ],

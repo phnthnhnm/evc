@@ -158,6 +158,13 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
     }
   }
 
+  /// Revert to default state without touching storage.
+  void revertToDefaults() {
+    state = ResonatorDetailState(
+      echoStats: List.generate(5, (_) => <String, double>{}),
+    );
+  }
+
   Future<void> reset() async {
     state = ResonatorDetailState(
       echoStats: List.generate(5, (_) => <String, double>{}),

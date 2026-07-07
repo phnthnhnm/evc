@@ -195,6 +195,11 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
                           onERChanged: (_) {},
                           showTeamInfo: true,
                           showERInfo: true,
+                          erTarget: notifier.resonator
+                              .erTargetForTeam(state.selectedTeam),
+                          erNotNeeded: notifier.resonator
+                              .erNotNeededForTeam(state.selectedTeam),
+                          currentER: state.totalER,
                         ),
                       ],
                     ),

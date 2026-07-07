@@ -43,6 +43,63 @@ class EchoCard extends StatelessWidget {
 
   bool get _hasTooManyStats => _nonZeroStatCount > 5;
 
+  /// Damage split percentage badge for a stat, or null if not a damage stat,
+  /// no split data, or the value is zero. Color intensity scales with the
+  /// value's importance relative to the most dominant damage type.
+  Widget? _buildDamageBadge(Stat stat, BuildContext context) {
+    final split = resonator.damageSplit;
+    if (split == null) return null;
+    final key = switch (stat) {
+      Stat.basicPercent => 'basic',
+      Stat.heavyPercent => 'heavy',
+      Stat.skillPercent => 'skill',
+      Stat.liberationPercent => 'liberation',
+      _ => null,
+    };
+    if (key == null) return null;
+    final value = split[key];
+    if (value == null || value == 0.0) return null;
+
+    // Find the dominant damage type for relative scaling.
+    final maxSplit = [
+      split['basic'] ?? 0,
+      split['heavy'] ?? 0,
+      split['skill'] ?? 0,
+      split['liberation'] ?? 0,
+    ].reduce((a, b) => a > b ? a : b);
+
+    final ratio = maxSplit > 0 ? value / maxSplit : 0.0;
+    final pct = '${(value * 100).toStringAsFixed(0)}%';
+    final scheme = Theme.of(context).colorScheme;
+
+    // Dominant stat gets full prominence; others are proportionally subdued.
+    final isDominant = ratio >= 0.95;
+    final bgAlpha = isDominant ? 200 : (60 + (ratio * 140)).round();
+    final fgColor = isDominant ? scheme.onPrimary : scheme.primary;
+
+    final badge = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+      decoration: BoxDecoration(
+        color: scheme.primary.withAlpha(bgAlpha),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Text(
+        pct,
+        style: TextStyle(
+          fontSize: 10,
+          fontWeight: FontWeight.w700,
+          color: fgColor,
+          height: 1.2,
+        ),
+      ),
+    );
+
+    return Tooltip(
+      message: '~$pct of damage per rotation comes from ${stat.label}',
+      child: badge,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final usable = resonator.usableStats;
@@ -108,6 +165,7 @@ class EchoCard extends StatelessWidget {
               children: usable.map((stat) {
                 final range = stat.validValues;
                 final selected = _getSelected(stat);
+                final damageBadge = _buildDamageBadge(stat, context);
                 return SizedBox(
                   width: double.infinity,
                   child: StatDropdown(
@@ -123,11 +181,19 @@ class EchoCard extends StatelessWidget {
                         Expanded(
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
-                            child: Text(
-                              stat.label,
-                              textAlign: TextAlign.left,
-                              maxLines: 1,
-                              softWrap: false,
+                            child: Row(
+                              children: [
+                                Text(
+                                  stat.label,
+                                  textAlign: TextAlign.left,
+                                  maxLines: 1,
+                                  softWrap: false,
+                                ),
+                                if (damageBadge != null) ...[
+                                  const SizedBox(width: 6),
+                                  damageBadge,
+                                ],
+                              ],
                             ),
                           ),
                         ),

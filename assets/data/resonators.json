@@ -17,7 +17,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Norm",
+    "damageSplit": {
+      "basic": 0.7,
+      "heavy": 0.0,
+      "skill": 0.15,
+      "liberation": 0.1
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      }
+    }
   },
   {
     "id": "aalto-sub-dps",
@@ -37,7 +50,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.45,
+      "heavy": 0.0,
+      "skill": 0.25,
+      "liberation": 0.15
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      }
+    }
   },
   {
     "id": "aemeath-fusion-burst",
@@ -58,7 +84,24 @@
     ],
     "teams": [
       "Denia + Chisa/Lupa"
-    ]
+    ],
+    "erImportance": "Vital",
+    "damageSplit": {
+      "basic": 0.1,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.85
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Denia + Chisa/Lupa": {
+        "min": 110.0,
+        "max": 113.1
+      }
+    }
   },
   {
     "id": "aemeath-rupture",
@@ -80,7 +123,28 @@
     "teams": [
       "Lynae + Shorekeeper",
       "Lynae/Lupa + Mornye"
-    ]
+    ],
+    "erImportance": "Vital",
+    "damageSplit": {
+      "basic": 0.1,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.85
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Lynae + Shorekeeper": {
+        "min": 120.0,
+        "max": 123.1
+      },
+      "Lynae/Lupa + Mornye": {
+        "min": 115.0,
+        "max": 118.1
+      }
+    }
   },
   {
     "id": "augusta",
@@ -102,7 +166,28 @@
     "teams": [
       "Iuno + Shorekeeper",
       "Mortefi + Shorekeeper"
-    ]
+    ],
+    "erImportance": "Vital",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.8,
+      "skill": 0.15,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 115.0,
+        "max": 118.1
+      },
+      "Iuno + Shorekeeper": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Mortefi + Shorekeeper": {
+        "min": 115.0,
+        "max": 118.1
+      }
+    }
   },
   {
     "id": "baizhi",
@@ -117,7 +202,20 @@
       "flatHp",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 230.0,
+        "max": 233.1
+      }
+    }
   },
   {
     "id": "brant",
@@ -136,7 +234,14 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "teamER": {
+      "Default": {
+        "min": 280.0,
+        "max": 283.1
+      }
+    }
   },
   {
     "id": "buling",
@@ -156,7 +261,28 @@
     "teams": [
       "Carlotta",
       "Phrolova"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 135.0,
+        "max": 138.1
+      },
+      "Carlotta": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Phrolova": {
+        "min": 135.0,
+        "max": 138.1
+      }
+    }
   },
   {
     "id": "calcharo",
@@ -175,7 +301,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.25,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.55
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      }
+    }
   },
   {
     "id": "camellya",
@@ -197,7 +336,28 @@
     "teams": [
       "Lynae + Shorekeeper",
       "Roccia + Shorekeeper"
-    ]
+    ],
+    "erImportance": "Norm",
+    "damageSplit": {
+      "basic": 0.75,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.15
+    },
+    "teamER": {
+      "Default": {
+        "min": 115.0,
+        "max": 118.1
+      },
+      "Lynae + Shorekeeper": {
+        "min": 115.0,
+        "max": 118.1
+      },
+      "Roccia + Shorekeeper": {
+        "min": 125.0,
+        "max": 128.1
+      }
+    }
   },
   {
     "id": "cantarella",
@@ -219,7 +379,28 @@
     "teams": [
       "Midnight Veil (Phrolova + Roccia)",
       "Moonlit Clouds (Carlotta + Shorekeeper)"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.7,
+      "heavy": 0.0,
+      "skill": 0.1,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 135.0,
+        "max": 138.1
+      },
+      "Midnight Veil (Phrolova + Roccia)": {
+        "min": 120.0,
+        "max": 123.1
+      },
+      "Moonlit Clouds (Carlotta + Shorekeeper)": {
+        "min": 140.0,
+        "max": 143.1
+      }
+    }
   },
   {
     "id": "carlotta",
@@ -239,7 +420,24 @@
     ],
     "teams": [
       "Zhezhi Outro"
-    ]
+    ],
+    "erImportance": "Vital",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.85,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Zhezhi Outro": {
+        "min": 110.0,
+        "max": 113.1
+      }
+    }
   },
   {
     "id": "cartethyia",
@@ -259,7 +457,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.55,
+      "heavy": 0.0,
+      "skill": 0.15,
+      "liberation": 0.3
+    },
+    "teamER": {
+      "Default": {
+        "min": 110.0,
+        "max": 113.1
+      }
+    }
   },
   {
     "id": "changli",
@@ -280,7 +491,24 @@
     ],
     "teams": [
       "Mono Fusion"
-    ]
+    ],
+    "erImportance": "Vital",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.65,
+      "liberation": 0.3
+    },
+    "teamER": {
+      "Default": {
+        "min": 120.0,
+        "max": 123.1
+      },
+      "Mono Fusion": {
+        "min": 105.0,
+        "max": 108.1
+      }
+    }
   },
   {
     "id": "chisa",
@@ -301,7 +529,28 @@
     "teams": [
       "Aemeath + Denia",
       "With Cartethyia/Hiyuki/Zani"
-    ]
+    ],
+    "erImportance": "Vital",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.8
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Aemeath + Denia": {
+        "min": 110.0,
+        "max": 113.1
+      },
+      "With Cartethyia/Hiyuki/Zani": {
+        "min": 115.0,
+        "max": 118.1
+      }
+    }
   },
   {
     "id": "chixia",
@@ -320,7 +569,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Vital",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.5,
+      "liberation": 0.3
+    },
+    "teamER": {
+      "Default": {
+        "min": 140.0,
+        "max": 143.1
+      }
+    }
   },
   {
     "id": "ciaccona",
@@ -340,7 +602,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.25,
+      "heavy": 0.25,
+      "skill": 0.0,
+      "liberation": 0.35
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      }
+    }
   },
   {
     "id": "danjin",
@@ -359,7 +634,17 @@
       "skillPercent",
       "liberationPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Min",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.25,
+      "skill": 0.25,
+      "liberation": 0.3
+    },
+    "teamER": {
+      "Default": {}
+    }
   },
   {
     "id": "denia",
@@ -380,7 +665,28 @@
     "teams": [
       "Aemeath + Lupa/Chisa",
       "Luuk Herssen + Mornye"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.9
+    },
+    "teamER": {
+      "Default": {
+        "min": 115.0,
+        "max": 118.1
+      },
+      "Aemeath + Lupa/Chisa": {
+        "min": 110.0,
+        "max": 113.1
+      },
+      "Luuk Herssen + Mornye": {
+        "min": 115.0,
+        "max": 118.1
+      }
+    }
   },
   {
     "id": "encore-hypercarry",
@@ -403,7 +709,28 @@
     "teams": [
       "Advanced Rotation",
       "Easy Rotation"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.5,
+      "heavy": 0.0,
+      "skill": 0.15,
+      "liberation": 0.15
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Advanced Rotation": {
+        "min": 105.0,
+        "max": 108.1
+      },
+      "Easy Rotation": {
+        "min": 130.0,
+        "max": 133.1
+      }
+    }
   },
   {
     "id": "galbrena",
@@ -423,7 +750,24 @@
     ],
     "teams": [
       "Mono Fusion"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.35,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Mono Fusion": {
+        "min": 110.0,
+        "max": 113.1
+      }
+    }
   },
   {
     "id": "hiyuki",
@@ -447,7 +791,36 @@
       "Lynae + Chisa",
       "Lynae + Shorekeeper",
       "Zhezhi Outro"
-    ]
+    ],
+    "erImportance": "Vital",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.1,
+      "liberation": 0.85
+    },
+    "teamER": {
+      "Default": {
+        "min": 120.0,
+        "max": 123.1
+      },
+      "Lucilla + Chisa": {
+        "min": 107.0,
+        "max": 110.1
+      },
+      "Lynae + Chisa": {
+        "min": 115.0,
+        "max": 118.1
+      },
+      "Lynae + Shorekeeper": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Zhezhi Outro": {
+        "min": 105.6,
+        "max": 108.7
+      }
+    }
   },
   {
     "id": "iuno-main-dps",
@@ -465,7 +838,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Vital",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.85
+    },
+    "teamER": {
+      "Default": {
+        "min": 110.0,
+        "max": 113.1
+      }
+    }
   },
   {
     "id": "iuno-sub-dps",
@@ -483,7 +869,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.85
+    },
+    "teamER": {
+      "Default": {
+        "min": 130.0,
+        "max": 133.1
+      }
+    }
   },
   {
     "id": "jianxin-main-sub-dps",
@@ -503,7 +902,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.25,
+      "heavy": 0.4,
+      "skill": 0.0,
+      "liberation": 0.3
+    },
+    "teamER": {
+      "Default": {
+        "min": 135.0,
+        "max": 138.1
+      }
+    }
   },
   {
     "id": "jinhsi",
@@ -525,7 +937,28 @@
     "teams": [
       "Alternate Rotation Burst",
       "Zhezhi Outro"
-    ]
+    ],
+    "erImportance": "Norm",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.8,
+      "liberation": 0.15
+    },
+    "teamER": {
+      "Default": {
+        "min": 115.0,
+        "max": 118.1
+      },
+      "Alternate Rotation Burst": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Zhezhi Outro": {
+        "min": 103.5,
+        "max": 106.6
+      }
+    }
   },
   {
     "id": "jiyan",
@@ -546,7 +979,24 @@
     ],
     "teams": [
       "Iuno + Ciaccona"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.85,
+      "skill": 0.1,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Iuno + Ciaccona": {
+        "min": 115.0,
+        "max": 118.1
+      }
+    }
   },
   {
     "id": "lingyang",
@@ -568,7 +1018,24 @@
     ],
     "teams": [
       "Zhezhi Outro"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.35,
+      "heavy": 0.0,
+      "skill": 0.35,
+      "liberation": 0.1
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Zhezhi Outro": {
+        "min": 110.0,
+        "max": 113.1
+      }
+    }
   },
   {
     "id": "lucilla-echo",
@@ -586,7 +1053,17 @@
       "basicPercent",
       "skillPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Min",
+    "damageSplit": {
+      "basic": 0.15,
+      "heavy": 0.0,
+      "skill": 0.15,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {}
+    }
   },
   {
     "id": "lucilla-glacio-chafe",
@@ -604,7 +1081,17 @@
       "basicPercent",
       "skillPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Min",
+    "damageSplit": {
+      "basic": 0.75,
+      "heavy": 0.0,
+      "skill": 0.15,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {}
+    }
   },
   {
     "id": "lucy",
@@ -622,7 +1109,20 @@
       "heavyPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Vital",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.9,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 120.0,
+        "max": 123.1
+      }
+    }
   },
   {
     "id": "lumi",
@@ -642,7 +1142,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.4,
+      "heavy": 0.0,
+      "skill": 0.3,
+      "liberation": 0.3
+    },
+    "teamER": {
+      "Default": {
+        "min": 155.0,
+        "max": 158.1
+      }
+    }
   },
   {
     "id": "lupa",
@@ -665,7 +1178,32 @@
       "Aemeath + Mornye",
       "Encore + Shorekeeper",
       "Mono-Fusion - Brant + Changli, Galbrena + Mornye, Aemeath + Denia"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.15,
+      "liberation": 0.75
+    },
+    "teamER": {
+      "Default": {
+        "min": 120.0,
+        "max": 123.1
+      },
+      "Aemeath + Mornye": {
+        "min": 120.0,
+        "max": 123.1
+      },
+      "Encore + Shorekeeper": {
+        "min": 130.0,
+        "max": 133.1
+      },
+      "Mono-Fusion - Brant + Changli, Galbrena + Mornye, Aemeath + Denia": {
+        "min": 115.0,
+        "max": 118.1
+      }
+    }
   },
   {
     "id": "luuk-herssen",
@@ -686,7 +1224,28 @@
     "teams": [
       "Lynae + Mornye",
       "Sanhua + Mornye"
-    ]
+    ],
+    "erImportance": "Vital",
+    "damageSplit": {
+      "basic": 0.9,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Lynae + Mornye": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Sanhua + Mornye": {
+        "min": 115.0,
+        "max": 118.1
+      }
+    }
   },
   {
     "id": "lynae",
@@ -707,7 +1266,24 @@
     ],
     "teams": [
       "Iuno + Ciaccona"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.7,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.2
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Iuno + Ciaccona": {
+        "min": 110.0,
+        "max": 113.1
+      }
+    }
   },
   {
     "id": "mornye",
@@ -725,7 +1301,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.75
+    },
+    "teamER": {
+      "Default": {
+        "min": 260.0,
+        "max": 263.1
+      }
+    }
   },
   {
     "id": "mornye-pure-support",
@@ -740,7 +1329,20 @@
       "flatDef",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 260.0,
+        "max": 263.1
+      }
+    }
   },
   {
     "id": "mortefi",
@@ -760,7 +1362,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.1,
+      "heavy": 0.0,
+      "skill": 0.2,
+      "liberation": 0.7
+    },
+    "teamER": {
+      "Default": {
+        "min": 120.0,
+        "max": 123.1
+      }
+    }
   },
   {
     "id": "phoebe",
@@ -783,7 +1398,25 @@
     "teams": [
       "Absolution",
       "Confession"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.15,
+      "heavy": 0.5,
+      "skill": 0.0,
+      "liberation": 0.15
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Absolution": {},
+      "Confession": {
+        "min": 125.0,
+        "max": 128.1
+      }
+    }
   },
   {
     "id": "phrolova",
@@ -800,7 +1433,17 @@
       "flatAtk",
       "skillPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Min",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.5,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {}
+    }
   },
   {
     "id": "qiuyuan",
@@ -821,7 +1464,28 @@
     "teams": [
       "Galbrena + Shorekeeper",
       "Phrolova + Cantarella"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.65,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Galbrena + Shorekeeper": {
+        "min": 115.0,
+        "max": 118.1
+      },
+      "Phrolova + Cantarella": {
+        "min": 125.0,
+        "max": 128.1
+      }
+    }
   },
   {
     "id": "rebecca",
@@ -839,7 +1503,20 @@
       "basicPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.8,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 120.0,
+        "max": 123.1
+      }
+    }
   },
   {
     "id": "roccia",
@@ -861,7 +1538,28 @@
     "teams": [
       "Camellya + Shorekeeper",
       "Phrolova + Cantarella"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.6,
+      "skill": 0.15,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 130.0,
+        "max": 133.1
+      },
+      "Camellya + Shorekeeper": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Phrolova + Cantarella": {
+        "min": 115.0,
+        "max": 118.1
+      }
+    }
   },
   {
     "id": "rover-aero",
@@ -883,7 +1581,28 @@
     "teams": [
       "Cartethyia + Ciaccona",
       "Iuno + Ciaccona"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.7,
+      "liberation": 0.2
+    },
+    "teamER": {
+      "Default": {
+        "min": 145.0,
+        "max": 148.1
+      },
+      "Cartethyia + Ciaccona": {
+        "min": 145.0,
+        "max": 148.1
+      },
+      "Iuno + Ciaccona": {
+        "min": 125.0,
+        "max": 128.1
+      }
+    }
   },
   {
     "id": "rover-havoc",
@@ -906,7 +1625,28 @@
     "teams": [
       "Main DPS / Lynae + Shorekeeper",
       "Sub DPS / Phrolova + Cantarella"
-    ]
+    ],
+    "erImportance": "Vital",
+    "damageSplit": {
+      "basic": 0.35,
+      "heavy": 0.0,
+      "skill": 0.2,
+      "liberation": 0.3
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Main DPS / Lynae + Shorekeeper": {
+        "min": 125.0,
+        "max": 128.1
+      },
+      "Sub DPS / Phrolova + Cantarella": {
+        "min": 140.0,
+        "max": 143.1
+      }
+    }
   },
   {
     "id": "rover-spectro",
@@ -926,7 +1666,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.1,
+      "skill": 0.35,
+      "liberation": 0.4
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      }
+    }
   },
   {
     "id": "sanhua",
@@ -946,7 +1699,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.35,
+      "skill": 0.3,
+      "liberation": 0.3
+    },
+    "teamER": {
+      "Default": {
+        "min": 115.0,
+        "max": 118.1
+      }
+    }
   },
   {
     "id": "sigrika",
@@ -966,7 +1732,28 @@
     "teams": [
       "Qiuyuan + Ciaccona/Phrolova",
       "Qiuyuan + Shorekeeper"
-    ]
+    ],
+    "erImportance": "Vital",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 120.0,
+        "max": 123.1
+      },
+      "Qiuyuan + Ciaccona/Phrolova": {
+        "min": 110.0,
+        "max": 113.1
+      },
+      "Qiuyuan + Shorekeeper": {
+        "min": 120.0,
+        "max": 123.1
+      }
+    }
   },
   {
     "id": "taoqi-sub-dps",
@@ -985,7 +1772,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.5,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.5
+    },
+    "teamER": {
+      "Default": {
+        "min": 125.0,
+        "max": 128.1
+      }
+    }
   },
   {
     "id": "taoqi-sup",
@@ -1000,7 +1800,20 @@
       "flatDef",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 175.0,
+        "max": 178.1
+      }
+    }
   },
   {
     "id": "the-shorekeeper",
@@ -1020,7 +1833,28 @@
     "teams": [
       "No Fallacy",
       "With Fallacy"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.75
+    },
+    "teamER": {
+      "Default": {
+        "min": 230.0,
+        "max": 233.1
+      },
+      "No Fallacy": {
+        "min": 240.0,
+        "max": 243.1
+      },
+      "With Fallacy": {
+        "min": 230.0,
+        "max": 233.1
+      }
+    }
   },
   {
     "id": "the-shorekeeper-pure-support",
@@ -1038,7 +1872,28 @@
     "teams": [
       "No Fallacy",
       "With Fallacy"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 230.0,
+        "max": 233.1
+      },
+      "No Fallacy": {
+        "min": 240.0,
+        "max": 243.1
+      },
+      "With Fallacy": {
+        "min": 230.0,
+        "max": 233.1
+      }
+    }
   },
   {
     "id": "verina",
@@ -1053,7 +1908,20 @@
       "flatAtk",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 230.0,
+        "max": 233.1
+      }
+    }
   },
   {
     "id": "xiangli-yao",
@@ -1073,7 +1941,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.1,
+      "heavy": 0.0,
+      "skill": 0.15,
+      "liberation": 0.7
+    },
+    "teamER": {
+      "Default": {
+        "min": 120.0,
+        "max": 123.1
+      }
+    }
   },
   {
     "id": "yangyang",
@@ -1093,7 +1974,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.35,
+      "heavy": 0.0,
+      "skill": 0.15,
+      "liberation": 0.45
+    },
+    "teamER": {
+      "Default": {
+        "min": 115.0,
+        "max": 118.1
+      }
+    }
   },
   {
     "id": "yinlin",
@@ -1114,7 +2008,24 @@
     ],
     "teams": [
       "Xiangli Yao + Shorekeeper"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.7,
+      "liberation": 0.15
+    },
+    "teamER": {
+      "Default": {
+        "min": 135.0,
+        "max": 138.1
+      },
+      "Xiangli Yao + Shorekeeper": {
+        "min": 125.0,
+        "max": 128.1
+      }
+    }
   },
   {
     "id": "youhu",
@@ -1129,7 +2040,20 @@
       "flatAtk",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 165.0,
+        "max": 168.1
+      }
+    }
   },
   {
     "id": "yuanwu",
@@ -1150,7 +2074,21 @@
     ],
     "teams": [
       "No Liberation"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.5,
+      "liberation": 0.4
+    },
+    "teamER": {
+      "Default": {
+        "min": 135.0,
+        "max": 138.1
+      },
+      "No Liberation": {}
+    }
   },
   {
     "id": "zani",
@@ -1169,7 +2107,20 @@
       "liberationPercent",
       "erPercent"
     ],
-    "teams": []
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.65,
+      "skill": 0.0,
+      "liberation": 0.2
+    },
+    "teamER": {
+      "Default": {
+        "min": 120.0,
+        "max": 123.1
+      }
+    }
   },
   {
     "id": "zhezhi",
@@ -1190,6 +2141,27 @@
     "teams": [
       "Empyrean Anthem",
       "Moonlit Clouds"
-    ]
+    ],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.8,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 130.0,
+        "max": 133.1
+      },
+      "Empyrean Anthem": {
+        "min": 130.0,
+        "max": 133.1
+      },
+      "Moonlit Clouds": {
+        "min": 115.0,
+        "max": 118.1
+      }
+    }
   }
 ]

@@ -50,6 +50,33 @@
         "items": {
           "type": "string"
         }
+      },
+      "erImportance": {
+        "type": "string",
+        "description": "How critical ER is for this character: Min, Norm, Vital, or Max.",
+        "enum": ["Min", "Norm", "Vital", "Max"]
+      },
+      "damageSplit": {
+        "type": "object",
+        "description": "Percentage of damage from each source in a rotation. Absent when data is NA.",
+        "required": ["basic", "heavy", "skill", "liberation"],
+        "properties": {
+          "basic": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+          "heavy": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+          "skill": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+          "liberation": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+        }
+      },
+      "teamER": {
+        "type": "object",
+        "description": "Per-team ER target ranges from /cd. When min/max are absent (empty object), ER is not needed for that team.",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "min": { "type": "number" },
+            "max": { "type": "number" }
+          }
+        }
       }
     }
   }

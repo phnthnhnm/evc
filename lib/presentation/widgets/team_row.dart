@@ -13,6 +13,15 @@ class TeamRow extends StatelessWidget {
   final bool showTeamInfo;
   final bool showERInfo;
 
+  /// ER target range for the selected team, or null if no data.
+  final Map<String, double>? erTarget;
+
+  /// Whether ER is explicitly not needed for the selected team.
+  final bool erNotNeeded;
+
+  /// The current ER value entered by the user.
+  final double currentER;
+
   const TeamRow({
     super.key,
     required this.selectedTeam,
@@ -22,6 +31,9 @@ class TeamRow extends StatelessWidget {
     required this.onERChanged,
     this.showTeamInfo = false,
     this.showERInfo = false,
+    this.erTarget,
+    this.erNotNeeded = false,
+    this.currentER = 100.0,
   });
 
   static const _boldStyle = TextStyle(fontWeight: FontWeight.bold);
@@ -144,6 +156,9 @@ class TeamRow extends StatelessWidget {
           controller: erController,
           onChanged: onERChanged,
           infoContent: showERInfo ? _buildERInfoContent(context) : null,
+          enabled: !erNotNeeded,
+          erTarget: erTarget,
+          currentER: currentER,
         ),
       ],
     );

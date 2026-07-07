@@ -19,13 +19,13 @@ class StatDropdown extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox(
-          width: 140,
+        Expanded(
           child: DefaultTextStyle.merge(
             style: const TextStyle(fontWeight: FontWeight.w500),
             child: label,
           ),
         ),
+        const SizedBox(width: 8),
         SizedBox(
           width: 80,
           child: DropdownButton<double>(

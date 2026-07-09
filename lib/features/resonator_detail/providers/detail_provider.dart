@@ -1,5 +1,6 @@
 import 'package:riverpod/riverpod.dart';
 
+import '../../../core/er_helpers.dart';
 import '../../../core/providers/service_providers.dart';
 import '../../../core/result.dart';
 import '../../../domain/enums/stat.dart';
@@ -15,6 +16,7 @@ class ResonatorDetailState {
   final EchoSet? lastResult;
   final String? error;
   final String? successMessage;
+  final double erOffset;
 
   const ResonatorDetailState({
     this.totalER = 100.0,
@@ -24,6 +26,7 @@ class ResonatorDetailState {
     this.lastResult,
     this.error,
     this.successMessage,
+    this.erOffset = 0.0,
   });
 
   ResonatorDetailState copyWith({
@@ -36,6 +39,7 @@ class ResonatorDetailState {
     bool clearError = false,
     String? successMessage,
     bool clearSuccess = false,
+    double? erOffset,
   }) {
     return ResonatorDetailState(
       totalER: totalER ?? this.totalER,
@@ -47,6 +51,7 @@ class ResonatorDetailState {
       successMessage: clearSuccess
           ? null
           : (successMessage ?? this.successMessage),
+      erOffset: erOffset ?? this.erOffset,
     );
   }
 }
@@ -61,6 +66,8 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
     return svc.resonators.firstWhere((r) => r.id == resonatorId);
   }
 
+  static double _round1(double v) => (v * 10).round() / 10.0;
+
   @override
   ResonatorDetailState build() {
     final echoSetsAsync = ref.watch(echoSetsProvider);
@@ -70,16 +77,20 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
     };
 
     if (savedSet != null) {
+      final savedEchoStats = List.generate(5, (i) {
+        if (i < savedSet.echoes.length) {
+          return Map<String, double>.from(savedSet.echoes[i].stats);
+        }
+        return <String, double>{};
+      });
+      final computedER = computeTotalERFromEchoes(savedEchoStats);
+      final offset = _round1(savedSet.totalER - computedER);
       return ResonatorDetailState(
+        erOffset: offset,
         lastResult: savedSet,
         selectedTeam: savedSet.team ?? 'Default',
         totalER: savedSet.totalER,
-        echoStats: List.generate(5, (i) {
-          if (i < savedSet.echoes.length) {
-            return Map<String, double>.from(savedSet.echoes[i].stats);
-          }
-          return <String, double>{};
-        }),
+        echoStats: savedEchoStats,
       );
     }
 
@@ -89,7 +100,9 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
   }
 
   void setTotalER(double value) {
-    state = state.copyWith(totalER: value);
+    final computed = computeTotalERFromEchoes(state.echoStats);
+    final offset = _round1(value - computed);
+    state = state.copyWith(totalER: value, erOffset: offset);
   }
 
   void setTeam(String team) {
@@ -106,7 +119,11 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
     } else {
       newStats[echoIndex][key] = value;
     }
-    state = state.copyWith(echoStats: newStats);
+
+    final computed = computeTotalERFromEchoes(newStats);
+    final newTotalER = _round1(computed + state.erOffset);
+
+    state = state.copyWith(echoStats: newStats, totalER: newTotalER);
   }
 
   Future<void> submit() async {
@@ -158,7 +175,6 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
     }
   }
 
-  /// Revert to default state without touching storage.
   void revertToDefaults() {
     state = ResonatorDetailState(
       echoStats: List.generate(5, (_) => <String, double>{}),
@@ -179,16 +195,24 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
     state = state.copyWith(clearSuccess: true, clearError: true);
   }
 
+  void refresh() {
+    ref.invalidateSelf();
+  }
+
   void applyCompareResult(EchoSet echoSet) {
+    final newEchoStats = List.generate(5, (i) {
+      if (i < echoSet.echoes.length) {
+        return Map<String, double>.from(echoSet.echoes[i].stats);
+      }
+      return <String, double>{};
+    });
+    final computedER = computeTotalERFromEchoes(newEchoStats);
+    final offset = _round1(echoSet.totalER - computedER);
     state = state.copyWith(
+      erOffset: offset,
       lastResult: echoSet,
       totalER: echoSet.totalER,
-      echoStats: List.generate(5, (i) {
-        if (i < echoSet.echoes.length) {
-          return Map<String, double>.from(echoSet.echoes[i].stats);
-        }
-        return <String, double>{};
-      }),
+      echoStats: newEchoStats,
     );
   }
 }

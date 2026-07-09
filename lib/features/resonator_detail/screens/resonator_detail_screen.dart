@@ -46,6 +46,10 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
             .setTotalER(parsed);
       }
     });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      ref.read(resonatorDetailProvider(widget.resonatorId).notifier).refresh();
+    });
   }
 
   @override
@@ -63,7 +67,8 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
     _erController.dispose();
     _scrollController.dispose();
     _focusNode.dispose();
-    Future(() => _notifier?.revertToDefaults());
+    final notifier = _notifier;
+    Future(() => notifier?.revertToDefaults());
     super.dispose();
   }
 

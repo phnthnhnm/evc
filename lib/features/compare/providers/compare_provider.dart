@@ -1,5 +1,6 @@
 import 'package:riverpod/riverpod.dart';
 
+import '../../../core/er_helpers.dart';
 import '../../../core/providers/service_providers.dart';
 import '../../../core/result.dart';
 import '../../../domain/enums/stat.dart';
@@ -15,6 +16,7 @@ class CompareState {
   final EchoSet? newEchoSet;
   final bool showReplaceButton;
   final double enteredTotalER;
+  final double erOffset;
 
   const CompareState({
     this.newEchoStats = const {},
@@ -24,6 +26,7 @@ class CompareState {
     this.newEchoSet,
     this.showReplaceButton = false,
     this.enteredTotalER = 100.0,
+    this.erOffset = 0.0,
   });
 
   CompareState copyWith({
@@ -34,6 +37,7 @@ class CompareState {
     EchoSet? newEchoSet,
     bool? showReplaceButton,
     double? enteredTotalER,
+    double? erOffset,
   }) {
     return CompareState(
       newEchoStats: newEchoStats ?? this.newEchoStats,
@@ -43,6 +47,7 @@ class CompareState {
       newEchoSet: newEchoSet ?? this.newEchoSet,
       showReplaceButton: showReplaceButton ?? this.showReplaceButton,
       enteredTotalER: enteredTotalER ?? this.enteredTotalER,
+      erOffset: erOffset ?? this.erOffset,
     );
   }
 }
@@ -51,15 +56,24 @@ class CompareNotifier extends Notifier<CompareState> {
   String? _resonatorId;
   int? _echoIndex;
 
+  double? _adjustedBaseER;
+
   String get resonatorId => _resonatorId!;
   int get echoIndex => _echoIndex!;
 
   static final _digitPattern = RegExp(r' \d+$');
+  static double _round1(double v) => (v * 10).round() / 10.0;
 
-  void init({required String resonatorId, required int echoIndex}) {
+  void init({
+    required String resonatorId,
+    required int echoIndex,
+    required double previousTotalER,
+    required double oldEchoER,
+  }) {
     _resonatorId = resonatorId;
     _echoIndex = echoIndex;
-    state = const CompareState();
+    _adjustedBaseER = previousTotalER - oldEchoER;
+    state = CompareState(enteredTotalER: _adjustedBaseER!);
   }
 
   Resonator get _resonator {
@@ -71,7 +85,10 @@ class CompareNotifier extends Notifier<CompareState> {
   CompareState build() => const CompareState();
 
   void setTotalER(double value) {
-    state = state.copyWith(enteredTotalER: value);
+    final computed =
+        (_adjustedBaseER ?? 0) + extractERStat(state.newEchoStats, 1);
+    final offset = _round1(value - computed);
+    state = state.copyWith(enteredTotalER: value, erOffset: offset);
   }
 
   void setStatValue(Stat stat, double value) {
@@ -82,7 +99,11 @@ class CompareNotifier extends Notifier<CompareState> {
     } else {
       newStats[key] = value;
     }
-    state = state.copyWith(newEchoStats: newStats);
+
+    final computed = (_adjustedBaseER ?? 0) + extractERStat(newStats, 1);
+    final newTotalER = _round1(computed + state.erOffset);
+
+    state = state.copyWith(newEchoStats: newStats, enteredTotalER: newTotalER);
   }
 
   Future<void> submit(EchoSet lastResult) async {

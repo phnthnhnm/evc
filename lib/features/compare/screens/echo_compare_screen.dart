@@ -1,3 +1,4 @@
+import 'package:evc/core/er_helpers.dart';
 import 'package:evc/core/providers/compare_context_provider.dart';
 import 'package:evc/domain/models/echo_set.dart';
 import 'package:evc/features/compare/providers/compare_provider.dart';
@@ -27,6 +28,7 @@ class EchoCompareScreen extends ConsumerStatefulWidget {
 
 class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
   late final TextEditingController _erController;
+  bool _syncingER = false;
 
   @override
   void initState() {
@@ -36,19 +38,35 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
       Future.microtask(() {
         if (mounted) context.pop();
       });
-    } else {
-      _erController = TextEditingController(
-        text: ctx.lastResult.totalER.toString(),
-      );
-      // Defer provider mutation to after the build phase.
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!mounted) return;
-        ref
-            .read(compareProvider.notifier)
-            .init(resonatorId: widget.resonatorId, echoIndex: widget.echoIndex);
-        ref.read(compareProvider.notifier).setTotalER(ctx.lastResult.totalER);
-      });
+      return;
     }
+
+    final oldEchoER = extractERStat(
+      ctx.lastResult.echoes[widget.echoIndex].stats,
+      widget.echoIndex + 1,
+    );
+    final adjustedER = ctx.lastResult.totalER - oldEchoER;
+
+    _erController = TextEditingController(text: adjustedER.toString());
+    _erController.addListener(() {
+      if (_syncingER) return;
+      final parsed = double.tryParse(_erController.text);
+      if (parsed != null) {
+        ref.read(compareProvider.notifier).setTotalER(parsed);
+      }
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      ref
+          .read(compareProvider.notifier)
+          .init(
+            resonatorId: widget.resonatorId,
+            echoIndex: widget.echoIndex,
+            previousTotalER: ctx.lastResult.totalER,
+            oldEchoER: oldEchoER,
+          );
+    });
   }
 
   @override
@@ -65,6 +83,15 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
     }
 
     final state = ref.watch(compareProvider);
+
+    final stateER = state.enteredTotalER;
+    final controllerER = double.tryParse(_erController.text);
+    if (controllerER != null && controllerER != stateER) {
+      _syncingER = true;
+      _erController.text = stateER.toString();
+      _syncingER = false;
+    }
+
     final currentEcho = ctx.lastResult.echoes[widget.echoIndex];
 
     String compareSign = '';

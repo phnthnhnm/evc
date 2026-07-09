@@ -12,9 +12,9 @@ Full credit goes to [AstyuteChick](https://github.com/AstyuteChick) for making t
 
 ## Screenshots
 
-![Main Menu](.github/images/main-menu.webp)
-![Echo Build Screen](.github/images/build-screen.webp)
-![Compare Echoes Screen](.github/images/compare-screen.webp)
+![Main Menu](.github/images/main-menu.png)
+![Echo Build Screen](.github/images/build-screen.png)
+![Compare Echoes Screen](.github/images/compare-screen.png)
 
 ## Getting Started
 

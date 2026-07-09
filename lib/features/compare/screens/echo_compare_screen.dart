@@ -98,6 +98,13 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
                   onChanged: (v) {
                     ref.read(compareProvider.notifier).setTotalER(v);
                   },
+                  erTarget: ctx.resonator.erTargetForTeam(
+                    ctx.lastResult.team ?? 'Default',
+                  ),
+                  enabled: !ctx.resonator.erNotNeededForTeam(
+                    ctx.lastResult.team ?? 'Default',
+                  ),
+                  currentER: state.enteredTotalER,
                 ),
               ],
             ),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:evc/core/providers/navigation_history_provider.dart';
 import 'package:evc/core/providers/notification_provider.dart';
 import 'package:evc/core/providers/service_providers.dart';
 import 'package:evc/core/providers/shared_preferences_provider.dart';
@@ -8,6 +9,7 @@ import 'package:evc/core/router.dart';
 import 'package:evc/domain/enums/stat.dart';
 import 'package:evc/infrastructure/services/resonator_service_impl.dart';
 import 'package:evc/infrastructure/services/storage_service_impl.dart';
+import 'package:evc/presentation/widgets/mouse_navigation_listener.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -75,13 +77,38 @@ class EchoValueCalcApp extends ConsumerStatefulWidget {
 }
 
 class _EchoValueCalcAppState extends ConsumerState<EchoValueCalcApp> {
+  void Function()? _routerListener;
+
   @override
   void initState() {
     super.initState();
+
+    // Seed navigation history with the initial route.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final initialRoute = router.state.uri.toString();
+      ref.read(navigationHistoryProvider.notifier).recordRoute(initialRoute);
+    });
+
+    // Listen for all GoRouter route changes and record them in the
+    // browser-style linear navigation history. The delegate notifies
+    // synchronously during the build phase, so we defer the Riverpod
+    // state modification to after the frame.
+    _routerListener = () {
+      if (!mounted) return;
+      final route = router.state.uri.toString();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          ref.read(navigationHistoryProvider.notifier).recordRoute(route);
+        }
+      });
+    };
+    router.routerDelegate.addListener(_routerListener!);
+
+    // Precache all images in parallel.
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!mounted) return;
 
-      // Precache all images in parallel
       final futures = <Future>[];
 
       for (final stat in Stat.all) {
@@ -98,7 +125,19 @@ class _EchoValueCalcAppState extends ConsumerState<EchoValueCalcApp> {
   }
 
   @override
+  void dispose() {
+    if (_routerListener != null) {
+      router.routerDelegate.removeListener(_routerListener!);
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // Capture the notifier for use inside the builder callback where Riverpod
+    // ref is not directly available.
+    final notifier = ref.read(navigationHistoryProvider.notifier);
+
     return MaterialApp.router(
       title: 'Echo Value Calculator GUI',
       // Dark theme only — no theme switching
@@ -122,9 +161,20 @@ class _EchoValueCalcAppState extends ConsumerState<EchoValueCalcApp> {
       routerConfig: router,
       builder: (context, child) => CallbackShortcuts(
         bindings: {
-          LogicalKeySet(LogicalKeyboardKey.escape): () => router.pop(),
+          LogicalKeySet(LogicalKeyboardKey.escape): () {
+            final target = notifier.prepareBack();
+            if (target != null) {
+              router.go(target);
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                notifier.onNavigationComplete();
+              });
+            }
+          },
         },
-        child: ToastLayer(child: child!),
+        child: MouseNavigationListener(
+          router: router,
+          child: ToastLayer(child: child!),
+        ),
       ),
     );
   }

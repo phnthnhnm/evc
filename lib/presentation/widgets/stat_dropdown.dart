@@ -5,6 +5,7 @@ class StatDropdown extends StatelessWidget {
   final List<double> values;
   final double selected;
   final ValueChanged<double> onChanged;
+  final Widget? trailing;
 
   const StatDropdown({
     super.key,
@@ -12,6 +13,7 @@ class StatDropdown extends StatelessWidget {
     required this.values,
     required this.selected,
     required this.onChanged,
+    this.trailing,
   });
 
   @override
@@ -25,6 +27,7 @@ class StatDropdown extends StatelessWidget {
             child: label,
           ),
         ),
+        if (trailing != null) ...[const SizedBox(width: 4), trailing!],
         const SizedBox(width: 8),
         SizedBox(
           width: 80,

@@ -10,6 +10,8 @@ class EchoCard extends StatelessWidget {
   final Resonator resonator;
   final EchoSet? lastResult;
   final Map<String, double> echoStats;
+  final Set<String> changedStatKeys;
+  final Map<String, double>? baselineStats;
   final void Function(Stat stat, double value) onStatChanged;
   final VoidCallback? onCompare;
   final String? customTitle;
@@ -21,6 +23,8 @@ class EchoCard extends StatelessWidget {
     required this.resonator,
     required this.lastResult,
     required this.echoStats,
+    this.changedStatKeys = const {},
+    this.baselineStats,
     required this.onStatChanged,
     this.onCompare,
     this.customTitle,
@@ -166,8 +170,20 @@ class EchoCard extends StatelessWidget {
                 final range = stat.validValues;
                 final selected = _getSelected(stat);
                 final damageBadge = _buildDamageBadge(stat, context);
-                return SizedBox(
+                final statKey = '${stat.apiName} ${index + 1}';
+                final isChanged = changedStatKeys.contains(statKey);
+                return Container(
+                  key: ValueKey(statKey),
                   width: double.infinity,
+                  decoration: isChanged
+                      ? BoxDecoration(
+                          color: Colors.amber.withAlpha(25),
+                          border: const Border(
+                            left: BorderSide(color: Colors.amber, width: 3),
+                          ),
+                        )
+                      : const BoxDecoration(),
+                  padding: isChanged ? const EdgeInsets.only(left: 6) : null,
                   child: StatDropdown(
                     label: Row(
                       children: [
@@ -202,6 +218,26 @@ class EchoCard extends StatelessWidget {
                     values: range,
                     selected: selected,
                     onChanged: (v) => onStatChanged(stat, v),
+                    trailing: isChanged
+                        ? Tooltip(
+                            message: 'Reset to original value',
+                            child: SizedBox(
+                              width: 22,
+                              height: 22,
+                              child: IconButton(
+                                padding: EdgeInsets.zero,
+                                iconSize: 16,
+                                icon: const Icon(Icons.undo),
+                                color: Colors.amber,
+                                onPressed: () {
+                                  final baselineValue =
+                                      baselineStats?[statKey] ?? 0.0;
+                                  onStatChanged(stat, baselineValue);
+                                },
+                              ),
+                            ),
+                          )
+                        : null,
                   ),
                 );
               }).toList(),

@@ -1,5 +1,6 @@
 import 'package:riverpod/riverpod.dart';
 
+import '../../../core/diff_helpers.dart';
 import '../../../core/er_helpers.dart';
 import '../../../core/providers/service_providers.dart';
 import '../../../core/result.dart';
@@ -53,6 +54,19 @@ class ResonatorDetailState {
           : (successMessage ?? this.successMessage),
       erOffset: erOffset ?? this.erOffset,
     );
+  }
+
+  /// Returns one [Set] per echo slot containing the stat
+  /// keys whose non-zero value differs from [lastResult].
+  List<Set<String>> get changedEchoKeys {
+    if (lastResult == null) return List.generate(5, (_) => <String>{});
+    return List.generate(5, (i) {
+      final current = echoStats.length > i ? echoStats[i] : <String, double>{};
+      final baseline = i < lastResult!.echoes.length
+          ? lastResult!.echoes[i].stats
+          : <String, double>{};
+      return computeChangedStatKeys(current: current, baseline: baseline);
+    });
   }
 }
 

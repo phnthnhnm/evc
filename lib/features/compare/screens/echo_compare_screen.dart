@@ -65,6 +65,7 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
             echoIndex: widget.echoIndex,
             previousTotalER: ctx.lastResult.totalER,
             oldEchoER: oldEchoER,
+            lastResult: ctx.lastResult,
           );
     });
   }
@@ -281,6 +282,8 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
                             )
                           : null,
                       echoStats: state.newEchoStats,
+                      changedStatKeys: state.changedStats,
+                      baselineStats: state.baselineStats,
                       onStatChanged: (stat, value) {
                         ref
                             .read(compareProvider.notifier)

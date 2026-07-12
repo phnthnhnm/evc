@@ -216,6 +216,15 @@ class _ResonatorDetailScreenState extends ConsumerState<ResonatorDetailScreen> {
                   resonator: notifier.resonator,
                   echoStats: state.echoStats,
                   lastResult: state.lastResult,
+                  changedEchoKeys: state.changedEchoKeys,
+                  baselineStatsList: state.lastResult != null
+                      ? List.generate(
+                          5,
+                          (i) => i < state.lastResult!.echoes.length
+                              ? state.lastResult!.echoes[i].stats
+                              : null,
+                        )
+                      : const [],
                   onStatChanged: (i, stat, value) =>
                       notifier.setStatValue(i, stat, value),
                   onCompare: (i) {

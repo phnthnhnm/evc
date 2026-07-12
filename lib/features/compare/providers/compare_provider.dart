@@ -1,5 +1,6 @@
 import 'package:riverpod/riverpod.dart';
 
+import '../../../core/diff_helpers.dart';
 import '../../../core/er_helpers.dart';
 import '../../../core/providers/service_providers.dart';
 import '../../../core/result.dart';
@@ -10,6 +11,7 @@ import '../../../domain/models/resonator.dart';
 
 class CompareState {
   final Map<String, double> newEchoStats;
+  final Map<String, double>? baselineStats;
   final bool submitted;
   final bool loading;
   final Echo? newEchoResult;
@@ -20,6 +22,7 @@ class CompareState {
 
   const CompareState({
     this.newEchoStats = const {},
+    this.baselineStats,
     this.submitted = false,
     this.loading = false,
     this.newEchoResult,
@@ -29,8 +32,19 @@ class CompareState {
     this.erOffset = 0.0,
   });
 
+  /// The set of stat keys (slot-1 format) whose non-zero value differs from
+  /// the original echo's stats.
+  Set<String> get changedStats {
+    if (baselineStats == null) return const {};
+    return computeChangedStatKeys(
+      current: newEchoStats,
+      baseline: baselineStats!,
+    );
+  }
+
   CompareState copyWith({
     Map<String, double>? newEchoStats,
+    Map<String, double>? baselineStats,
     bool? submitted,
     bool? loading,
     Echo? newEchoResult,
@@ -41,6 +55,7 @@ class CompareState {
   }) {
     return CompareState(
       newEchoStats: newEchoStats ?? this.newEchoStats,
+      baselineStats: baselineStats ?? this.baselineStats,
       submitted: submitted ?? this.submitted,
       loading: loading ?? this.loading,
       newEchoResult: newEchoResult ?? this.newEchoResult,
@@ -69,11 +84,26 @@ class CompareNotifier extends Notifier<CompareState> {
     required int echoIndex,
     required double previousTotalER,
     required double oldEchoER,
+    required EchoSet lastResult,
   }) {
     _resonatorId = resonatorId;
     _echoIndex = echoIndex;
     _adjustedBaseER = previousTotalER - oldEchoER;
-    state = CompareState(enteredTotalER: _adjustedBaseER!);
+
+    // Remap the original echo's stat keys from the actual slot number to
+    // slot-1 format so the diff against newEchoStats is key-compatible.
+    final baseline = <String, double>{};
+    if (echoIndex < lastResult.echoes.length) {
+      for (final entry in lastResult.echoes[echoIndex].stats.entries) {
+        final remappedKey = entry.key.replaceAll(_digitPattern, ' 1');
+        baseline[remappedKey] = entry.value;
+      }
+    }
+
+    state = CompareState(
+      enteredTotalER: _adjustedBaseER!,
+      baselineStats: baseline,
+    );
   }
 
   Resonator get _resonator {

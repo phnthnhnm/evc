@@ -9,6 +9,8 @@ class EchoCardsRow extends StatelessWidget {
   final Resonator resonator;
   final List<Map<String, double>> echoStats;
   final EchoSet? lastResult;
+  final List<Set<String>> changedEchoKeys;
+  final List<Map<String, double>?> baselineStatsList;
   final void Function(int, Stat, double) onStatChanged;
   final void Function(int)? onCompare;
 
@@ -17,6 +19,8 @@ class EchoCardsRow extends StatelessWidget {
     required this.resonator,
     required this.echoStats,
     required this.lastResult,
+    this.changedEchoKeys = const [],
+    this.baselineStatsList = const [],
     required this.onStatChanged,
     this.onCompare,
   });
@@ -34,6 +38,12 @@ class EchoCardsRow extends StatelessWidget {
               resonator: resonator,
               lastResult: lastResult,
               echoStats: echoStats[i],
+              changedStatKeys: changedEchoKeys.length > i
+                  ? changedEchoKeys[i]
+                  : const {},
+              baselineStats: baselineStatsList.length > i
+                  ? baselineStatsList[i]
+                  : null,
               onStatChanged: (stat, value) => onStatChanged(i, stat, value),
               onCompare: onCompare != null ? () => onCompare!(i) : null,
             ),

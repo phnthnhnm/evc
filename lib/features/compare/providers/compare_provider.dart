@@ -1,6 +1,5 @@
 import 'package:riverpod/riverpod.dart';
 
-import '../../../core/diff_helpers.dart';
 import '../../../core/er_helpers.dart';
 import '../../../core/providers/service_providers.dart';
 import '../../../core/result.dart';
@@ -32,14 +31,20 @@ class CompareState {
     this.erOffset = 0.0,
   });
 
-  /// The set of stat keys (slot-1 format) whose non-zero value differs from
-  /// the original echo's stats.
+  /// The set of stat keys (slot-1 format) that the user has actively set
+  /// to a non-zero value that differs from the original echo's stats.
   Set<String> get changedStats {
     if (baselineStats == null) return const {};
-    return computeChangedStatKeys(
-      current: newEchoStats,
-      baseline: baselineStats!,
-    );
+    final changed = <String>{};
+    for (final entry in newEchoStats.entries) {
+      if (entry.value != 0.0) {
+        final baselineValue = baselineStats![entry.key] ?? 0.0;
+        if (entry.value != baselineValue) {
+          changed.add(entry.key);
+        }
+      }
+    }
+    return changed;
   }
 
   CompareState copyWith({

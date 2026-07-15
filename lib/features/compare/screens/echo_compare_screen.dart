@@ -284,6 +284,7 @@ class _EchoCompareScreenState extends ConsumerState<EchoCompareScreen> {
                       echoStats: state.newEchoStats,
                       changedStatKeys: state.changedStats,
                       baselineStats: state.baselineStats,
+                      resetToZero: true,
                       onStatChanged: (stat, value) {
                         ref
                             .read(compareProvider.notifier)

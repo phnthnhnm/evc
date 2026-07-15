@@ -17,6 +17,11 @@ class EchoCard extends StatelessWidget {
   final String? customTitle;
   final bool showCompareButton;
 
+  /// When true, the reset (undo) button sets the stat to 0.0 instead of
+  /// the baseline value. Use this on the compare screen's "New Echo" card
+  /// where 0.0 is the default "unset" state.
+  final bool resetToZero;
+
   const EchoCard({
     super.key,
     required this.index,
@@ -29,6 +34,7 @@ class EchoCard extends StatelessWidget {
     this.onCompare,
     this.customTitle,
     this.showCompareButton = true,
+    this.resetToZero = false,
   });
 
   double _getSelected(Stat stat) {
@@ -220,7 +226,9 @@ class EchoCard extends StatelessWidget {
                     onChanged: (v) => onStatChanged(stat, v),
                     trailing: isChanged
                         ? Tooltip(
-                            message: 'Reset to original value',
+                            message: resetToZero
+                                ? 'Reset to 0.0'
+                                : 'Reset to original value',
                             child: SizedBox(
                               width: 22,
                               height: 22,
@@ -230,9 +238,10 @@ class EchoCard extends StatelessWidget {
                                 icon: const Icon(Icons.undo),
                                 color: Colors.amber,
                                 onPressed: () {
-                                  final baselineValue =
-                                      baselineStats?[statKey] ?? 0.0;
-                                  onStatChanged(stat, baselineValue);
+                                  final resetValue = resetToZero
+                                      ? 0.0
+                                      : (baselineStats?[statKey] ?? 0.0);
+                                  onStatChanged(stat, resetValue);
                                 },
                               ),
                             ),

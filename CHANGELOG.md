@@ -1,5 +1,25 @@
 # Changelog
 
+## [3.1.0](https://github.com/phnthnhnm/evc/compare/v3.0.0...v3.1.0) (2026-07-15)
+
+
+### Features
+
+* **compare:** add the target ER feedback feature to the compare screen to be in line with the detail screen ([8d87941](https://github.com/phnthnhnm/evc/commit/8d8794133e486af8454f692eb5887ecdf81195b8))
+* **compare:** implement stat key comparison between current and baseline echo stats ([7edbff2](https://github.com/phnthnhnm/evc/commit/7edbff2f0d8e557e137f3d701a1a3ee1cc5dfddb))
+* **ER:** auto computes total ER with offset if manually edited by user ([639978e](https://github.com/phnthnhnm/evc/commit/639978e41df432b3a5b801258683b95e267479d7))
+* **navigation:** support navigating forward/backward with mouse side buttons ([6c94b89](https://github.com/phnthnhnm/evc/commit/6c94b896cb7b318e77eff58c5fa91c39e75eb769))
+* **resonator:** add ER target and damage split data along with CD table parser ([d06beea](https://github.com/phnthnhnm/evc/commit/d06beea9a2c806d8820354a663b0204340d3c649))
+* **resonator:** add Xuanling Yangyang ([252dfe0](https://github.com/phnthnhnm/evc/commit/252dfe0fc4c11db98fb5764932170f43c45ddee0))
+* **storage:** add custom directory support for StorageServiceImpl and enable debug mode handling ([e73a928](https://github.com/phnthnhnm/evc/commit/e73a92878b2fc409a9fed99d6bca47878ae812b6))
+
+
+### Bug Fixes
+
+* **compare:** enhance stat reset functionality to allow resetting to zero ([7a8d887](https://github.com/phnthnhnm/evc/commit/7a8d887a74b8d40f385ba19c3b1542e57ed561b4))
+* **navigation:** remove unused notifier and related logic in ResonatorDetailScreen ([7bf2d54](https://github.com/phnthnhnm/evc/commit/7bf2d5433dd44701e5de6e60f9b17d738697e9ff))
+* **state:** reset echo stats state when switching resonators or closing screen ([0f9ce89](https://github.com/phnthnhnm/evc/commit/0f9ce892fa71ed0fa06f14039bceba864581457e))
+
 ## [3.0.0](https://github.com/phnthnhnm/evc/compare/v2.2.0...v3.0.0) (2026-06-30)
 
 

@@ -1,4 +1,7 @@
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:evc/core/providers/navigation_history_provider.dart';
 import 'package:evc/core/providers/notification_provider.dart';
@@ -10,13 +13,36 @@ import 'package:evc/domain/enums/stat.dart';
 import 'package:evc/infrastructure/services/resonator_service_impl.dart';
 import 'package:evc/infrastructure/services/storage_service_impl.dart';
 import 'package:evc/presentation/widgets/mouse_navigation_listener.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // In debug mode, use in-memory SharedPreferences and a temp directory
+  // for echo_sets.json so that debug sessions don't affect release data.
+  String? storageDir;
+  if (kDebugMode) {
+    SharedPreferences.setMockInitialValues({});
+
+    final prodDir = await getApplicationSupportDirectory();
+    final prodFile = File('${prodDir.path}/echo_sets.json');
+    final tempDir = await getTemporaryDirectory();
+    final sessionDir = Directory('${tempDir.path}/evc_debug');
+    
+    if (await sessionDir.exists()) {
+      await sessionDir.delete(recursive: true);
+    }
+    await sessionDir.create(recursive: true);
+    if (await prodFile.exists()) {
+      await prodFile.copy('${sessionDir.path}/echo_sets.json');
+    }
+    storageDir = sessionDir.path;
+  }
 
   // Pre-initialize SharedPreferences
   final prefs = await SharedPreferences.getInstance();
@@ -26,7 +52,7 @@ void main() async {
   await resonatorSvc.load();
 
   final resonators = resonatorSvc.resonators;
-  final storageSvc = StorageServiceImpl();
+  final storageSvc = StorageServiceImpl(customDirectory: storageDir);
   storageSvc.setResonators(resonators);
 
   // Migrate saved echo sets whose resonator IDs changed in this release.

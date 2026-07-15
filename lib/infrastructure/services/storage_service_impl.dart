@@ -12,8 +12,9 @@ import '../../domain/models/resonator.dart';
 
 final class StorageServiceImpl implements IStorageService {
   List<Resonator>? _resonators;
+  final String? customDirectory;
 
-  StorageServiceImpl();
+  StorageServiceImpl({this.customDirectory});
 
   @override
   void setResonators(List<Resonator> resonators) {
@@ -202,12 +203,13 @@ final class StorageServiceImpl implements IStorageService {
   }
 
   Future<File> _getJsonFile() async {
-    final supportDir = await getApplicationSupportDirectory();
-    final dir = Directory(supportDir.path);
+    final dirPath = customDirectory ??
+        (await getApplicationSupportDirectory()).path;
+    final dir = Directory(dirPath);
     if (!await dir.exists()) {
       await dir.create(recursive: true);
     }
-    return File('${dir.path}/echo_sets.json');
+    return File('$dirPath/echo_sets.json');
   }
 
   Future<Map<String, dynamic>> _readData() async {

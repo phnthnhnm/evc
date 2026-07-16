@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/phnthnhnm/evc/compare/v3.1.0...v3.2.0) (2026-07-16)
+
+
+### Features
+
+* **navigation:** add initial command pallete implementation ([f12a2d3](https://github.com/phnthnhnm/evc/commit/f12a2d3c264441c851adb20b317eb22473ed4ee8))
+
 ## [3.1.0](https://github.com/phnthnhnm/evc/compare/v3.0.0...v3.1.0) (2026-07-15)
 
 

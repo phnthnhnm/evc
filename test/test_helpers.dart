@@ -114,9 +114,11 @@ ProviderContainer createTestContainer({
   final api = apiService ?? MockApiService();
   final storage = storageService ?? MockStorageService();
 
-  return ProviderContainer(overrides: [
-    resonatorServiceInterfaceProvider.overrideWith((ref) => rs),
-    apiServiceInterfaceProvider.overrideWith((ref) => api),
-    storageServiceInterfaceProvider.overrideWith((ref) => storage),
-  ]);
+  return ProviderContainer(
+    overrides: [
+      resonatorServiceInterfaceProvider.overrideWith((ref) => rs),
+      apiServiceInterfaceProvider.overrideWith((ref) => api),
+      storageServiceInterfaceProvider.overrideWith((ref) => storage),
+    ],
+  );
 }

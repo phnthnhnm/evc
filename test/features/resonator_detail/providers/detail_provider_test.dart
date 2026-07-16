@@ -38,12 +38,14 @@ _Setup _createContainer({Map<String, EchoSet> echoSets = const {}}) {
   when(() => resonatorSvc.resonators).thenReturn([_testResonator]);
 
   // Build the container with ALL overrides at creation time.
-  final container = ProviderContainer(overrides: [
-    resonatorServiceInterfaceProvider.overrideWith((ref) => resonatorSvc),
-    apiServiceInterfaceProvider.overrideWith((ref) => apiSvc),
-    storageServiceInterfaceProvider.overrideWith((ref) => storageSvc),
-    echoSetsProvider.overrideWith((ref) async => echoSets),
-  ]);
+  final container = ProviderContainer(
+    overrides: [
+      resonatorServiceInterfaceProvider.overrideWith((ref) => resonatorSvc),
+      apiServiceInterfaceProvider.overrideWith((ref) => apiSvc),
+      storageServiceInterfaceProvider.overrideWith((ref) => storageSvc),
+      echoSetsProvider.overrideWith((ref) async => echoSets),
+    ],
+  );
 
   addTearDown(container.dispose);
 
@@ -100,9 +102,7 @@ void main() {
         team: 'Team A',
       );
 
-      final setup = _createContainer(
-        echoSets: {_resonatorId: savedSet},
-      );
+      final setup = _createContainer(echoSets: {_resonatorId: savedSet});
 
       // Wait for the FutureProvider to resolve before building the notifier.
       await setup.container.read(echoSetsProvider.future);
@@ -130,10 +130,7 @@ void main() {
 
       notifier.setStatValue(0, Stat.critRate, 6.3);
 
-      expect(
-        notifier.state.echoStats[0]['${Stat.critRate.apiName} 1'],
-        6.3,
-      );
+      expect(notifier.state.echoStats[0]['${Stat.critRate.apiName} 1'], 6.3);
     });
 
     test('removes key when value is 0.0', () {
@@ -206,8 +203,12 @@ void main() {
 
       // Add 6 stats to echo 0.
       final statsToSet = [
-        Stat.critRate, Stat.critDamage, Stat.atkPercent,
-        Stat.hpPercent, Stat.flatAtk, Stat.flatHp,
+        Stat.critRate,
+        Stat.critDamage,
+        Stat.atkPercent,
+        Stat.hpPercent,
+        Stat.flatAtk,
+        Stat.flatHp,
       ];
       for (final stat in statsToSet) {
         notifier.setStatValue(0, stat, 6.0);
@@ -220,12 +221,14 @@ void main() {
       expect(notifier.state.error!, contains('Echo 1'));
       expect(notifier.state.error!, contains('more than 5 stats'));
       // API should not have been called.
-      verifyNever(() => setup.apiSvc.submit(
-        resonatorName: any(named: 'resonatorName'),
-        totalER: any(named: 'totalER'),
-        echoStatsList: any(named: 'echoStatsList'),
-        team: any(named: 'team'),
-      ));
+      verifyNever(
+        () => setup.apiSvc.submit(
+          resonatorName: any(named: 'resonatorName'),
+          totalER: any(named: 'totalER'),
+          echoStatsList: any(named: 'echoStatsList'),
+          team: any(named: 'team'),
+        ),
+      );
     });
 
     test('rejects multiple over-limit echoes with plural message', () {
@@ -233,8 +236,12 @@ void main() {
       final notifier = _notifier(setup.container);
 
       final statsToSet = [
-        Stat.critRate, Stat.critDamage, Stat.atkPercent,
-        Stat.hpPercent, Stat.flatAtk, Stat.flatHp,
+        Stat.critRate,
+        Stat.critDamage,
+        Stat.atkPercent,
+        Stat.hpPercent,
+        Stat.flatAtk,
+        Stat.flatHp,
       ];
       for (final stat in statsToSet) {
         notifier.setStatValue(0, stat, 6.0);
@@ -246,12 +253,14 @@ void main() {
       expect(notifier.state.error, isNotNull);
       expect(notifier.state.error!, contains('Echoes'));
       expect(notifier.state.error!, contains('1, 3'));
-      verifyNever(() => setup.apiSvc.submit(
-        resonatorName: any(named: 'resonatorName'),
-        totalER: any(named: 'totalER'),
-        echoStatsList: any(named: 'echoStatsList'),
-        team: any(named: 'team'),
-      ));
+      verifyNever(
+        () => setup.apiSvc.submit(
+          resonatorName: any(named: 'resonatorName'),
+          totalER: any(named: 'totalER'),
+          echoStatsList: any(named: 'echoStatsList'),
+          team: any(named: 'team'),
+        ),
+      );
     });
   });
 
@@ -263,7 +272,9 @@ void main() {
       notifier.setStatValue(0, Stat.critRate, 6.3);
 
       final returnedEchoSet = mockEchoSet(
-        echoes: [mockEcho(stats: {'${Stat.critRate.apiName} 1': 6.3})],
+        echoes: [
+          mockEcho(stats: {'${Stat.critRate.apiName} 1': 6.3}),
+        ],
         totalER: 100.0,
         team: 'Team A',
       );
@@ -283,12 +294,14 @@ void main() {
       await notifier.submit();
 
       // Verify API was called.
-      verify(() => setup.apiSvc.submit(
-        resonatorName: 'Test',
-        totalER: 100.0,
-        echoStatsList: any(named: 'echoStatsList'),
-        team: 'Default',
-      )).called(1);
+      verify(
+        () => setup.apiSvc.submit(
+          resonatorName: 'Test',
+          totalER: 100.0,
+          echoStatsList: any(named: 'echoStatsList'),
+          team: 'Default',
+        ),
+      ).called(1);
 
       // Verify storage saved.
       verify(() => setup.storageSvc.saveEchoSet(_resonatorId, any())).called(1);

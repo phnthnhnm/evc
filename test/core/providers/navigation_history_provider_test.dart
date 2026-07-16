@@ -108,23 +108,26 @@ void main() {
       expect(path, isNull);
     });
 
-    test('internalNavigation flag: recordRoute ignored after prepareBack before onNavigationComplete', () {
-      final notifier = _createNotifier();
-      notifier.recordRoute('/a');
-      notifier.recordRoute('/b');
+    test(
+      'internalNavigation flag: recordRoute ignored after prepareBack before onNavigationComplete',
+      () {
+        final notifier = _createNotifier();
+        notifier.recordRoute('/a');
+        notifier.recordRoute('/b');
 
-      notifier.prepareBack(); // _internalNavigation = true
-      // Simulate a route change notification firing before onNavigationComplete
-      notifier.recordRoute('/a'); // should be ignored
+        notifier.prepareBack(); // _internalNavigation = true
+        // Simulate a route change notification firing before onNavigationComplete
+        notifier.recordRoute('/a'); // should be ignored
 
-      expect(notifier.state.history, ['/a', '/b']);
+        expect(notifier.state.history, ['/a', '/b']);
 
-      notifier.onNavigationComplete();
-      notifier.recordRoute('/x'); // should work now
+        notifier.onNavigationComplete();
+        notifier.recordRoute('/x'); // should work now
 
-      // After going back to /a and then navigating to /x, the forward branch
-      // (/b) should be truncated.
-      expect(notifier.state.history, ['/a', '/x']);
-    });
+        // After going back to /a and then navigating to /x, the forward branch
+        // (/b) should be truncated.
+        expect(notifier.state.history, ['/a', '/x']);
+      },
+    );
   });
 }

@@ -18,31 +18,34 @@ void main() {
       final current = {'Crit Rate(%) 1': 7.5};
       final baseline = {'Crit Rate(%) 1': 6.3};
 
-      expect(
-        computeChangedStatKeys(current: current, baseline: baseline),
-        {'Crit Rate(%) 1'},
-      );
+      expect(computeChangedStatKeys(current: current, baseline: baseline), {
+        'Crit Rate(%) 1',
+      });
     });
 
-    test('stat added (non-zero in current, absent in baseline) — key returned', () {
-      final current = {'Crit Rate(%) 1': 6.3};
-      final baseline = <String, double>{};
+    test(
+      'stat added (non-zero in current, absent in baseline) — key returned',
+      () {
+        final current = {'Crit Rate(%) 1': 6.3};
+        final baseline = <String, double>{};
 
-      expect(
-        computeChangedStatKeys(current: current, baseline: baseline),
-        {'Crit Rate(%) 1'},
-      );
-    });
+        expect(computeChangedStatKeys(current: current, baseline: baseline), {
+          'Crit Rate(%) 1',
+        });
+      },
+    );
 
-    test('stat removed (non-zero in baseline, absent in current) — key returned', () {
-      final current = <String, double>{};
-      final baseline = {'Crit Rate(%) 1': 6.3};
+    test(
+      'stat removed (non-zero in baseline, absent in current) — key returned',
+      () {
+        final current = <String, double>{};
+        final baseline = {'Crit Rate(%) 1': 6.3};
 
-      expect(
-        computeChangedStatKeys(current: current, baseline: baseline),
-        {'Crit Rate(%) 1'},
-      );
-    });
+        expect(computeChangedStatKeys(current: current, baseline: baseline), {
+          'Crit Rate(%) 1',
+        });
+      },
+    );
 
     test('mixed: some changed, identical, added, removed', () {
       final current = {
@@ -56,7 +59,10 @@ void main() {
         'DEF(%) 1': 9.4, // removed (not in current)
       };
 
-      final result = computeChangedStatKeys(current: current, baseline: baseline);
+      final result = computeChangedStatKeys(
+        current: current,
+        baseline: baseline,
+      );
 
       expect(result, {'Crit Rate(%) 1', 'HP(%) 1', 'DEF(%) 1'});
       expect(result.length, 3);

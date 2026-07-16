@@ -10,6 +10,9 @@ import 'package:evc/core/providers/shared_preferences_provider.dart';
 import 'package:evc/core/result.dart';
 import 'package:evc/core/router.dart';
 import 'package:evc/domain/enums/stat.dart';
+import 'package:evc/features/command_palette/providers/command_palette_provider.dart';
+import 'package:evc/features/command_palette/widgets/command_palette_dialog.dart'
+    show CommandPaletteLayer;
 import 'package:evc/infrastructure/services/resonator_service_impl.dart';
 import 'package:evc/infrastructure/services/storage_service_impl.dart';
 import 'package:evc/presentation/widgets/mouse_navigation_listener.dart';
@@ -23,8 +26,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // In debug mode, use in-memory SharedPreferences and a temp directory
-  // for echo_sets.json so that debug sessions don't affect release data.
+  // In debug mode, isolate echo_sets.json and recent_resonators.json in a
+  // temp directory so debug sessions don't affect release data.
+  // SharedPreferences uses in-memory mock values to keep settings isolated.
   String? storageDir;
   if (kDebugMode) {
     SharedPreferences.setMockInitialValues({});
@@ -33,7 +37,7 @@ void main() async {
     final prodFile = File('${prodDir.path}/echo_sets.json');
     final tempDir = await getTemporaryDirectory();
     final sessionDir = Directory('${tempDir.path}/evc_debug');
-    
+
     if (await sessionDir.exists()) {
       await sessionDir.delete(recursive: true);
     }
@@ -126,6 +130,15 @@ class _EchoValueCalcAppState extends ConsumerState<EchoValueCalcApp> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) {
           ref.read(navigationHistoryProvider.notifier).recordRoute(route);
+
+          // Track resonator navigation for the command palette MRU list.
+          final uri = Uri.parse(route);
+          final segments = uri.pathSegments;
+          if (segments.length >= 2 && segments[0] == 'resonator') {
+            ref
+                .read(commandPaletteProvider.notifier)
+                .recordNavigation(segments[1]);
+          }
         }
       });
     };
@@ -162,11 +175,11 @@ class _EchoValueCalcAppState extends ConsumerState<EchoValueCalcApp> {
   Widget build(BuildContext context) {
     // Capture the notifier for use inside the builder callback where Riverpod
     // ref is not directly available.
-    final notifier = ref.read(navigationHistoryProvider.notifier);
+    final navNotifier = ref.read(navigationHistoryProvider.notifier);
+    final paletteNotifier = ref.read(commandPaletteProvider.notifier);
 
     return MaterialApp.router(
       title: 'Echo Value Calculator GUI',
-      // Dark theme only — no theme switching
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.indigo,
@@ -188,18 +201,27 @@ class _EchoValueCalcAppState extends ConsumerState<EchoValueCalcApp> {
       builder: (context, child) => CallbackShortcuts(
         bindings: {
           LogicalKeySet(LogicalKeyboardKey.escape): () {
-            final target = notifier.prepareBack();
+            if (paletteNotifier.isOpen) {
+              paletteNotifier.close();
+              return;
+            }
+            final target = navNotifier.prepareBack();
             if (target != null) {
               router.go(target);
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                notifier.onNavigationComplete();
+                navNotifier.onNavigationComplete();
               });
             }
           },
+          LogicalKeySet(LogicalKeyboardKey.f1): () {
+            paletteNotifier.toggle();
+          },
         },
-        child: MouseNavigationListener(
-          router: router,
-          child: ToastLayer(child: child!),
+        child: CommandPaletteLayer(
+          child: MouseNavigationListener(
+            router: router,
+            child: ToastLayer(child: child!),
+          ),
         ),
       ),
     );

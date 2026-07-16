@@ -9,13 +9,14 @@ import '../../../test_helpers.dart';
 /// Overrides [filteredResonatorsProvider] and returns a container ready
 /// to read [adjacentResonatorsProvider].
 ProviderContainer _createContainer(List<String> filteredIds) {
-  final container = ProviderContainer(overrides: [
-    filteredResonatorsProvider.overrideWith(
-      (ref) => filteredIds
-          .map((id) => mockResonator(id: id, name: id))
-          .toList(),
-    ),
-  ]);
+  final container = ProviderContainer(
+    overrides: [
+      filteredResonatorsProvider.overrideWith(
+        (ref) =>
+            filteredIds.map((id) => mockResonator(id: id, name: id)).toList(),
+      ),
+    ],
+  );
 
   addTearDown(container.dispose);
   return container;

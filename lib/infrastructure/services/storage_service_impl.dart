@@ -203,13 +203,63 @@ final class StorageServiceImpl implements IStorageService {
   }
 
   Future<File> _getJsonFile() async {
-    final dirPath = customDirectory ??
-        (await getApplicationSupportDirectory()).path;
+    final dirPath =
+        customDirectory ?? (await getApplicationSupportDirectory()).path;
     final dir = Directory(dirPath);
     if (!await dir.exists()) {
       await dir.create(recursive: true);
     }
     return File('$dirPath/echo_sets.json');
+  }
+
+  List<String> loadRecentResonatorIdsSync() {
+    try {
+      final dirPath = customDirectory ?? _getAppSupportDirSync();
+      final file = File('$dirPath/recent_resonators.json');
+      if (!file.existsSync()) return [];
+      final content = file.readAsStringSync();
+      final list = jsonDecode(content) as List<dynamic>;
+      return list.cast<String>();
+    } catch (_) {
+      return [];
+    }
+  }
+
+  String _getAppSupportDirSync() {
+    if (Platform.isWindows) {
+      final appData = Platform.environment['APPDATA'] ?? 'C:\\';
+      return '$appData\\com.example.evc';
+    }
+    return Directory.systemTemp.path;
+  }
+
+  Future<List<String>> loadRecentResonatorIds() async {
+    try {
+      final file = await _getRecentIdsFile();
+      if (!await file.exists()) return [];
+      final content = await file.readAsString();
+      final list = jsonDecode(content) as List<dynamic>;
+      return list.cast<String>();
+    } catch (_) {
+      return [];
+    }
+  }
+
+  Future<void> saveRecentResonatorIds(List<String> ids) async {
+    try {
+      final file = await _getRecentIdsFile();
+      final dir = Directory(file.parent.path);
+      if (!await dir.exists()) {
+        await dir.create(recursive: true);
+      }
+      await file.writeAsString(jsonEncode(ids));
+    } catch (_) {}
+  }
+
+  Future<File> _getRecentIdsFile() async {
+    final dirPath =
+        customDirectory ?? (await getApplicationSupportDirectory()).path;
+    return File('$dirPath/recent_resonators.json');
   }
 
   Future<Map<String, dynamic>> _readData() async {

@@ -49,9 +49,15 @@ void main() {
     test('three echoes: stat keys get correct slot suffixes', () {
       final json = <String, dynamic>{
         'echoes': [
-          {'stats': {'Crit Rate(%)': 6.3}},
-          {'stats': {'ATK(%)': 8.6}},
-          {'stats': {'HP(%)': 10.0}},
+          {
+            'stats': {'Crit Rate(%)': 6.3},
+          },
+          {
+            'stats': {'ATK(%)': 8.6},
+          },
+          {
+            'stats': {'HP(%)': 10.0},
+          },
         ],
       };
 
@@ -62,24 +68,27 @@ void main() {
       expect(echoSet.echoes[2].stats, contains('HP(%) 3'));
     });
 
-    test('old-format keys with suffixes: suffix replaced based on array position', () {
-      // Simulate old data where keys have slot-3 suffixes but the echo
-      // is now at array position 0 (slot 1).
-      final json = <String, dynamic>{
-        'echoes': [
-          {
-            'stats': {'Crit Rate(%) 3': 6.3, 'ATK(%) 3': 8.6},
-          },
-        ],
-      };
+    test(
+      'old-format keys with suffixes: suffix replaced based on array position',
+      () {
+        // Simulate old data where keys have slot-3 suffixes but the echo
+        // is now at array position 0 (slot 1).
+        final json = <String, dynamic>{
+          'echoes': [
+            {
+              'stats': {'Crit Rate(%) 3': 6.3, 'ATK(%) 3': 8.6},
+            },
+          ],
+        };
 
-      final echoSet = EchoSet.fromJson(json);
-      final stats = echoSet.echoes[0].stats;
-      // Suffix " 3" should be replaced with " 1" based on array position.
-      expect(stats, contains('Crit Rate(%) 1'));
-      expect(stats, contains('ATK(%) 1'));
-      expect(stats, isNot(contains('Crit Rate(%) 3')));
-    });
+        final echoSet = EchoSet.fromJson(json);
+        final stats = echoSet.echoes[0].stats;
+        // Suffix " 3" should be replaced with " 1" based on array position.
+        expect(stats, contains('Crit Rate(%) 1'));
+        expect(stats, contains('ATK(%) 1'));
+        expect(stats, isNot(contains('Crit Rate(%) 3')));
+      },
+    );
   });
 
   group('EchoSet.toJson (_echoesToJson)', () {

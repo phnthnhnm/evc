@@ -45,15 +45,18 @@ void main() {
       expect(copy.echoTier, 'S');
     });
 
-    test('clearAttribute: true sets attribute to null (wins over provided value)', () {
-      const filters = ResonatorFilters(attribute: Attribute.fusion);
-      final copy = filters.copyWith(
-        attribute: Attribute.aero,
-        clearAttribute: true,
-      );
+    test(
+      'clearAttribute: true sets attribute to null (wins over provided value)',
+      () {
+        const filters = ResonatorFilters(attribute: Attribute.fusion);
+        final copy = filters.copyWith(
+          attribute: Attribute.aero,
+          clearAttribute: true,
+        );
 
-      expect(copy.attribute, isNull);
-    });
+        expect(copy.attribute, isNull);
+      },
+    );
 
     test('clearWeapon, clearStars, clearEchoTier each null their field', () {
       const filters = ResonatorFilters(

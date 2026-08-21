@@ -59,6 +59,17 @@ def derive_base_name(name: str) -> str:
     return name.split("(")[0].strip()
 
 
+def derive_asset_name(name: str) -> str:
+    """Derive the asset file name (no extension) for a new resonator.
+
+    Base name first — role variants share one icon/portrait — then
+    lowercase with spaces replaced by underscores.
+    "Xuanling Yangyang"      ->"xuanling_yangyang"
+    "Aemeath (Fusion Burst)" ->"aemeath"
+    """
+    return derive_base_name(name).lower().replace(" ", "_")
+
+
 # ---- CD page helpers -------------------------------------------------------
 
 def parse_cd_name(raw: str) -> tuple[str, str]:
@@ -356,8 +367,9 @@ def build_entries(char_data: dict, echo_data: list[str],
             stars = 0
             attribute = "???"
             weapon = "???"
-            icon = ""
-            portrait = ""
+            asset_name = derive_asset_name(web_name)
+            icon = f"assets/resonator_icons/{asset_name}.webp"
+            portrait = f"assets/resonator_portraits/{asset_name}.webp"
 
         entry = {
             "id": derive_id(web_name),
@@ -477,7 +489,7 @@ def print_diff(added, removed, modified, unchanged):
                     else:
                         print(f"    ER target ({t}): not needed")
             if e["stars"] == 0:
-                print(f"    WARNING: stars/attribute/weapon/icons need manual fill")
+                print(f"    WARNING: stars/attribute/weapon need manual fill")
 
     if removed:
         print(f"\n[REMOVED] ({len(removed)}):")

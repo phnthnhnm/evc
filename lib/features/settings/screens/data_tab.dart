@@ -1,15 +1,14 @@
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:evc/core/providers/notification_provider.dart';
 import 'package:evc/core/providers/service_providers.dart';
 import 'package:evc/core/result.dart';
 import 'package:evc/features/resonator_detail/providers/echo_sets_provider.dart';
 import 'package:evc/features/settings/providers/settings_provider.dart';
 import 'package:evc/presentation/widgets/confirm_dialog.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DataTab extends ConsumerStatefulWidget {
   const DataTab({super.key});
@@ -71,10 +70,10 @@ class _DataTabState extends ConsumerState<DataTab> {
       allowedExtensions: ['json'],
     );
     if (!mounted) return;
-    if (result == null || result.files.single.path == null) {
+    if (result.single.path == null) {
       return; // user cancelled
     }
-    final file = File(result.files.single.path!);
+    final file = File(result.single.path!);
     final inputJson = await file.readAsString();
     final storage = ref.read(storageServiceInterfaceProvider);
     final restoreResult = await storage.restoreAllData(inputJson);

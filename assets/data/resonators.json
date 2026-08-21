@@ -446,7 +446,7 @@
     "iconAsset": "assets/resonator_icons/ciaccona.webp",
     "portraitAsset": "assets/resonator_portraits/ciaccona.webp",
     "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "heavyPercent", "liberationPercent", "erPercent"],
-    "teams": ["High-Reqs: ", "Low-Reqs: "],
+    "teams": ["High-Reqs", "Low-Reqs"],
     "erImportance": "Max",
     "damageSplit": {
       "basic": 0.25,
@@ -458,6 +458,14 @@
       "Default": {
         "min": 125.0,
         "max": 128.1
+      },
+      "High-Reqs": {
+        "min": 135.0,
+        "max": 138.1
+      },
+      "Low-Reqs": {
+        "min": 115.0,
+        "max": 118.1
       }
     }
   },

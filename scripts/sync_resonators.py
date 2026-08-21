@@ -72,6 +72,17 @@ def derive_asset_name(name: str) -> str:
 
 # ---- CD page helpers -------------------------------------------------------
 
+def normalize_team_name(name: str) -> str:
+    """Strip the trailing colon/whitespace the site appends to team labels.
+
+    /echo writes team keys as "Low-Reqs: " while /cd rows parse as
+    "Low-Reqs:" — both must normalize to the same canonical name.
+    "Low-Reqs: " ->"Low-Reqs"
+    "Default"    ->"Default"
+    """
+    return name.strip().rstrip(":")
+
+
 def parse_cd_name(raw: str) -> tuple[str, str]:
     """Parse a /cd row name into (resonator_name, team).
 
@@ -82,6 +93,7 @@ def parse_cd_name(raw: str) -> tuple[str, str]:
     "Camellya (Default)"                  ->("Camellya",           "Default")
     "Cantarella (Midnight Veil (P + R))"  ->("Cantarella",         "Midnight Veil (P + R)")
     "Jinhsi (Alternate Rotation Burst)"   ->("Jinhsi",             "Alternate Rotation Burst")
+    "Ciaccona (Low-Reqs: ):"              ->("Ciaccona",           "Low-Reqs")
     """
     raw = raw.strip().rstrip(":")
     if not raw:
@@ -108,7 +120,7 @@ def parse_cd_name(raw: str) -> tuple[str, str]:
     team = raw[team_start + 1:team_end].strip()
     resonator = raw[:team_start].strip()
 
-    return resonator, team
+    return resonator, normalize_team_name(team)
 
 
 def parse_er_range(raw: str):
@@ -353,7 +365,9 @@ def build_entries(char_data: dict, echo_data: list[str],
             usable.append("erPercent")
 
         # ---- teams ----
-        teams = sorted([t for t in teams_er if t != "Default"])
+        # Normalize because /echo keys can carry label artifacts like
+        # "Low-Reqs: " while /cd rows parse to "Low-Reqs:".
+        teams = sorted({normalize_team_name(t) for t in teams_er} - {"Default"})
 
         # ---- carry over metadata from existing ----
         old = existing_by_name.get(web_name)
@@ -393,8 +407,14 @@ def build_entries(char_data: dict, echo_data: list[str],
             if split is not None:
                 entry["damageSplit"] = split
 
+            # Teams seen on /cd for this resonator are merged in even when
+            # /echo doesn't list them yet, so their ER ranges aren't lost.
+            cd_teams = {t for (n, t) in er_by_name_team if n == web_name}
+            all_teams = sorted((set(teams) | cd_teams) - {"Default"})
+            entry["teams"] = all_teams
+
             team_er = {}
-            for team_name in ["Default"] + teams:
+            for team_name in ["Default"] + all_teams:
                 er_range = er_by_name_team.get((web_name, team_name))
                 if er_range is not None:
                     team_er[team_name] = er_range
@@ -640,6 +660,43 @@ def print_migrations(migrations: dict):
         print(f"  {old_id} ->{new_id}")
 
 
+# ---- Compact JSON writer ---------------------------------------------------
+
+def _fmt_value(value, indent: int) -> str:
+    """Render one JSON value in the repo's compact style.
+
+    Arrays of scalars stay on one line; objects and nested arrays are
+    expanded with 2-space indentation; empty containers render as {} / [].
+    """
+    pad = " " * indent
+    if isinstance(value, dict):
+        if not value:
+            return "{}"
+        inner = " " * (indent + 2)
+        parts = [
+            f"{inner}{json.dumps(k, ensure_ascii=False)}: {_fmt_value(v, indent + 2)}"
+            for k, v in value.items()
+        ]
+        return "{\n" + ",\n".join(parts) + f"\n{pad}}}"
+    if isinstance(value, list):
+        if not value:
+            return "[]"
+        if all(v is None or isinstance(v, (str, int, float, bool)) for v in value):
+            return "[" + ", ".join(
+                json.dumps(v, ensure_ascii=False) for v in value) + "]"
+        inner = " " * (indent + 2)
+        parts = [f"{inner}{_fmt_value(v, indent + 2)}" for v in value]
+        return "[\n" + ",\n".join(parts) + f"\n{pad}]"
+    return json.dumps(value, ensure_ascii=False)
+
+
+def write_compact_json(path: Path, data) -> None:
+    """Write a JSON file in the repo's compact style."""
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(_fmt_value(data, 0))
+        f.write("\n")
+
+
 # ---- Main ------------------------------------------------------------------
 
 def main():
@@ -691,14 +748,10 @@ def main():
     print_migrations(migrations)
 
     if args.apply:
-        with open(RESONATORS_PATH, "w", encoding="utf-8") as f:
-            json.dump(new_entries, f, indent=2, ensure_ascii=False)
-            f.write("\n")
+        write_compact_json(RESONATORS_PATH, new_entries)
         print(f"Wrote {len(new_entries)} entries to {RESONATORS_PATH}")
 
-        with open(MIGRATIONS_PATH, "w", encoding="utf-8") as f:
-            json.dump(migrations, f, indent=2, ensure_ascii=False)
-            f.write("\n")
+        write_compact_json(MIGRATIONS_PATH, migrations)
         if migrations:
             print(f"Wrote {len(migrations)} migrations to {MIGRATIONS_PATH}")
         else:

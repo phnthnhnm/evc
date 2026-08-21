@@ -446,7 +446,7 @@
     "iconAsset": "assets/resonator_icons/ciaccona.webp",
     "portraitAsset": "assets/resonator_portraits/ciaccona.webp",
     "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "heavyPercent", "liberationPercent", "erPercent"],
-    "teams": [],
+    "teams": ["High-Reqs: ", "Low-Reqs: "],
     "erImportance": "Max",
     "damageSplit": {
       "basic": 0.25,
@@ -491,7 +491,7 @@
     "iconAsset": "assets/resonator_icons/denia.webp",
     "portraitAsset": "assets/resonator_portraits/denia.webp",
     "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "liberationPercent", "erPercent"],
-    "teams": ["Aemeath + Lupa/Chisa", "Luuk Herssen + Mornye"],
+    "teams": ["Aemeath + Lupa/Chisa"],
     "erImportance": "Max",
     "damageSplit": {
       "basic": 0.0,
@@ -507,10 +507,6 @@
       "Aemeath + Lupa/Chisa": {
         "min": 110.0,
         "max": 113.1
-      },
-      "Luuk Herssen + Mornye": {
-        "min": 115.0,
-        "max": 118.1
       }
     }
   },
@@ -1083,6 +1079,38 @@
     }
   },
   {
+    "id": "qingxiao",
+    "name": "Qingxiao",
+    "stars": 5,
+    "attribute": "aero",
+    "weapon": "sword",
+    "iconAsset": "assets/resonator_icons/qingxao.webp",
+    "portraitAsset": "assets/resonator_portraits/qingxao.webp",
+    "usableStats": ["critRate", "critDamage", "atkPercent", "flatAtk", "basicPercent", "heavyPercent", "liberationPercent", "erPercent"],
+    "teams": ["Ciaccona + ANY character", "Deina + Supp", "Lynae + Supp"],
+    "erImportance": "Vital",
+    "damageSplit": {
+      "basic": 0.25,
+      "heavy": 0.35,
+      "skill": 0.0,
+      "liberation": 0.3
+    },
+    "teamER": {
+      "Ciaccona + ANY character": {
+        "min": 105.0,
+        "max": 108.1
+      },
+      "Deina + Supp": {
+        "min": 110.0,
+        "max": 113.1
+      },
+      "Lynae + Supp": {
+        "min": 120.0,
+        "max": 123.1
+      }
+    }
+  },
+  {
     "id": "qiuyuan",
     "name": "Qiuyuan",
     "stars": 5,
@@ -1311,6 +1339,30 @@
       "Qiuyuan + Shorekeeper": {
         "min": 120.0,
         "max": 123.1
+      }
+    }
+  },
+  {
+    "id": "suisui",
+    "name": "Suisui",
+    "stars": 5,
+    "attribute": "glacio",
+    "weapon": "rectifier",
+    "iconAsset": "assets/resonator_icons/suisui.webp",
+    "portraitAsset": "assets/resonator_portraits/suisui.webp",
+    "usableStats": ["erPercent"],
+    "teams": [],
+    "erImportance": "Max",
+    "damageSplit": {
+      "basic": 0.0,
+      "heavy": 0.0,
+      "skill": 0.0,
+      "liberation": 0.0
+    },
+    "teamER": {
+      "Default": {
+        "min": 260.0,
+        "max": 263.1
       }
     }
   },

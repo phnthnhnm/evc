@@ -1,5 +1,20 @@
 # Changelog
 
+## [3.2.0](https://github.com/phnthnhnm/evc/compare/v3.1.0...v3.2.0) (2026-08-21)
+
+
+### Features
+
+* **resonator:** add qingxiao and suisui, update ciaccona and denia ([a6b2f79](https://github.com/phnthnhnm/evc/commit/a6b2f79c105c0975dd2819cf6607be0ebc4249e8))
+* **script:** sync script now builds asset paths too ([abac8e1](https://github.com/phnthnhnm/evc/commit/abac8e1ed34dbcbe277de435975601f77f2d7aa5))
+
+
+### Bug Fixes
+
+* **data:** normalize team names to prevent whitespaces and colons from hiding new teams ([04d1b05](https://github.com/phnthnhnm/evc/commit/04d1b05915987ae9f0ab7afac2b0039cf275281f))
+* **data:** typo ([4952499](https://github.com/phnthnhnm/evc/commit/4952499467a9a41533d194587bd2833b0197eb0c))
+* **data:** use site raw keys for team names when calling the API (mostly for ciaccona) ([8853f45](https://github.com/phnthnhnm/evc/commit/8853f456c0d407eebb168891053139ac9e18bfd1))
+
 ## [3.1.0](https://github.com/phnthnhnm/evc/compare/v3.0.0...v3.1.0) (2026-07-15)
 
 

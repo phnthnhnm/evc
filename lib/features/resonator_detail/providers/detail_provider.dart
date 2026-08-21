@@ -102,7 +102,7 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
       return ResonatorDetailState(
         erOffset: offset,
         lastResult: savedSet,
-        selectedTeam: savedSet.team ?? 'Default',
+        selectedTeam: resonator.resolveTeam(savedSet.team),
         totalER: savedSet.totalER,
         echoStats: savedEchoStats,
       );
@@ -110,6 +110,7 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
 
     return ResonatorDetailState(
       echoStats: List.generate(5, (_) => <String, double>{}),
+      selectedTeam: resonator.effectiveTeams.first,
     );
   }
 
@@ -165,23 +166,30 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
         )
         .toList();
 
+    // Capture before the await — the notifier may rebuild while the request
+    // is in flight, which would reset [state].
+    final submittedTeam = state.selectedTeam;
+
     final api = ref.read(apiServiceInterfaceProvider);
     final result = await api.submit(
       resonatorName: resonator.name,
       totalER: state.totalER,
       echoStatsList: cleanedEchoStats,
-      team: state.selectedTeam,
+      team: resonator.apiTeamName(submittedTeam),
     );
 
     switch (result) {
       case Ok(value: final echoSet):
         final storage = ref.read(storageServiceInterfaceProvider);
-        await storage.saveEchoSet(resonatorId, echoSet);
+        // Store the canonical team name, not the raw name echoed back by
+        // the API (e.g. "Low-Reqs: " for Ciaccona's "Low-Reqs").
+        final savedSet = echoSet.copyWith(team: submittedTeam);
+        await storage.saveEchoSet(resonatorId, savedSet);
         ref.invalidate(echoSetsProvider);
         state = state.copyWith(
           loading: false,
-          lastResult: echoSet,
-          selectedTeam: echoSet.team ?? state.selectedTeam,
+          lastResult: savedSet,
+          selectedTeam: submittedTeam,
           successMessage: 'Submitted and saved!',
         );
       case Err(message: final msg):
@@ -192,12 +200,14 @@ class ResonatorDetailNotifier extends Notifier<ResonatorDetailState> {
   void revertToDefaults() {
     state = ResonatorDetailState(
       echoStats: List.generate(5, (_) => <String, double>{}),
+      selectedTeam: resonator.effectiveTeams.first,
     );
   }
 
   Future<void> reset() async {
     state = ResonatorDetailState(
       echoStats: List.generate(5, (_) => <String, double>{}),
+      selectedTeam: resonator.effectiveTeams.first,
       successMessage: 'Resonator data deleted!',
     );
     final storage = ref.read(storageServiceInterfaceProvider);

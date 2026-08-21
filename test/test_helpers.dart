@@ -33,6 +33,7 @@ Resonator mockResonator({
   Attribute attribute = Attribute.fusion,
   Weapon weapon = Weapon.sword,
   List<String> teams = const [],
+  Map<String, String>? teamApiNames,
 }) {
   return Resonator(
     id: id,
@@ -44,6 +45,7 @@ Resonator mockResonator({
     portraitAsset: 'assets/resonator_portraits/test.webp',
     usableStats: Stat.all,
     teams: teams,
+    teamApiNames: teamApiNames,
   );
 }
 

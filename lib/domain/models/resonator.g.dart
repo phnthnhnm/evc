@@ -25,6 +25,9 @@ _Resonator _$ResonatorFromJson(Map<String, dynamic> json) => _Resonator(
   teams:
       (json['teams'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],
+  teamApiNames: (json['teamApiNames'] as Map<String, dynamic>?)?.map(
+    (k, e) => MapEntry(k, e as String),
+  ),
   erImportance: json['erImportance'] as String?,
   damageSplit: (json['damageSplit'] as Map<String, dynamic>?)?.map(
     (k, e) => MapEntry(k, (e as num).toDouble()),
@@ -45,6 +48,7 @@ Map<String, dynamic> _$ResonatorToJson(
   'usableStats': instance.usableStats.map((e) => _$StatEnumMap[e]!).toList(),
   'savedEchoSet': ?instance.savedEchoSet,
   'teams': instance.teams,
+  'teamApiNames': ?instance.teamApiNames,
   'erImportance': instance.erImportance,
   'damageSplit': instance.damageSplit,
   'teamER': instance.teamER,

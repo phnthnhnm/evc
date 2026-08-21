@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'echo_set.dart';
@@ -9,6 +9,7 @@ part of 'echo_set.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$EchoSetCopyWithImpl<$Res>
 /// Create a copy of EchoSet
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? echoes = null,Object? overallScore = null,Object? overallTier = null,Object? totalER = null,Object? team = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(EchoSet(
 echoes: null == echoes ? _self.echoes : echoes // ignore: cast_nullable_to_non_nullable
 as List<Echo>,overallScore: null == overallScore ? _self.overallScore : overallScore // ignore: cast_nullable_to_non_nullable
 as double,overallTier: null == overallTier ? _self.overallTier : overallTier // ignore: cast_nullable_to_non_nullable
@@ -213,7 +214,7 @@ return $default(_that.echoes,_that.overallScore,_that.overallTier,_that.totalER,
 @JsonSerializable()
 
 class _EchoSet implements EchoSet {
-  const _EchoSet({@JsonKey(fromJson: _echoesFromJson, toJson: _echoesToJson) final  List<Echo> echoes = const [], @JsonKey(name: 'overallScore') this.overallScore = 0.0, @JsonKey(name: 'overallTier') this.overallTier = 'Unbuilt', @JsonKey(name: 'totalER') this.totalER = 100.0, this.team}): _echoes = echoes;
+  const _EchoSet({@JsonKey(fromJson: _echoesFromJson, toJson: _echoesToJson)  List<Echo> echoes = const [], @JsonKey(name: 'overallScore') this.overallScore = 0.0, @JsonKey(name: 'overallTier') this.overallTier = 'Unbuilt', @JsonKey(name: 'totalER') this.totalER = 100.0, this.team}): _echoes = echoes;
   factory _EchoSet.fromJson(Map<String, dynamic> json) => _$EchoSetFromJson(json);
 
  final  List<Echo> _echoes;

@@ -5,6 +5,7 @@ import 'package:riverpod/riverpod.dart';
 import 'package:evc/core/result.dart';
 import 'package:evc/domain/enums/stat.dart';
 import 'package:evc/domain/models/echo_set.dart';
+import 'package:evc/domain/models/resonator.dart';
 import 'package:evc/features/resonator_detail/providers/detail_provider.dart';
 import 'package:evc/core/providers/service_providers.dart';
 import 'package:evc/features/resonator_detail/providers/echo_sets_provider.dart';
@@ -30,12 +31,16 @@ final class _Setup {
 }
 
 /// Creates a [ProviderContainer] set up for detail provider tests.
-_Setup _createContainer({Map<String, EchoSet> echoSets = const {}}) {
+_Setup _createContainer({
+  Map<String, EchoSet> echoSets = const {},
+  Resonator? resonator,
+}) {
   final resonatorSvc = MockResonatorService();
   final apiSvc = MockApiService();
   final storageSvc = MockStorageService();
 
-  when(() => resonatorSvc.resonators).thenReturn([_testResonator]);
+  when(() => resonatorSvc.resonators)
+      .thenReturn([resonator ?? _testResonator]);
 
   // Build the container with ALL overrides at creation time.
   final container = ProviderContainer(overrides: [
@@ -83,6 +88,49 @@ void main() {
     });
   });
 
+  group('build() — resonator without Default team (Qingxiao-style)', () {
+    final qingxiaoLike = mockResonator(
+      id: _resonatorId,
+      name: 'Test',
+      teams: ['Ciaccona + ANY character', 'Deina + Supp', 'Lynae + Supp'],
+    );
+
+    test('fresh state selects the first team', () {
+      final setup = _createContainer(resonator: qingxiaoLike);
+
+      final notifier = _notifier(setup.container);
+
+      expect(notifier.state.selectedTeam, 'Ciaccona + ANY character');
+    });
+
+    test('legacy saved Default team falls back to the first team', () async {
+      final savedSet = mockEchoSet(team: 'Default');
+      final setup = _createContainer(
+        echoSets: {_resonatorId: savedSet},
+        resonator: qingxiaoLike,
+      );
+
+      await setup.container.read(echoSetsProvider.future);
+
+      final notifier = _notifier(setup.container);
+
+      expect(notifier.state.selectedTeam, 'Ciaccona + ANY character');
+    });
+
+    test('reset selects the first team', () async {
+      final setup = _createContainer(resonator: qingxiaoLike);
+      when(
+        () => setup.storageSvc.deleteEchoSet(any()),
+      ).thenAnswer((_) async => const Ok(null));
+
+      final notifier = _notifier(setup.container);
+      notifier.setTeam('Deina + Supp');
+      await notifier.reset();
+
+      expect(notifier.state.selectedTeam, 'Ciaccona + ANY character');
+    });
+  });
+
   group('build() — hydration', () {
     test('saved EchoSet hydrates state', () async {
       final savedEchoes = List.generate(5, (i) {
@@ -102,6 +150,11 @@ void main() {
 
       final setup = _createContainer(
         echoSets: {_resonatorId: savedSet},
+        resonator: mockResonator(
+          id: _resonatorId,
+          name: 'Test',
+          teams: ['Default', 'Team A'],
+        ),
       );
 
       // Wait for the FutureProvider to resolve before building the notifier.
@@ -257,7 +310,13 @@ void main() {
 
   group('submit — success', () {
     test('calls API, saves result, invalidates echoSets, sets state', () async {
-      final setup = _createContainer();
+      final setup = _createContainer(
+        resonator: mockResonator(
+          id: _resonatorId,
+          name: 'Test',
+          teams: ['Default', 'Team A'],
+        ),
+      );
       final notifier = _notifier(setup.container);
 
       notifier.setStatValue(0, Stat.critRate, 6.3);
@@ -293,12 +352,65 @@ void main() {
       // Verify storage saved.
       verify(() => setup.storageSvc.saveEchoSet(_resonatorId, any())).called(1);
 
-      // State should reflect success.
+      // State should reflect success, keeping the submitted team (the API
+      // response team is just an echo of the request).
       expect(notifier.state.loading, isFalse);
       expect(notifier.state.lastResult, isNotNull);
       expect(notifier.state.successMessage, contains('Submitted'));
       expect(notifier.state.error, isNull);
-      expect(notifier.state.selectedTeam, 'Team A');
+      expect(notifier.state.selectedTeam, 'Default');
+      expect(notifier.state.lastResult!.team, 'Default');
+    });
+
+    test('maps team to raw API name and saves canonical team', () async {
+      final setup = _createContainer(
+        resonator: mockResonator(
+          id: _resonatorId,
+          name: 'Test',
+          teams: ['Default', 'Low-Reqs'],
+          teamApiNames: {'Low-Reqs': 'Low-Reqs: '},
+        ),
+      );
+      final notifier = _notifier(setup.container);
+
+      notifier.setTeam('Low-Reqs');
+
+      final returnedEchoSet = mockEchoSet(
+        echoes: [mockEcho(stats: const {})],
+        totalER: 100.0,
+        // The raw name the API echoes back in its response.
+        team: 'Low-Reqs: ',
+      );
+      when(
+        () => setup.apiSvc.submit(
+          resonatorName: any(named: 'resonatorName'),
+          totalER: any(named: 'totalER'),
+          echoStatsList: any(named: 'echoStatsList'),
+          team: any(named: 'team'),
+        ),
+      ).thenAnswer((_) async => Ok(returnedEchoSet));
+
+      when(
+        () => setup.storageSvc.saveEchoSet(any(), any()),
+      ).thenAnswer((_) async => const Ok(null));
+
+      await notifier.submit();
+
+      // The API receives the raw team name...
+      verify(() => setup.apiSvc.submit(
+            resonatorName: 'Test',
+            totalER: 100.0,
+            echoStatsList: any(named: 'echoStatsList'),
+            team: 'Low-Reqs: ',
+          )).called(1);
+
+      // ...but the saved set keeps the canonical name.
+      final saved =
+          verify(() => setup.storageSvc.saveEchoSet(_resonatorId, captureAny()))
+              .captured
+              .single as EchoSet;
+      expect(saved.team, 'Low-Reqs');
+      expect(notifier.state.selectedTeam, 'Low-Reqs');
     });
   });
 

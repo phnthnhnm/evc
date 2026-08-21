@@ -4,22 +4,49 @@ import '../../test_helpers.dart';
 
 void main() {
   group('Resonator', () {
-    test('effectiveTeams always includes Default as first', () {
-      final resonator = mockResonator(teams: ['Team A', 'Team B']);
-      expect(resonator.effectiveTeams[0], 'Default');
-      expect(resonator.effectiveTeams, contains('Team A'));
-      expect(resonator.effectiveTeams, contains('Team B'));
+    test('effectiveTeams returns data as-is when it includes Default', () {
+      final resonator = mockResonator(teams: ['Default', 'Team A', 'Team B']);
+      expect(resonator.effectiveTeams, ['Default', 'Team A', 'Team B']);
     });
 
-    test('effectiveTeams filters duplicate Default from teams', () {
-      final resonator = mockResonator(teams: ['Default', 'Team A']);
-      final teams = resonator.effectiveTeams;
-      expect(teams.where((t) => t == 'Default').length, 1);
+    test('effectiveTeams does not inject Default when data has none', () {
+      final resonator = mockResonator(teams: ['Team A', 'Team B']);
+      expect(resonator.effectiveTeams, ['Team A', 'Team B']);
+      expect(resonator.effectiveTeams, isNot(contains('Default')));
     });
 
     test('effectiveTeams is just [Default] when teams is empty', () {
       final resonator = mockResonator(teams: []);
       expect(resonator.effectiveTeams, ['Default']);
+    });
+
+    test('resolveTeam returns the team when it is a valid option', () {
+      final resonator = mockResonator(teams: ['Default', 'Team A']);
+      expect(resonator.resolveTeam('Team A'), 'Team A');
+    });
+
+    test('resolveTeam returns the first team for null', () {
+      final resonator = mockResonator(teams: ['Default', 'Team A']);
+      expect(resonator.resolveTeam(null), 'Default');
+    });
+
+    test('resolveTeam falls back to first team for a stale team name', () {
+      final resonator = mockResonator(teams: ['Team A', 'Team B']);
+      expect(resonator.resolveTeam('Default'), 'Team A');
+    });
+
+    test('apiTeamName returns the mapped raw name when present', () {
+      final resonator = mockResonator(
+        teams: ['Default', 'Low-Reqs'],
+        teamApiNames: {'Low-Reqs': 'Low-Reqs: '},
+      );
+      expect(resonator.apiTeamName('Low-Reqs'), 'Low-Reqs: ');
+      expect(resonator.apiTeamName('Default'), 'Default');
+    });
+
+    test('apiTeamName returns the team unchanged when no mapping exists', () {
+      final resonator = mockResonator(teams: ['Default', 'Team A']);
+      expect(resonator.apiTeamName('Team A'), 'Team A');
     });
   });
 

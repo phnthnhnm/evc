@@ -10,7 +10,8 @@ import 'package:evc/features/compare/providers/compare_provider.dart';
 import '../../../test_helpers.dart';
 
 const _resonatorId = 'test-id';
-final _testResonator = mockResonator(id: _resonatorId, name: 'Test');
+final _testResonator =
+    mockResonator(id: _resonatorId, name: 'Test', teams: ['Team A']);
 
 /// Holds a test setup with a container and all mock services.
 final class _Setup {

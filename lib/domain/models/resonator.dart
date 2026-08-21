@@ -22,14 +22,31 @@ abstract class Resonator with _$Resonator {
     @Default([]) List<Stat> usableStats,
     @JsonKey(includeIfNull: false) EchoSet? savedEchoSet,
     @Default([]) List<String> teams,
+    @JsonKey(includeIfNull: false) Map<String, String>? teamApiNames,
     String? erImportance,
     @JsonKey(name: 'damageSplit') Map<String, double>? damageSplit,
     @JsonKey(name: 'teamER') Map<String, dynamic>? teamER,
   }) = _Resonator;
 
-  /// Always includes 'Default' as the first option, even when [teams] is empty.
+  /// Teams offered on the website, with 'Default' first when the resonator
+  /// has a Default team (e.g. Qingxiao has none). Falls back to ['Default']
+  /// only when no team data exists at all.
   List<String> get effectiveTeams {
-    return ['Default', ...teams.where((t) => t != 'Default')];
+    return teams.isEmpty ? const ['Default'] : teams;
+  }
+
+  /// Returns [team] when it is a valid option for this resonator, otherwise
+  /// the first effective team. Guards against null and legacy saved teams
+  /// (e.g. 'Default' saved before a resonator's teams changed).
+  String resolveTeam(String? team) {
+    if (team != null && effectiveTeams.contains(team)) return team;
+    return effectiveTeams.first;
+  }
+
+  /// The name the website API expects for [team], which can differ from the
+  /// canonical name (e.g. Ciaccona's "Low-Reqs" is sent as "Low-Reqs: ").
+  String apiTeamName(String team) {
+    return teamApiNames?[team] ?? team;
   }
 
   /// ER target range for [team], or null if no data or ER not needed.

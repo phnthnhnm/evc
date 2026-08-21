@@ -163,7 +163,7 @@ class CompareNotifier extends Notifier<CompareState> {
       resonatorName: _resonator.name,
       totalER: state.enteredTotalER,
       echoStatsList: echoStatsList,
-      team: lastResult.team,
+      team: _resonator.apiTeamName(_resonator.resolveTeam(lastResult.team)),
     );
 
     switch (result) {
@@ -194,7 +194,7 @@ class CompareNotifier extends Notifier<CompareState> {
       echoes: updatedEchoes,
       overallScore: state.newEchoSet?.overallScore ?? 0.0,
       overallTier: state.newEchoSet?.overallTier ?? 'Unbuilt',
-      team: lastResult.team,
+      team: _resonator.resolveTeam(lastResult.team),
       totalER: state.enteredTotalER,
     );
 

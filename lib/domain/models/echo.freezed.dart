@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'echo.dart';
@@ -9,6 +9,7 @@ part of 'echo.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$EchoCopyWithImpl<$Res>
 /// Create a copy of Echo
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? stats = null,Object? score = null,Object? tier = null,}) {
-  return _then(_self.copyWith(
+  return _then(Echo(
 stats: null == stats ? _self.stats : stats // ignore: cast_nullable_to_non_nullable
 as Map<String, double>,score: null == score ? _self.score : score // ignore: cast_nullable_to_non_nullable
 as double,tier: null == tier ? _self.tier : tier // ignore: cast_nullable_to_non_nullable
@@ -211,7 +212,7 @@ return $default(_that.stats,_that.score,_that.tier);case _:
 @JsonSerializable()
 
 class _Echo implements Echo {
-  const _Echo({final  Map<String, double> stats = const {}, this.score = 0.0, this.tier = 'Unbuilt'}): _stats = stats;
+  const _Echo({ Map<String, double> stats = const {}, this.score = 0.0, this.tier = 'Unbuilt'}): _stats = stats;
   factory _Echo.fromJson(Map<String, dynamic> json) => _$EchoFromJson(json);
 
  final  Map<String, double> _stats;

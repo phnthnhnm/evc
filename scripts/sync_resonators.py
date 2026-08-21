@@ -367,7 +367,11 @@ def build_entries(char_data: dict, echo_data: list[str],
         # ---- teams ----
         # Normalize because /echo keys can carry label artifacts like
         # "Low-Reqs: " while /cd rows parse to "Low-Reqs:".
-        teams = sorted({normalize_team_name(t) for t in teams_er} - {"Default"})
+        # "Default" is included explicitly when present — some resonators
+        # (e.g. Qingxiao) have no Default team at all.
+        raw_teams = {normalize_team_name(t): t for t in teams_er}
+        others = sorted(set(raw_teams) - {"Default"})
+        teams = (["Default"] if "Default" in raw_teams else []) + others
 
         # ---- carry over metadata from existing ----
         old = existing_by_name.get(web_name)
@@ -397,6 +401,17 @@ def build_entries(char_data: dict, echo_data: list[str],
             "teams": teams,
         }
 
+        # The calcFull API expects the site's raw team keys, which can differ
+        # from the canonical names (e.g. Ciaccona's "Low-Reqs" is sent as
+        # "Low-Reqs: "). Emit a mapping only where they differ.
+        api_names = {
+            t: raw_teams[t]
+            for t in teams
+            if t in raw_teams and raw_teams[t] != t
+        }
+        if api_names:
+            entry["teamApiNames"] = api_names
+
         # ---- merge CD data ----
         if cd_rows:
             imp = importance_by_name.get(web_name)
@@ -409,12 +424,15 @@ def build_entries(char_data: dict, echo_data: list[str],
 
             # Teams seen on /cd for this resonator are merged in even when
             # /echo doesn't list them yet, so their ER ranges aren't lost.
+            # "Default" stays first when present.
             cd_teams = {t for (n, t) in er_by_name_team if n == web_name}
-            all_teams = sorted((set(teams) | cd_teams) - {"Default"})
-            entry["teams"] = all_teams
+            combined = set(teams) | cd_teams
+            entry["teams"] = (
+                ["Default"] if "Default" in combined else []
+            ) + sorted(combined - {"Default"})
 
             team_er = {}
-            for team_name in ["Default"] + all_teams:
+            for team_name in entry["teams"]:
                 er_range = er_by_name_team.get((web_name, team_name))
                 if er_range is not None:
                     team_er[team_name] = er_range
@@ -457,6 +475,8 @@ def diff_entries(new_entries: list[dict], old_entries: list[dict]):
             diffs.append("damageSplit")
         if new.get("teamER") != old.get("teamER"):
             diffs.append("teamER")
+        if new.get("teamApiNames") != old.get("teamApiNames"):
+            diffs.append("teamApiNames")
         if diffs:
             modified.append({"entry": new, "old": old, "diffs": diffs})
         else:
@@ -555,6 +575,9 @@ def print_diff(added, removed, modified, unchanged):
                     or_ = old.get("teamER", {}).get(t)
                     if nr != or_:
                         print(f"      {t}: {_fmt_er_range(or_)} ->{_fmt_er_range(nr)}")
+            if "teamApiNames" in m["diffs"]:
+                print(f"    teamApiNames: {old.get('teamApiNames', 'none')} ->"
+                      f"{new.get('teamApiNames', 'none')}")
 
     if unchanged:
         print(f"\n[OK] UNCHANGED: {len(unchanged)} entries")

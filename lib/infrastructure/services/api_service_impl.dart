@@ -229,6 +229,12 @@ final class ApiServiceImpl implements IApiService {
   ) {
     try {
       final Map<String, dynamic> jsonResp = jsonDecode(body);
+      // The API returns HTTP 200 with an error payload for invalid input
+      // (e.g. an unknown team name): {"score":"Unexpected Error - Team not found"}
+      final scoreRaw = jsonResp['score'] as String?;
+      if (scoreRaw != null && scoreRaw.trim().startsWith('Unexpected Error')) {
+        return Err(scoreRaw.trim());
+      }
       final teamResp = jsonResp['team'] as String?;
       final totalErResp = ((jsonResp['totEr']) as num?)?.toDouble() ?? totalER;
       final teamOut = teamResp ?? team;
